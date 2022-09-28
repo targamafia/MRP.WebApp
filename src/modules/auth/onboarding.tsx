@@ -5,7 +5,7 @@ import { Row } from "../../shared/components/row";
 export const Onboarding = () => {
   return (
     <div className="max-w-md">
-      <Card padding={8} rounded="lg" bg="surfaces-dark-1">
+      <Card padding={8} rounded="lg" bg="surfaces-dark-1" color="white">
         <div className="text-white text-center">
           <div className="mb-16">
             <h1>MRP Administración</h1>

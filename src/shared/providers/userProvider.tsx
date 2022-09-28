@@ -5,8 +5,8 @@ import React, {
   useState,
 } from "react";
 import PropTypes from "prop-types";
-import { useBack } from "../hooks/useBack";
-import { UserModel } from "../models/userModel";
+import { useBack } from "@/shared/hooks/useBack";
+import { UserModel } from "@/shared/models/userModel";
 
 const loginRoute = "/v1/users/login",
   signupRoute = "/v1/users/signup";

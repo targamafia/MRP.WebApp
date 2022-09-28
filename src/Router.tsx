@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
-import { AuthRouter } from "./pages/auth/authRouter";
-import { AppRouter } from "./pages/base/appRouter";
-import { useAuth } from "./shared/providers/userProvider";
+import { AuthRouter } from "@/pages/auth/authRouter";
+import { AppRouter } from "@/pages/base/appRouter";
+import { useAuth } from "@/shared/providers/userProvider";
 
 export function GlobalRouter() {
   const [router, setRouter] = useState(AuthRouter());

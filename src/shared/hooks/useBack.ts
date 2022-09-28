@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useAuth } from "../providers/userProvider";
+import { useAuth } from "@/shared/providers/userProvider";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 

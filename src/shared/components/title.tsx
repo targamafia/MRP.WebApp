@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 import { Outlet } from "react-router-dom";
 
 export const Title = (props: { title: string }): ReactElement => {

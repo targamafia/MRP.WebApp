@@ -3,7 +3,7 @@ import { Row } from "../../shared/components/row";
 import { useAuth } from "../../shared/providers/userProvider";
 
 export const Navbar = () => {
-  const { token, logout } = useAuth();
+  const { token, logout, user } = useAuth();
 
   useEffect(() => {
     !token && logout !== undefined && logout();
@@ -13,6 +13,7 @@ export const Navbar = () => {
     <div className="px-8 py-4 w-full bg-surfaces-dark-5">
       <Row grow={true} justify="between">
         <span className="text-xl font-bold">MRP</span>
+        <span>{user?.name} {user?.lastName}</span>
         <span
           className="cursor-pointer py-1 px-4 bg-orange text-white rounded-full"
           onClick={logout}

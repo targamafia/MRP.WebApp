@@ -9,11 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.10.6",
+    "@tanstack/react-query": "^4.7.1",
+    "cssnano": "^5.1.13",
     "path": "^0.12.7",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.1"
+    "react-router-dom": "^6.4.1",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

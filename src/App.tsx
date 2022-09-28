@@ -1,5 +1,5 @@
-import { UserProvider } from "./shared/providers/userProvider";
-import { GlobalRouter } from "./Router";
+import { UserProvider } from "@/shared/providers/userProvider";
+import { GlobalRouter } from "@/Router";
 
 function App() {
   return (
