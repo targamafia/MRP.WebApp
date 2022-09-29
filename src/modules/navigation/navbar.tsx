@@ -1,6 +1,9 @@
 import { useEffect } from "react";
-import { Row } from "../../shared/components/row";
-import { useAuth } from "../../shared/providers/userProvider";
+import { Row } from "@/shared/layout/row";
+import { useAuth } from "@/shared/providers/userProvider";
+import { NavLink } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import { LogoutOutlined } from "@mui/icons-material";
 
 export const Navbar = () => {
   const { token, logout, user } = useAuth();
@@ -10,16 +13,28 @@ export const Navbar = () => {
   }, [token]);
 
   return (
-    <div className="px-8 py-4 w-full bg-surfaces-dark-5">
-      <Row grow={true} justify="between">
-        <span className="text-xl font-bold">MRP</span>
-        <span>{user?.name} {user?.lastName}</span>
-        <span
-          className="cursor-pointer py-1 px-4 bg-orange text-white rounded-full"
-          onClick={logout}
+    <div className="px-8 py-2 w-full bg-surfaces-dark-5">
+      <Row grow={true} justify="between" spacing={10} items="center">
+        <NavLink to="/" className="text-white">
+          <span className="text-xl font-bold">MRP</span>
+        </NavLink>
+        <nav className="grow text-right">
+          <NavLink
+            to="/assessments"
+            className={({ isActive }) =>
+              isActive ? "text-orange" : "text-white"
+            }
+          >
+            Quizes
+          </NavLink>
+        </nav>
+        <IconButton
+          onClick={() => {
+            if (confirm("¿Cerrar sesión?")) logout();
+          }}
         >
-          Cerrar Sesión
-        </span>
+          <LogoutOutlined htmlColor="white" />
+        </IconButton>
       </Row>
     </div>
   );

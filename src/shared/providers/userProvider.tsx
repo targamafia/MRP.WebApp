@@ -1,12 +1,8 @@
-import React, {
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useBack } from "@/shared/hooks/useBack";
 import { UserModel } from "@/shared/models/userModel";
+import { postFetch } from "../services/fetcher";
 
 const loginRoute = "/v1/users/login",
   signupRoute = "/v1/users/signup";
@@ -38,13 +34,13 @@ export function UserProvider(props: { children: ReactNode }) {
   const { fetchData, error } = useBack();
 
   const login = async (email: string, password: string): Promise<any> => {
-    const response = await fetchData(loginRoute, "post", {
+    const response = await postFetch(loginRoute, {
       email,
       password,
     });
-    if (!response.error) {
-      setUser(response.user);
-      setToken(response.token);
+    if (response.data.isSuccess) {
+      setUser(response.data._value.user);
+      setToken(response.data._value.token);
     }
     return response;
   };

@@ -15,6 +15,7 @@ export const Row = (props: {
   const classes = [
     "flex",
     "flex-row",
+    "flex-wrap",
     props.grow && "flex-grow",
     "gap-" + (props.spacing || 0),
     "justify-" + (props.justify || "start"),

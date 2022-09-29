@@ -1,10 +1,15 @@
 import { useCallback, useState } from "react";
 import { useAuth } from "@/shared/providers/userProvider";
-
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+import {
+  deleteFetch,
+  getFetch,
+  patchFetch,
+  postFetch,
+} from "../services/fetcher";
+import { AxiosResponse } from "axios";
 
 export const useBack = () => {
-  const { user, token } = useAuth();
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -12,51 +17,34 @@ export const useBack = () => {
     async (
       endpoint: string,
       method = "GET",
-      body: null | object = null,
+      body = {},
       query = {}
     ): Promise<any | null> => {
       setIsLoading(true);
       setError("");
-      console.log(endpoint, method, body, query);
-      method = method.toUpperCase();
-
-      let parsedBody: string | null;
-
-      if (method === "POST" || method === "PATCH" || method === "DELETE") {
-        parsedBody = JSON.stringify(body);
-      } else {
-        parsedBody = null;
-      }
-
-      query = Object.entries(query)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
-
       try {
-        const response = await fetch(BASE_URL + endpoint + "?" + query, {
-          credentials: "same-origin",
-          method,
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: parsedBody,
-        });
-
-        const responseData = await response.json();
-        console.log(responseData);
-        if (!response.ok) {
-          if (!responseData.isSuccess) {
-            setError(responseData.error);
-            return { error: responseData.error };
-          }
-          return null;
+        method = method.toUpperCase();
+        let res: AxiosResponse | undefined;
+        switch (method) {
+          case "GET":
+            res = await getFetch(endpoint, query);
+          case "POST":
+            res = await postFetch(endpoint, body);
+          case "PATCH":
+            res = await patchFetch(endpoint, body);
+          case "DELETE":
+            res = await deleteFetch(endpoint);
+          default:
+            if (res == undefined) throw "papiiii ponte un método pero IAAAAA";
         }
-
+        const responseData = res.data;
         setIsLoading(false);
+        if (!responseData.isSuccess) {
+          setError(responseData.error);
+          return { error: responseData.error };
+        }
         return responseData._value;
       } catch (err: any) {
-        console.error(err);
         setError(err);
         setIsLoading(false);
         return null;

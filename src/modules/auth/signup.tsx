@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Card } from "../../shared/components/card";
-import { Row } from "../../shared/components/row";
-import { useAuth } from "../../shared/providers/userProvider";
+import { Card } from "@/shared/components/card";
+import { Row } from "@/shared/layout/row";
+import { useAuth } from "@/shared/providers/userProvider";
 
 export const SignupCard = () => {
   const { signup } = useAuth();

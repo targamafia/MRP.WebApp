@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import { NotFound } from "../../modules/navigation/404";
-import { Title } from "../../shared/components/title";
+import { NotFound } from "@/modules/navigation/404";
+import { Title } from "@/shared/components/title";
 import { AppBase } from "./appBase";
+import assessmentRoutes from "@/modules/assessments/router";
 
 export const AppRouter = () => {
   return createBrowserRouter([
@@ -9,7 +10,7 @@ export const AppRouter = () => {
       path: "/",
       element: <AppBase />,
       children: [
-        { path: "", element: <Title title="root" /> },
+        assessmentRoutes,
         { path: "logout", element: <Title title="logout" /> },
       ],
     },

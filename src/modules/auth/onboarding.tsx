@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { Card } from "../../shared/components/card";
-import { Row } from "../../shared/components/row";
+import { Card } from "@/shared/components/card";
+import { Row } from "@/shared/layout/row";
 
 export const Onboarding = () => {
   return (
