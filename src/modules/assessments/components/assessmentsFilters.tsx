@@ -1,5 +1,5 @@
 import { MultiselectFilter } from "@/shared/components/multiselectFilter";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { IAssessment } from "../models";
 
 export const AssessmentsFilters = (props: {
@@ -11,12 +11,13 @@ export const AssessmentsFilters = (props: {
 
   const updateFilters = () => {
     const categories: string[] = [];
-    props.assessments
-      .flatMap((cat: IAssessment) => cat.categories)
-      .forEach((cat: string) => {
-        if (categories.includes(cat)) return;
-        categories.push(cat);
-      }, [] as string[]);
+    if (props.assessments)
+      props.assessments
+        .flatMap((cat: IAssessment) => cat.categories)
+        .forEach((cat: string) => {
+          if (categories.includes(cat)) return;
+          categories.push(cat);
+        }, [] as string[]);
     setCategories(categories);
   };
 
@@ -26,7 +27,7 @@ export const AssessmentsFilters = (props: {
 
   return (
     <div className="max-w-xs rounded-md">
-      <h2 className="text-xl font-bold mb-2">Filters</h2>
+      <h2 className="mb-2">Filters</h2>
       <MultiselectFilter
         allOptions={categories}
         selectedOptions={props.state.categories}

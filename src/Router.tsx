@@ -6,9 +6,9 @@ import { useAuth } from "@/shared/providers/userProvider";
 import { LoadingSpinner } from "./shared/components/loadingSpinner";
 
 export function GlobalRouter() {
-  const [router, setRouter] = useState(AuthRouter());
-
   const { token } = useAuth();
+  const [router, setRouter] = useState(token ? AppRouter() : AuthRouter());
+
 
   useEffect(() => {
     if (!token) return setRouter(AuthRouter());

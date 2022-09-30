@@ -12,6 +12,7 @@ export const Row = (props: {
   justify?: string;
   items?: string;
   wrap?: boolean;
+  className?: string;
 }) => {
   const classes = [
     "flex",
@@ -21,6 +22,7 @@ export const Row = (props: {
     "gap-" + (props.spacing || 0),
     "justify-" + (props.justify || "start"),
     "items-" + (props.items || "start"),
+    props.className
   ].join(" ");
   return <div className={classes}>{props.children}</div>;
 };

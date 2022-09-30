@@ -11,4 +11,13 @@ export default defineConfig({
       "@": path.resolve(path.dirname(fileURLToPath(import.meta.url)), "src"),
     },
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://dev-mrp-services.herokuapp.com",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });

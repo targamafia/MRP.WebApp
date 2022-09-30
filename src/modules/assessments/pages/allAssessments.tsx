@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import { useEffect, useReducer, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AssessmentsFilters } from "../components/assessmentsFilters";
-import { useFeaturedAssessments } from "../hooks/useAssessments";
+import { useAssessments } from "../hooks/useAssessments";
 
 interface ReducerState {
   categories: string[];
@@ -32,11 +32,7 @@ const filterReducer = (state: ReducerState, action: ReducerAction) => {
 };
 
 export const AllAssessments = () => {
-  const {
-    assessments: baseAssessments,
-    loading,
-    error,
-  } = useFeaturedAssessments();
+  const { assessments: baseAssessments, loading, error } = useAssessments();
 
   const [assessments, setAssessments] = useState(baseAssessments);
 

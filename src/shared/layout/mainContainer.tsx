@@ -11,11 +11,21 @@ import {
 export const MainContainer = (props: {
   children: ReactElement[] | ReactElement;
   sidebar?: ReactElement;
+  bgImg?: string;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="p-8">
+      {props.bgImg !== undefined ? (
+        <div
+          className="absolute -z-10 left-0 top-12 h-40
+        w-full bg-cover opacity-10 bg-no-repeat bg-center"
+          style={{ backgroundImage: `url('${props.bgImg}')` }}
+        />
+      ) : (
+        <></>
+      )}
       <Row spacing={12}>
         {props.sidebar !== undefined && (
           <aside

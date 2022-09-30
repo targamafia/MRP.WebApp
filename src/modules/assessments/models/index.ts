@@ -1,21 +1,21 @@
 export interface IOption {
-    value: string;
-    isCorrectAnswer: boolean;
+  value: string;
+  isCorrectAnswer: boolean;
 }
 
 export enum QuestionTypes {
-    MultipleChoice = "MULTIPLE_CHOICE",
-    Boolean = "BOOLEAN",
-    Options = "OPTIONS",
-    Open = "OPEN"
+  MultipleChoice = "MULTIPLE_CHOICE",
+  Boolean = "BOOLEAN",
+  Options = "OPTIONS",
+  Open = "OPEN",
 }
 
 export interface IQuestion {
-    title: string;
-    imageUrl?: string;
-    type: QuestionTypes;
-    correctOption: Number;
-    options: Array<IOption>;
+  title: string;
+  imageUrl?: string;
+  type: QuestionTypes;
+  correctOption: Number;
+  options: Array<IOption>;
 }
 
 export interface IAssessment {
@@ -52,21 +52,27 @@ export interface INewAssessment {
 }
 
 export interface IAssessmentListItem {
-    id: string;
-    title: string;
-    description?: string;
-    thumbnailUrl?: string;
-    isPrivate: boolean;
-    isPremium: boolean;
-    categories: string[];
-    rating: number;
+  id: string;
+  title: string;
+  description?: string;
+  thumbnailUrl?: string;
+  isPrivate: boolean;
+  isPremium: boolean;
+  categories: string[];
+  rating: number;
 }
 
 export interface IAssessmentList {
-    pagesCount: number;
-    pageSize: number;
-    currentPage: number;
-    list: Array<IAssessmentListItem>;
-    next: string | undefined;
-    prev: string | undefined;
+  pagesCount: number;
+  pageSize: number;
+  currentPage: number;
+  list: Array<IAssessmentListItem>;
+  next: string | undefined;
+  prev: string | undefined;
+}
+
+export interface IServiceResponse {
+  isSuccess: boolean;
+  entity?: any;
+  error?: string;
 }

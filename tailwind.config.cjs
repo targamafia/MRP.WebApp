@@ -58,7 +58,7 @@ module.exports = {
       boxShadow: {
         sm: `-1px -1px 4px 1px var(--surface-1), 1px 1px 4px var(--surface-5)`,
         inset: 'inset -1px -1px 4px 1px rgba(255, 255, 255, 0.5), inset 1px 1px 4px #E2E1EC',
-        glow: '0px 0px 16px var(--neutral-90), 0px 0px 2px var(--neutral-100)',
+        glow: '0px 0px 16px var(--surface-5), 0px 0px 4px var(--surface-1), 0px 0px 8px var(--surface-3)',
       },
       fontFamily: {
         title: ['DM Sans', 'sans-serif'],

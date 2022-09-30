@@ -6,7 +6,6 @@ import {
   patchFetch,
   postFetch,
 } from "../services/fetcher";
-import { AxiosResponse } from "axios";
 
 export const useBack = () => {
   const { user } = useAuth();
@@ -24,26 +23,19 @@ export const useBack = () => {
       setError("");
       try {
         method = method.toUpperCase();
-        let res: AxiosResponse | undefined;
+
         switch (method) {
           case "GET":
-            res = await getFetch(endpoint, query);
+            return await getFetch(endpoint, query);
           case "POST":
-            res = await postFetch(endpoint, body);
+            return await postFetch(endpoint, body);
           case "PATCH":
-            res = await patchFetch(endpoint, body);
+            return await patchFetch(endpoint, body);
           case "DELETE":
-            res = await deleteFetch(endpoint);
+            return await deleteFetch(endpoint);
           default:
-            if (res == undefined) throw "papiiii ponte un método pero IAAAAA";
+            throw "papiiii ponte un método pero IAAAAA";
         }
-        const responseData = res.data;
-        setIsLoading(false);
-        if (!responseData.isSuccess) {
-          setError(responseData.error);
-          return { error: responseData.error };
-        }
-        return responseData._value;
       } catch (err: any) {
         setError(err);
         setIsLoading(false);

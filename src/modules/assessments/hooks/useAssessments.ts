@@ -5,7 +5,7 @@ import {
   patchFetch,
   postFetch,
 } from "@/shared/services/fetcher";
-import { IAssessment, INewAssessment } from "../models";
+import { IAssessment, INewAssessment, IQuestion } from "../models";
 
 const baseUrl = "/v1/assessments";
 
@@ -14,9 +14,9 @@ export const useAssessments = (page: number = 1, pageSize: number = 50) => {
     page,
     pageSize,
   };
-  const { data, error, isLoading, refetch } = useQuery(
+  const { data, error, isLoading } = useQuery(
     ["assessments", { pagination }],
-    async () => (await getFetch(`${baseUrl}`)).data,
+    () => getFetch(baseUrl),
     { keepPreviousData: true, staleTime: 5000 }
   );
 
@@ -29,15 +29,15 @@ export const useAssessments = (page: number = 1, pageSize: number = 50) => {
 };
 
 export const useAssessment = (assessmentId: string) => {
-  if (!assessmentId) return;
+  if (!assessmentId) return { error: "Missing assessmentId" };
 
-  const { data, error, isLoading, refetch } = useQuery(
+  const { data, error, isLoading } = useQuery(
     ["assessments", { assessmentId }],
     () => getFetch(`${baseUrl}/${assessmentId}`)
   );
 
   return {
-    assessment: data?.data as IAssessment,
+    assessment: data as IAssessment,
     error,
     loading: isLoading,
   };
@@ -48,9 +48,9 @@ export const useFeaturedAssessments = (page = 1, pageSize = 50) => {
     page,
     pageSize,
   };
-  const { data, error, isLoading, refetch } = useQuery(
+  const { data, error, isLoading } = useQuery(
     ["assessments", "featured", { pagination }],
-    async () => (await getFetch(`${baseUrl}/featured`)).data,
+    async () => await getFetch(`${baseUrl}/featured`),
     { keepPreviousData: true, staleTime: 5000 }
   );
 
@@ -69,8 +69,7 @@ export const useCreateAssessment = (
   const queryClient = useQueryClient();
 
   return useMutation(
-    async (newAssessment: INewAssessment) =>
-      (await postFetch(baseUrl, newAssessment)).data,
+    (newAssessment: INewAssessment) => postFetch(baseUrl, newAssessment),
     {
       onSuccess: (data: IAssessment) => {
         queryClient.invalidateQueries([
@@ -86,11 +85,11 @@ export const useCreateAssessment = (
   );
 };
 
-export const useUpdateAssessment = () => {
+export const useUpdateAssessment = (onSuccess: Function, onError: Function) => {
   const queryClient = useQueryClient();
   return useMutation(
-    async (assessment: IAssessment) =>
-      (await patchFetch(`${baseUrl}/${assessment.id}`, assessment)).data,
+    (assessment: IAssessment) =>
+      patchFetch(`${baseUrl}/${assessment.id}`, assessment),
     {
       onSuccess: (assessment: IAssessment) => {
         queryClient.setQueryData(
@@ -98,6 +97,37 @@ export const useUpdateAssessment = () => {
           assessment
         );
         queryClient.invalidateQueries(["assessments"]);
+
+        onSuccess();
+      },
+      onError: (error) => {
+        onError(error);
+      },
+    }
+  );
+};
+
+export const useUpdateAssessmentQuestions = (
+  assessmentId: string,
+  onSuccess: Function,
+  onError: Function
+) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (questions: IQuestion[]) =>
+      postFetch(`${baseUrl}/${assessmentId}/add-question`, questions),
+    {
+      onSuccess: (assessment: IAssessment) => {
+        queryClient.setQueryData(
+          ["assessments", { assessmentId: assessment.id }],
+          assessment
+        );
+        queryClient.invalidateQueries(["assessments"]);
+
+        onSuccess();
+      },
+      onError: (error) => {
+        onError(error);
       },
     }
   );

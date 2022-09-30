@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import { FormEvent, FormEventHandler, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Card } from "@/shared/components/card";
 import { Row } from "@/shared/layout/row";
@@ -9,11 +9,11 @@ export const LoginCard = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const inputHandler = (name: string) => {
     const mutator = name == "email" ? setEmail : setPassword;
-    return (ev: FormEvent | any) => {
+    return (ev: FormEvent | any) => {
       setError("");
       mutator(ev.target.value! || "");
     };
@@ -23,7 +23,7 @@ export const LoginCard = () => {
     ev.preventDefault();
     const res = await login(email, password);
     if (res.error) return setError(res.error);
-    return navigate('/')
+    return navigate("/");
   };
 
   return (
@@ -35,7 +35,9 @@ export const LoginCard = () => {
             <p>Te damos la bienvenida, por favor inicia sesión</p>
           </div>
           {error !== "" && (
-            <div className="bg-surface-3 p-4 mb-4 rounded-md border border-solid border-error-50 text-error-60">{error}</div>
+            <div className="bg-surface-3 p-4 mb-4 rounded-md border border-solid border-error-50 text-error-60">
+              {error}
+            </div>
           )}
           <form
             onSubmit={formSubmit}
@@ -66,7 +68,8 @@ export const LoginCard = () => {
             <input
               type="submit"
               value="Iniciar Sesión"
-              className="px-8 py-2 bg-blue rounded-md cursor-pointer hover:bg-primary-40 mx-auto"
+              className="px-8 py-2 bg-blue rounded-md cursor-pointer
+              hover:bg-primary-40 mx-auto text-white"
             />
           </form>
           <div className="text-center">

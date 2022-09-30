@@ -1,8 +1,8 @@
 import { ArrowForwardIosOutlined } from "@mui/icons-material";
-import React from "react";
 import { NavLink } from "react-router-dom";
 import { IAssessment } from "../models";
 import Chip from "@mui/material/Chip";
+import { ChipRow } from "@/shared/components/chipRow";
 
 export const AssessmentCard = (props: IAssessment & { key?: any }) => {
   return (
@@ -18,22 +18,11 @@ export const AssessmentCard = (props: IAssessment & { key?: any }) => {
           {props.thumbnailUrl !== undefined && (
             <img
               src={props.thumbnailUrl}
-              className="w-1/5 max-w-xs self-stretch object-cover"
+              className="w-1/5 min-w-[8rem] self-stretch object-cover"
             />
           )}
           <div className="grow p-4 flex items-start self-start flex-col">
-            {props.categories !== undefined && (
-              <div className="flex gap-4 mb-4">
-                {props.categories.map((cat) => (
-                  <Chip
-                    label={cat}
-                    variant="filled"
-                    color="primary"
-                    key={cat}
-                  />
-                ))}
-              </div>
-            )}
+            {props.categories !== undefined && <ChipRow elements={props.categories} />}
             <h3 className="text-3xl mb-2">{props.title}</h3>
             {props.description !== undefined && (
               <p className="mb-4">{props.description}</p>

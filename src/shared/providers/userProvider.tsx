@@ -34,15 +34,13 @@ export function UserProvider(props: { children: ReactNode }) {
   const { fetchData, error } = useBack();
 
   const login = async (email: string, password: string): Promise<any> => {
-    const response = await postFetch(loginRoute, {
+    const res = await postFetch(loginRoute, {
       email,
       password,
     });
-    if (response.data.isSuccess) {
-      setUser(response.data._value.user);
-      setToken(response.data._value.token);
-    }
-    return response;
+    setUser(res.user);
+    setToken(res.token);
+    return res;
   };
 
   const signup = async (
@@ -52,17 +50,17 @@ export function UserProvider(props: { children: ReactNode }) {
     password: string,
     companyCode: string
   ): Promise<any> => {
-    const response = await fetchData(signupRoute, "post", {
+    const res = await fetchData(signupRoute, "post", {
       name,
       lastName,
       email,
       password,
       companyCode,
     });
-    if (!response?.isSuccess) return { error: error };
-    setUser(response._value.user);
-    setToken(response._value.token);
-    return response._value;
+    if (!res?.isSuccess) return { error: error };
+    setUser(res.entity.user);
+    setToken(res.entity.token);
+    return res.entity;
   };
 
   const logout = async (): Promise<any> => {

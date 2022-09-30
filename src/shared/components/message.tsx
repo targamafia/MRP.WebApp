@@ -1,6 +1,6 @@
 export const Message = (props: {
   type: string;
-  title: string;
+  title?: string;
   message: string;
 }) => {
   return (
@@ -11,8 +11,12 @@ export const Message = (props: {
         props.type == "info" && "border-blue bg-surface-2",
       ].join(" ")}
     >
-      <h2 className="text-xl font-bold">
-        {props.type == "info" ? "Éxito" : "Error"}
+      <h2>
+        {props.title !== undefined
+          ? props.title
+          : props.type == "info"
+          ? "Éxito"
+          : "Error"}
       </h2>
       <p>{props.message}</p>
     </div>

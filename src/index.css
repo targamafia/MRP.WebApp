@@ -44,40 +44,8 @@
     background-color: var(--surface-2);
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root  {
-      --surface-1: #1b1b1f;
-      --surface-2: #272931;
-      --surface-3: #2c2e38;
-      --surface-4: #2e2f3a;
-      --surface-5: #31333e;
-
-      --neutral-100: #ffffff;
-      --neutral-99: #fefbff;
-      --neutral-95: #f2f0f4;
-      --neutral-90: #e4e1e6;
-      --neutral-80: #c8c6ca;
-      --neutral-70: #acaaaf;
-      --neutral-60: #919094;
-      --neutral-50: #77767a;
-      --neutral-40: #5e5e62;
-      --neutral-30: #47464a;
-      --neutral-20: #303034;
-      --neutral-10: #1b1b1f;
-      --neutral-0: #000000;
-
-      --back: #202020;
-      --main: #f1f1f1;
-    }
-  }
-
   a {
-    font-weight: 500;
-    color: #646cff;
     text-decoration: inherit;
-  }
-  a:hover {
-    color: #535bf2;
   }
 
   body {
@@ -91,8 +59,13 @@
     line-height: 1.1;
   }
 
+  h2 {
+    @apply text-xl font-bold mb-4;
+  }
+
   input,
-  textarea {
+  textarea,
+  select {
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     @apply bg-surface-2 shadow-inner;
@@ -116,17 +89,33 @@
   button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
   }
+}
 
-  @media (prefers-color-scheme: light) {
+@layer components {
+  @media (prefers-color-scheme: dark) {
     :root {
-      color: #213547;
-      background-color: #ffffff;
-    }
-    a:hover {
-      color: #747bff;
-    }
-    button {
-      background-color: #f9f9f9;
+      --surface-1: #1b1b1f;
+      --surface-2: #272931;
+      --surface-3: #2c2e38;
+      --surface-4: #2e2f3a;
+      --surface-5: #31333e;
+
+      --neutral-100: #ffffff;
+      --neutral-99: #fefbff;
+      --neutral-95: #f2f0f4;
+      --neutral-90: #e4e1e6;
+      --neutral-80: #c8c6ca;
+      --neutral-70: #acaaaf;
+      --neutral-60: #919094;
+      --neutral-50: #77767a;
+      --neutral-40: #5e5e62;
+      --neutral-30: #47464a;
+      --neutral-20: #303034;
+      --neutral-10: #1b1b1f;
+      --neutral-0: #000000;
+
+      --back: #202020;
+      --main: #f1f1f1;
     }
   }
 }

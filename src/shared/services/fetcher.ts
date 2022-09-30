@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from "axios";
+import { IServiceResponse } from "@/modules/assessments/models";
+import axios from "axios";
 
-const baseUrl = import.meta.env.VITE_BACKEND_URL || "";
+const baseUrl = "https://dev-mrp-services.herokuapp.com/api";
 
 const getHeaders = () => {
   const jwt = localStorage.getItem("jwt");
@@ -10,50 +11,65 @@ const getHeaders = () => {
   };
 };
 
-export const getFetch = async (
-  endpoint: string,
-  params = {}
-): Promise<AxiosResponse> => {
+export const getFetch = async (endpoint: string, params = {}): Promise<any> => {
   try {
-    return await axios.get(baseUrl + endpoint, {
+    const axiosRes = await axios.get(baseUrl + endpoint, {
       params,
       headers: getHeaders(),
     });
+    const res = axiosRes.data as IServiceResponse;
+    if (!res.isSuccess) throw res.error;
+    return res.entity;
   } catch (err: any) {
-    throw err.response;
+    console.error(err);
+    throw err;
   }
 };
 
 export const postFetch = async (
   endpoint: string,
   body: object = {}
-): Promise<AxiosResponse> => {
+): Promise<any> => {
   try {
-    return await axios.post(baseUrl + endpoint, body, {
+    const axiosRes = await axios.post(baseUrl + endpoint, body, {
       headers: getHeaders(),
     });
+    const res = axiosRes.data as IServiceResponse;
+    if (!res.isSuccess) throw res.error;
+    return res.entity;
   } catch (err: any) {
-    throw err.response;
+    console.error(err);
+    throw err;
   }
 };
 
 export const patchFetch = async (
   endpoint: string,
   body: object = {}
-): Promise<AxiosResponse> => {
+): Promise<any> => {
   try {
-    return await axios.patch(baseUrl + endpoint, body, {
+    const axiosRes = await axios.patch(baseUrl + endpoint, body, {
       headers: getHeaders(),
     });
+    const res = axiosRes.data as IServiceResponse;
+    if (!res.isSuccess) throw res.error;
+    return res.entity;
   } catch (err: any) {
-    throw err.response;
+    console.error(err);
+    throw err;
   }
 };
 
-export const deleteFetch = async (endpoint: string): Promise<AxiosResponse> => {
+export const deleteFetch = async (endpoint: string): Promise<any> => {
   try {
-    return await axios.delete(baseUrl + endpoint, { headers: getHeaders() });
+    const axiosRes = await axios.delete(baseUrl + endpoint, {
+      headers: getHeaders(),
+    });
+    const res = axiosRes.data as IServiceResponse;
+    if (!res.isSuccess) throw res.error;
+    return res.entity;
   } catch (err: any) {
-    throw err.response;
+    console.error(err);
+    throw err;
   }
 };

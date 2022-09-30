@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import { FormEvent, FormEventHandler, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Card } from "@/shared/components/card";
 import { Row } from "@/shared/layout/row";
@@ -13,7 +13,7 @@ export const SignupCard = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [companyCode, setCompanyCode] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const inputHandler = (mutator: Function) => {
     return (ev: FormEvent | any) => {
@@ -26,12 +26,12 @@ export const SignupCard = () => {
     if (password != confirmPassword) return setError("Passwords don't match");
     const res = await signup(name, lastName, email, password, companyCode);
     if (!res.isSuccess) return setError(res.error);
-    return navigate('/')
+    return navigate("/");
   };
 
   return (
     <div className="max-w-2xl w-full text-main">
-      <Card padding={8} rounded="lg" bg="surface-1" color="white">
+      <Card padding={8} rounded="lg" bg="surface-1" color="main">
         <div className="mb-8">
           <h1>Crear una cuenta</h1>
           <p>
@@ -111,7 +111,8 @@ export const SignupCard = () => {
           <input
             type="submit"
             value="Crear cuenta"
-            className="px-8 py-2 bg-blue rounded-md cursor-pointer hover:bg-primary-40 mx-auto"
+            className="px-8 py-2 bg-blue rounded-md cursor-pointer
+            hover:bg-primary-40 mx-auto text-white"
           />
         </form>
         <div className="text-center">
