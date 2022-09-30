@@ -2,9 +2,9 @@ export const Input = (props: {
   type: string;
   name: string;
   register: Function;
-  required?: boolean
+  required?: boolean;
 }) => {
-  const titleCase = props.name[0].toLocaleUpperCase() + props.name.slice(1)
+  const titleCase = props.name[0].toLocaleUpperCase() + props.name.slice(1);
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={props.name}>{titleCase}:</label>
@@ -14,6 +14,7 @@ export const Input = (props: {
           placeholder={titleCase}
           id={props.name}
           rows={3}
+          className="resize-none"
         />
       ) : (
         <input

@@ -3,7 +3,6 @@ import { LoadingSpinner } from "@/shared/components/loadingSpinner";
 import { MainContainer } from "@/shared/layout/mainContainer";
 import { Row } from "@/shared/layout/row";
 import { ArrowBackIos } from "@mui/icons-material";
-import { useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useAssessment } from "../hooks/useAssessments";
 

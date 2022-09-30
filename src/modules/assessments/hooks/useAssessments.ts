@@ -15,17 +15,16 @@ export const useAssessments = (page: number = 1, pageSize: number = 50) => {
     pageSize,
   };
   const { data, error, isLoading, refetch } = useQuery(
-    ["assessments", "featured", { pagination }],
-    async () => (await getFetch(`${baseUrl}/featured`)).data,
+    ["assessments", { pagination }],
+    async () => (await getFetch(`${baseUrl}`)).data,
     { keepPreviousData: true, staleTime: 5000 }
   );
 
   return {
-    assessments: data?.list,
-    pageSize: data?.pageSize,
+    assessments: data?.list as IAssessment[],
+    pageSize: data?.pageSize as number,
     error,
     loading: isLoading,
-    refetch,
   };
 };
 
@@ -41,11 +40,32 @@ export const useAssessment = (assessmentId: string) => {
     assessment: data?.data as IAssessment,
     error,
     loading: isLoading,
-    refetch,
   };
 };
 
-export const useCreateAssessment = () => {
+export const useFeaturedAssessments = (page = 1, pageSize = 50) => {
+  let pagination = {
+    page,
+    pageSize,
+  };
+  const { data, error, isLoading, refetch } = useQuery(
+    ["assessments", "featured", { pagination }],
+    async () => (await getFetch(`${baseUrl}/featured`)).data,
+    { keepPreviousData: true, staleTime: 5000 }
+  );
+
+  return {
+    assessments: data?.list as IAssessment[],
+    pageSize: data?.pageSize as number,
+    error,
+    loading: isLoading,
+  };
+};
+
+export const useCreateAssessment = (
+  successCallback?: Function,
+  errorCallback?: Function
+) => {
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -57,6 +77,10 @@ export const useCreateAssessment = () => {
           "assessments",
           { assessmentId: data.id },
         ]);
+        if (successCallback) successCallback(data);
+      },
+      onError: (error, vars) => {
+        if (errorCallback) errorCallback(error, vars);
       },
     }
   );

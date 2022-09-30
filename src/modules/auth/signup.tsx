@@ -30,8 +30,8 @@ export const SignupCard = () => {
   };
 
   return (
-    <div className="max-w-2xl w-full text-white">
-      <Card padding={8} rounded="lg" bg="surfaces-dark-1" color="white">
+    <div className="max-w-2xl w-full text-main">
+      <Card padding={8} rounded="lg" bg="surface-1" color="white">
         <div className="mb-8">
           <h1>Crear una cuenta</h1>
           <p>

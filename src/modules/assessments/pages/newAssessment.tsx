@@ -8,8 +8,8 @@ import { NavLink } from "react-router-dom";
 export const NewAssessment = () => {
   return (
     <MainContainer>
-      <Row spacing={2} items="center">
-        <NavLink to="/" className="mb-8">
+      <Row spacing={2} items="center" wrap={false}>
+        <NavLink to="../" className="mb-8">
           <ArrowBackIos />
         </NavLink>
         <h1 className="mb-8 grow">Nuevo Quiz</h1>

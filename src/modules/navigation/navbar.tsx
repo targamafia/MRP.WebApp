@@ -6,23 +6,23 @@ import IconButton from "@mui/material/IconButton";
 import { LogoutOutlined } from "@mui/icons-material";
 
 export const Navbar = () => {
-  const { token, logout, user } = useAuth();
+  const { token, logout } = useAuth();
 
   useEffect(() => {
     !token && logout !== undefined && logout();
   }, [token]);
 
   return (
-    <div className="px-8 py-2 w-full bg-surfaces-dark-5">
+    <div className="px-8 py-2 w-full bg-surface-5">
       <Row grow={true} justify="between" spacing={10} items="center">
-        <NavLink to="/" className="text-white">
+        <NavLink to="/" className="text-main">
           <span className="text-xl font-bold">MRP</span>
         </NavLink>
-        <nav className="grow text-right">
+        <nav className="grow">
           <NavLink
             to="/assessments"
             className={({ isActive }) =>
-              isActive ? "text-orange" : "text-white"
+              isActive ? "text-orange" : "text-main"
             }
           >
             Quizes
@@ -32,8 +32,9 @@ export const Navbar = () => {
           onClick={() => {
             if (confirm("¿Cerrar sesión?")) logout();
           }}
+          className="text-main"
         >
-          <LogoutOutlined htmlColor="white" />
+          <LogoutOutlined color="inherit" />
         </IconButton>
       </Row>
     </div>

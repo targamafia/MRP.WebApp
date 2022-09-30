@@ -1,8 +1,8 @@
 export const ErrorMessage = (props: { message: string }) => {
   return (
     <div
-      className="bg-surfaces-dark-3 p-4 mb-4 rounded-md
-    border border-solid border-error-50 text-error-60"
+      className="p-4 border border-solid rounded-md w-full shadow-lg
+     border-error-60 bg-error-50 text-white"
     >
       {props.message}
     </div>

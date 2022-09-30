@@ -5,8 +5,8 @@ import { Row } from "@/shared/layout/row";
 export const Onboarding = () => {
   return (
     <div className="max-w-md">
-      <Card padding={8} rounded="lg" bg="surfaces-dark-1" color="white">
-        <div className="text-white text-center">
+      <Card padding={8} rounded="lg" bg="surface-1" color="white">
+        <div className="text-main text-center">
           <div className="mb-16">
             <h1>MRP Administración</h1>
             <p>

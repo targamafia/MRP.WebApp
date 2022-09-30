@@ -10,7 +10,7 @@ export const MultiSelect = (props: {
   name: string;
   setValue: Function;
 }) => {
-  const itemInput = useRef<HTMLInputElement>(null);
+  const itemInput = useRef<HTMLTextAreaElement>(null);
   const [values, setValues] = useState<string[]>([]);
   const titleCase = props.name[0].toLocaleUpperCase() + props.name.slice(1);
 
@@ -29,17 +29,24 @@ export const MultiSelect = (props: {
   }, [values]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <input type="hidden" {...props.register(props.name + "[]")} />
       <div className="flex flex-row gap-4 w-full items-end">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 grow">
           <label htmlFor="multiselect">{titleCase}:</label>
-          <input
+          <textarea
+            onKeyUp={(ev) => {
+              if (ev.key == "Enter") {
+                ev.preventDefault();
+                addItem();
+              }
+            }}
             onSubmit={(ev) => {
               ev.preventDefault();
               addItem();
             }}
-            type="text"
+            rows={1}
+            className="resize-none"
             placeholder={titleCase}
             id="multiselect"
             ref={itemInput}

@@ -28,14 +28,14 @@ export const LoginCard = () => {
 
   return (
     <div className="max-w-md">
-      <Card padding={8} rounded="lg" bg="surfaces-dark-1">
-        <div className="text-white">
+      <Card padding={8} rounded="lg" bg="surface-1">
+        <div className="text-main">
           <div className="mb-8">
             <h1>Iniciar Sesión</h1>
             <p>Te damos la bienvenida, por favor inicia sesión</p>
           </div>
           {error !== "" && (
-            <div className="bg-surfaces-dark-3 p-4 mb-4 rounded-md border border-solid border-error-50 text-error-60">{error}</div>
+            <div className="bg-surface-3 p-4 mb-4 rounded-md border border-solid border-error-50 text-error-60">{error}</div>
           )}
           <form
             onSubmit={formSubmit}
