@@ -17,13 +17,15 @@ export const QuestionForm = () => {
   const [message, setMessage] = useState<{ type: string; content: string }>();
   const navigate = useNavigate();
   const [questionType, setQuestionType] = useState("MULTIPLE_CHOICE");
+  const [isCreated, setIsCreated] = useState(false);
 
   const onSuccess = () => {
     setMessage({
       type: "info",
       content: `La pregunta se agregó correctamente`,
     });
-    setTimeout(() => navigate("../"), 4000);
+    setIsCreated(true);
+    setTimeout(() => navigate("../"), 2000);
   };
   const onError = (error: any) => {
     setMessage({ type: "error", content: error });
@@ -55,7 +57,7 @@ export const QuestionForm = () => {
           title={message.type == "error" ? "Error" : "Éxito"}
         />
       )}
-      {
+      {!isCreated &&
         <div className="flex flex-col gap-4">
           <Input type="text" register={register} name="title" required={true} />
           <div className="flex flex-col gap-1">
@@ -82,7 +84,7 @@ export const QuestionForm = () => {
         <input
           type="submit"
           value="Crear"
-          disabled={!formState.isValid}
+          disabled={!formState.isValid && !isCreated}
           className="px-8 py-2 bg-blue rounded-md text-white
           cursor-pointer hover:bg-primary-40 mx-auto"
         />

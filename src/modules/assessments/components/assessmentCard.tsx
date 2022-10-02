@@ -1,7 +1,6 @@
 import { ArrowForwardIosOutlined } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import { IAssessment } from "../models";
-import Chip from "@mui/material/Chip";
 import { ChipRow } from "@/shared/components/chipRow";
 
 export const AssessmentCard = (props: IAssessment & { key?: any }) => {
@@ -21,8 +20,13 @@ export const AssessmentCard = (props: IAssessment & { key?: any }) => {
               className="w-1/5 min-w-[8rem] self-stretch object-cover"
             />
           )}
-          <div className="grow p-4 flex items-start self-start flex-col">
-            {props.categories !== undefined && <ChipRow elements={props.categories} />}
+          <div
+            className="grow p-4 flex items-start self-start
+          flex-col pointer-events-none"
+          >
+            {props.categories !== undefined && (
+              <ChipRow elements={props.categories} />
+            )}
             <h3 className="text-3xl mb-2">{props.title}</h3>
             {props.description !== undefined && (
               <p className="mb-4">{props.description}</p>

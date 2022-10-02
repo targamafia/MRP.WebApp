@@ -15,7 +15,7 @@ export const Navbar = () => {
   }, [token]);
 
   return (
-    <div className="px-8 py-2 w-full bg-surface-5">
+    <div className="px-8 py-2 w-full bg-surface-5 sticky top-0 bg-opacity-50 backdrop-blur-md">
       <Row grow={true} justify="between" spacing={10} items="center">
         <NavLink to="/" className="text-main">
           <h2 className="mb-0">MRP</h2>

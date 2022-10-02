@@ -11,16 +11,29 @@ const theme: ThemeOptions = createTheme({
     },
   },
   typography: {
-    fontFamily: "Roboto",
+    fontFamily: [
+      "DM Sans",
+      "Roboto",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
     button: {
-      fontWeight: 600,
+      fontWeight: 700,
     },
   },
   components: {
     MuiChip: {
       styleOverrides: {
         root: {
-          padding: ".25rem .125rem",
+          fontFamily: "DM Sans",
+          padding: ".125rem .0875rem",
+          fontWeight: 700,
         },
       },
     },
@@ -29,6 +42,7 @@ const theme: ThemeOptions = createTheme({
         root: {
           fontWeight: 700,
           color: "#fff",
+          textTransform: "none",
         },
       },
     },

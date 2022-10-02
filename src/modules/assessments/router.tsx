@@ -24,7 +24,7 @@ export default {
             { path: "new", element: <QuestionForm /> },
           ],
         },
-        { path: "ratings", element: <Title title="Ratings" /> },
+        { path: "ratings", element: <Title title="Reseñas" /> },
         { path: "", element: <Navigate to="./details" replace={true} /> },
       ],
     },

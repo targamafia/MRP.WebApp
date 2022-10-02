@@ -1,12 +1,7 @@
 import { ReactElement, useState } from "react";
 import { Row } from "./row";
 import IconButton from "@mui/material/IconButton";
-import {
-  ArrowBackIos,
-  ArrowForwardIos,
-  CloseOutlined,
-  MenuOutlined,
-} from "@mui/icons-material";
+import { ArrowForwardIos, CloseOutlined } from "@mui/icons-material";
 
 export const MainContainer = (props: {
   children: ReactElement[] | ReactElement;
@@ -19,8 +14,8 @@ export const MainContainer = (props: {
     <div className="p-8">
       {props.bgImg !== undefined ? (
         <div
-          className="absolute -z-10 left-0 top-12 h-40
-        w-full bg-cover opacity-10 bg-no-repeat bg-center"
+          className="absolute -z-10 left-0 top-12 h-32
+        w-full bg-cover opacity-50 bg-no-repeat bg-center"
           style={{ backgroundImage: `url('${props.bgImg}')` }}
         />
       ) : (

@@ -4,6 +4,7 @@ import { ErrorMessage } from "@/shared/components/errorMessage";
 import { LoadingSpinner } from "@/shared/components/loadingSpinner";
 import { AssessmentCard } from "./assessmentCard";
 import { ChipRow } from "@/shared/components/chipRow";
+import { Title } from "@/shared/components/title";
 
 export const AssessmentDetails = () => {
   const { id } = useParams();
@@ -14,6 +15,7 @@ export const AssessmentDetails = () => {
     !error ? (
       assessment !== undefined ? (
         <>
+          <Title title="Detalles" />
           <h2>Categorías</h2>
           {assessment.categories !== undefined && (
             <ChipRow elements={assessment.categories} />

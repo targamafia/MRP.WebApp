@@ -19,7 +19,7 @@ export const AssessmentPage = () => {
       ) : !error ? (
         assessment !== undefined ? (
           <>
-            <div className="py-6">
+            <div className="pt-2 my-2 mb-4 sticky top-14 backdrop-blur-lg rounded-lg">
               <Title
                 title={assessment.title}
                 back={true}
@@ -30,7 +30,7 @@ export const AssessmentPage = () => {
                 }
               />
             </div>
-            <Row spacing={4} className="mb-4" items="center">
+            <Row spacing={4} className="mb-8" items="center">
               <NavLink
                 to="./details"
                 className={({ isActive }) =>
