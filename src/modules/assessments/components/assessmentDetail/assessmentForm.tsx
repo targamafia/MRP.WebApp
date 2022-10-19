@@ -5,8 +5,8 @@ import { MultiSelect } from "@/shared/components/multiSelect";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useCreateAssessment } from "../hooks/useAssessments";
-import { IAssessment, INewAssessment } from "../models";
+import { useCreateAssessment } from "../../hooks/useAssessments";
+import { IAssessment, INewAssessment } from "../../models";
 
 export const AssessmentForm = () => {
   const { register, handleSubmit, setValue, formState } = useForm();

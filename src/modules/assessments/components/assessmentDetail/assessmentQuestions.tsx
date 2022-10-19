@@ -3,7 +3,7 @@ import { LoadingSpinner } from "@/shared/components/loadingSpinner";
 import { Message } from "@/shared/components/message";
 import { Title } from "@/shared/components/title";
 import { NavLink, useParams } from "react-router-dom";
-import { useAssessment } from "../hooks/useAssessments";
+import { useAssessment } from "../../hooks/useAssessments";
 
 export const AssessmentQuestions = () => {
   const { id } = useParams();

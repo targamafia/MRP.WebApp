@@ -15,10 +15,10 @@ export const Navbar = () => {
   }, [token]);
 
   return (
-    <div className="px-8 py-2 w-full bg-surface-5 sticky top-0 bg-opacity-50 backdrop-blur-md">
+    <div className="px-8 py-2 w-full bg-surface-5 sticky top-0 bg-opacity-70 backdrop-blur-md z-10">
       <Row grow={true} justify="between" spacing={10} items="center">
         <NavLink to="/" className="text-main">
-          <h2 className="mb-0">MRP</h2>
+          <h2 className="mb-0">{import.meta.env.VITE_COMPANY_NAME}</h2>
         </NavLink>
         <nav className="grow">
           <NavLink

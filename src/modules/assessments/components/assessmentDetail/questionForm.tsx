@@ -6,9 +6,9 @@ import { Title } from "@/shared/components/title";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUpdateAssessmentQuestions } from "../hooks/useAssessments";
-import { IQuestion } from "../models";
-import { MultipleChoiceForm } from "./questionForm/multipleChoiceForm";
+import { useUpdateAssessmentQuestions } from "../../hooks/useAssessments";
+import { IQuestion } from "../../models";
+import { MultipleChoiceForm } from "../questionForm/multipleChoiceForm";
 
 export const QuestionForm = () => {
   const { id } = useParams();

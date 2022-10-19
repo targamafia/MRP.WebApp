@@ -1,4 +1,4 @@
-import { AssessmentForm } from "@/modules/assessments/components/assessmentForm";
+import { AssessmentForm } from "@/modules/assessments/components/assessmentDetail/assessmentForm";
 import { MainContainer } from "@/shared/layout/mainContainer";
 import { Row } from "@/shared/layout/row";
 import { ArrowBackIos } from "@mui/icons-material";

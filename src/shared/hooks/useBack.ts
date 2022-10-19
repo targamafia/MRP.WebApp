@@ -14,10 +14,10 @@ export const useBack = () => {
 
   const fetchData = useCallback(
     async (
-      endpoint: string,
-      method = "GET",
-      body = {},
-      query = {}
+        endpoint: string,
+        method = "GET",
+        body = {},
+        query = {}
     ): Promise<any | null> => {
       setIsLoading(true);
       setError("");
@@ -34,7 +34,10 @@ export const useBack = () => {
           case "DELETE":
             return await deleteFetch(endpoint);
           default:
-            throw "papiiii ponte un método pero IAAAAA";
+            console.error("Unrecognized method")
+            setError("Unrecognized Method");
+            setIsLoading(false);
+            return null;
         }
       } catch (err: any) {
         setError(err);

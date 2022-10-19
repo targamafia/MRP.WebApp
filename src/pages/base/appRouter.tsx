@@ -4,7 +4,7 @@ import { Title } from "@/shared/components/title";
 import { AppBase } from "./appBase";
 import assessmentRoutes from "@/modules/assessments/router";
 import { MainContainer } from "@/shared/layout/mainContainer";
-import { FeaturedAssessments } from "@/modules/assessments/components/featuredAssessments";
+import { FeaturedAssessments } from "@/modules/assessments/components/assessmentList/featuredAssessments";
 
 export const AppRouter = () => {
   return createBrowserRouter([
@@ -16,7 +16,7 @@ export const AppRouter = () => {
           path: "",
           element: (
             <MainContainer>
-              <Title title="MRP" />
+              <Title title={import.meta.env.VITE_COMPANY_NAME} />
               <FeaturedAssessments />
             </MainContainer>
           ),

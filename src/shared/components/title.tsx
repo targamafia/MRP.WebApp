@@ -9,7 +9,7 @@ export const Title = (props: {
   cta?: ReactElement;
 }): ReactElement => {
   return (
-    <Row spacing={2} items="center" grow={true} className="mb-8">
+    <div className="flex flex-col md:flex-row mb-8 md:items-center grow gap-2">
       {props.back && (
         <NavLink to="../">
           <ArrowBackIos />
@@ -17,6 +17,6 @@ export const Title = (props: {
       )}
       <h1 className="grow">{props.title}</h1>
       {props.cta !== undefined && props.cta}
-    </Row>
+    </div>
   );
 };

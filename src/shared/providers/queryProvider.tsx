@@ -5,9 +5,9 @@ import {
   QueryClient,
   QueryClientProvider,
   QueryKey,
-} from "@tanstack/react-query";
-import React, { ReactNode } from "react";
-import { useAuth } from "./userProvider";
+} from '@tanstack/react-query';
+import React, { ReactNode } from 'react';
+import { useAuth } from './userProvider';
 
 const unauthorizedStatuses = [401, 403];
 
@@ -17,8 +17,10 @@ function useGlobalErrors({
   onRecover = () => {},
 }) {
   const triggerError = (error: unknown) => {
-    // @ts-ignore
-    const { status } = error;
+    const {
+      // @ts-ignore
+      response: { status },
+    } = error;
 
     if (unauthorizedStatuses.includes(status)) {
       onAuthError();

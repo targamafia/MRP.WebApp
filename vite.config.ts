@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { fileURLToPath, URL } from "url";
+import { fileURLToPath } from "url";
 import path from "path";
 
 // https://vitejs.dev/config/
@@ -11,6 +11,7 @@ export default defineConfig({
       "@": path.resolve(path.dirname(fileURLToPath(import.meta.url)), "src"),
     },
   },
+  base: 'MRP.WebApp',
   server: {
     proxy: {
       "/api": {

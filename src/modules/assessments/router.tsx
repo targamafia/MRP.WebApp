@@ -1,11 +1,11 @@
 import { AssessmentPage } from "./pages/assessmentPage";
 import { AllAssessments } from "./pages/allAssessments";
 import { NewAssessment } from "./pages/newAssessment";
-import { AssessmentDetails } from "./components/assessmentDetails";
+import { AssessmentDetails } from "./components/assessmentDetail/assessmentDetails";
 import { Navigate } from "react-router-dom";
 import { Title } from "@/shared/components/title";
-import { AssessmentQuestions } from "./components/assessmentQuestions";
-import { QuestionForm } from "./components/questionForm";
+import { AssessmentQuestions } from "./components/assessmentDetail/assessmentQuestions";
+import { QuestionForm } from "./components/assessmentDetail/questionForm";
 
 export default {
   path: "assessments",

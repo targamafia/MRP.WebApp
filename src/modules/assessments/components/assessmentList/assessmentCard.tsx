@@ -1,6 +1,6 @@
 import { ArrowForwardIosOutlined } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
-import { IAssessment } from "../models";
+import { IAssessment } from "../../models";
 import { ChipRow } from "@/shared/components/chipRow";
 
 export const AssessmentCard = (props: IAssessment & { key?: any }) => {
@@ -10,14 +10,14 @@ export const AssessmentCard = (props: IAssessment & { key?: any }) => {
         className="rounded-md bg-surface-4 text-main
       hover:bg-surface-5 transition-colors duration-300
       overflow-hidden shadow-sm outline outline-solid outline-surface-2
-      hover:outline-white hover:shadow-glow
+      hover:outline-white hover:shadow-glow w-full
       "
       >
-        <div className="flex flex-row items-center pr-4">
+        <div className="grid grid-cols-[minmax(2rem,8rem)_1fr_2rem] items-center pr-4">
           {props.thumbnailUrl !== undefined && (
             <img
               src={props.thumbnailUrl}
-              className="w-1/5 min-w-[8rem] self-stretch object-cover"
+              className="w-f self-stretch object-cover grow"
             />
           )}
           <div

@@ -3,7 +3,7 @@ import { LoadingSpinner } from "@/shared/components/loadingSpinner";
 import { Row } from "@/shared/layout/row";
 import { ArrowForwardIos } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
-import { useFeaturedAssessments } from "../hooks/useAssessments";
+import { useFeaturedAssessments } from "../../hooks/useAssessments";
 import { AssessmentSmallCard } from "./assessmentSmallCard";
 
 export const FeaturedAssessments = () => {
@@ -21,7 +21,7 @@ export const FeaturedAssessments = () => {
           ))}
           <NavLink
             to="/assessments"
-            className="rounded-md text-main flex flex-col relative
+            className="rounded-md flex flex-col relative
             text-center bg-blue text-white justify-center
             hover:shadow-glow"
           >
