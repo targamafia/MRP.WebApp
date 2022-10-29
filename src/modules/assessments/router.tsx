@@ -1,32 +1,28 @@
-import { AssessmentPage } from "./pages/assessmentPage";
-import { AllAssessments } from "./pages/allAssessments";
-import { NewAssessment } from "./pages/newAssessment";
-import { AssessmentDetails } from "./components/assessmentDetail/assessmentDetails";
-import { Navigate } from "react-router-dom";
-import { Title } from "@/shared/components/title";
-import { AssessmentQuestions } from "./components/assessmentDetail/assessmentQuestions";
-import { QuestionForm } from "./components/assessmentDetail/questionForm";
+import { AssessmentPage } from './pages/assessmentPage';
+import { AllAssessments } from './pages/allAssessments';
+import { NewAssessment } from './pages/newAssessment';
+import { AssessmentDetails } from './components/assessmentDetail/assessmentDetails';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { Title } from '@/shared/components/title';
+import { AssessmentQuestions } from './components/assessmentDetail/assessmentQuestions';
+import { QuestionForm } from './components/assessmentDetail/questionForm';
+import { NotFound } from '../navigation/404';
 
-export default {
-  path: "assessments",
-  children: [
-    { path: "", element: <AllAssessments /> },
-    { path: "new", element: <NewAssessment /> },
-    {
-      path: ":id",
-      element: <AssessmentPage />,
-      children: [
-        { path: "details", element: <AssessmentDetails /> },
-        {
-          path: "questions",
-          children: [
-            { path: "", element: <AssessmentQuestions /> },
-            { path: "new", element: <QuestionForm /> },
-          ],
-        },
-        { path: "ratings", element: <Title title="Reseñas" /> },
-        { path: "", element: <Navigate to="./details" replace={true} /> },
-      ],
-    },
-  ],
+export default () => {
+  return (
+    <Routes>
+      <Route path="" element={<AllAssessments />} />
+      <Route path="new" element={<NewAssessment />} />
+      <Route path=":id" element={<AssessmentPage />}>
+        <Route path="details" element={<AssessmentDetails />} />
+        <Route path="questions">
+          <Route path="" element={<AssessmentQuestions />} />
+          <Route path="new" element={<QuestionForm />} />
+        </Route>
+        <Route path="ratings" element={<Title title="Reseñas" />} />
+        <Route path="*" element={<Navigate to="details" />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 };

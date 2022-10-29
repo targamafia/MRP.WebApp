@@ -1,15 +1,13 @@
-import { AssessmentList } from "@/modules/assessments/components/assessmentList/assessmentList";
-import { LoadingSpinner } from "@/shared/components/loadingSpinner";
-import { Message } from "@/shared/components/message";
-import { Title } from "@/shared/components/title";
-import { MainContainer } from "@/shared/layout/mainContainer";
-import { Row } from "@/shared/layout/row";
-import Button from "@mui/material/Button";
-import { useMemo, useReducer, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { AssessmentsFilters } from "../components/assessmentList/assessmentsFilters";
-import { useAssessments } from "../hooks/useAssessments";
-import { IAssessment } from "../models";
+import { AssessmentList } from '@/modules/assessments/components/assessmentList/assessmentList';
+import { LoadingSpinner } from '@/shared/components/loadingSpinner';
+import { Message } from '@/shared/components/message';
+import { Title } from '@/shared/components/title';
+import { MainContainer } from '@/shared/layout/mainContainer';
+import Button from '@mui/material/Button';
+import { useMemo, useReducer } from 'react';
+import { NavLink } from 'react-router-dom';
+import { AssessmentsFilters } from '../components/assessmentList/assessmentsFilters';
+import { useAssessments } from '../hooks/useAssessments';
 
 interface ReducerState {
   categories: string[];
@@ -23,17 +21,17 @@ interface ReducerAction {
 
 const filterReducer = (state: ReducerState, action: ReducerAction) => {
   switch (action.property) {
-    case "categories":
+    case 'categories':
       if (!state.categories.includes(action.value))
         return { ...state, categories: [action.value, ...state.categories] };
       return {
         ...state,
         categories: state.categories.filter((v) => v != action.value),
       };
-    case "query":
+    case 'query':
       return { ...state, query: action.value };
     default:
-      console.error("Unkown action property");
+      console.error('Unkown action property');
       return { ...state };
   }
 };
@@ -41,34 +39,30 @@ const filterReducer = (state: ReducerState, action: ReducerAction) => {
 export const AllAssessments = () => {
   const { assessments: baseAssessments, loading, error } = useAssessments();
 
-  const [assessments, setAssessments] = useState(baseAssessments);
-
   const [filters, dispatch] = useReducer(filterReducer, {
     categories: [],
-    query: "",
+    query: '',
   } as ReducerState);
 
-  useMemo(() => {
-    if (!baseAssessments) return setAssessments(baseAssessments);
-    let filteredAssessments: IAssessment[] = baseAssessments;
-    if (filters.categories.length > 0) {
-      filteredAssessments = filteredAssessments.filter(
-        (a) =>
-          filters.categories.length == 0 ||
-          a.categories.some((cat) => filters.categories.includes(cat))
-      );
-    }
-    if (filters.query != "") {
-      const queryRegex = new RegExp(filters.query, "ig");
-      filteredAssessments = filteredAssessments.filter((a) =>
-        [a.title, a.categories.join(" "), a.description].some(
-          (i) => i !== undefined && queryRegex.test(i)
-        )
-      );
-    }
-
-    setAssessments(filteredAssessments);
-  }, [baseAssessments, filters]);
+  const assessments = useMemo(() => {
+    if (!baseAssessments) return [];
+    const queryEnabled = filters.query != '',
+      categoriesEnabled = filters.categories.length > 0,
+      queryRegex = new RegExp(filters.query, 'ig');
+    return baseAssessments.filter(
+      (assessment) =>
+        (!categoriesEnabled ||
+          assessment.categories.some((category) =>
+            filters.categories.includes(category)
+          )) &&
+        (!queryEnabled ||
+          [
+            assessment.title,
+            assessment.categories.join(' '),
+            assessment.description,
+          ].some((i) => i !== undefined && queryRegex.test(i)))
+    );
+  }, [baseAssessments, filters.categories, filters.query]);
 
   return (
     <MainContainer

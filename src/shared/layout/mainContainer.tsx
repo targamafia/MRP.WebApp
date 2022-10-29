@@ -28,7 +28,7 @@ export const MainContainer = (props: {
             setIsOpen={setIsOpen}
           />
         )}
-        <main className="grow max-w-5xl mx-auto">{props.children}</main>
+        <main className="grow max-w-5xl mx-auto w-full">{props.children}</main>
       </Row>
     </div>
   );

@@ -1,7 +1,7 @@
 import { ErrorMessage } from "@/shared/components/errorMessage";
 import { LoadingSpinner } from "@/shared/components/loadingSpinner";
 import { MainContainer } from "@/shared/layout/mainContainer";
-import { EditOutlined } from "@mui/icons-material";
+import EditOutlined from "@mui/icons-material/EditOutlined";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { useAssessment } from "../hooks/useAssessments";
 import { Title } from "@/shared/components/title";

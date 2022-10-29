@@ -1,17 +1,21 @@
-import { UserProvider } from "@/shared/providers/userProvider";
-import { GlobalRouter } from "@/Router";
-import QueryProvider from "@/shared/providers/queryProvider";
-import { MUIThemeProvider } from "./shared/providers/muiThemeProvider";
+import { UserProvider } from '@/shared/providers/userProvider';
+import { GlobalRouter } from '@/Router';
+import QueryProvider from '@/shared/providers/queryProvider';
+import { MUIThemeProvider } from './shared/providers/muiThemeProvider';
+import { Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 
 function App() {
   return (
-    <MUIThemeProvider>
-      <UserProvider>
-        <QueryProvider>
-          <GlobalRouter />
-        </QueryProvider>
-      </UserProvider>
-    </MUIThemeProvider>
+    <Suspense fallback={<LoadingSpinner />}>
+      <MUIThemeProvider>
+        <UserProvider>
+          <QueryProvider>
+            <GlobalRouter />
+          </QueryProvider>
+        </UserProvider>
+      </MUIThemeProvider>
+    </Suspense>
   );
 }
 

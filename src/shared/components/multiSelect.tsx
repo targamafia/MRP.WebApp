@@ -3,7 +3,7 @@ import { FieldValues } from "react-hook-form";
 import { Row } from "../layout/row";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
-import { AddOutlined } from "@mui/icons-material";
+import AddOutlined from "@mui/icons-material/AddOutlined";
 
 export const MultiSelect = (props: {
   register: Function;

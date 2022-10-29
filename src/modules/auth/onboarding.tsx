@@ -15,8 +15,8 @@ export const Onboarding = () => {
             </p>
           </div>
           <Row spacing={8} justify="center">
-            <NavLink to="/login">Iniciar Sesión</NavLink>
-            <NavLink to="/signup">Crear una Cuenta</NavLink>
+            <NavLink to={import.meta.env.BASE_URL + "login"}>Iniciar Sesión</NavLink>
+            <NavLink to={import.meta.env.BASE_URL + "signup"}>Crear una Cuenta</NavLink>
           </Row>
         </div>
       </Card>

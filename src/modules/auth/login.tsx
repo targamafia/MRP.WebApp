@@ -75,7 +75,7 @@ export const LoginCard = () => {
           <div className="text-center">
             <p>No tienes una cuenta?</p>
             <Row spacing={8} justify="center">
-              <NavLink to="/signup">Créala ahora</NavLink>
+              <NavLink to={import.meta.env.BASE_URL + "signup"}>Créala ahora</NavLink>
             </Row>
           </div>
         </div>

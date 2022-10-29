@@ -3,7 +3,7 @@ import { Row } from "@/shared/layout/row";
 import { useAuth } from "@/shared/providers/userProvider";
 import { NavLink, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
-import { LogoutOutlined } from "@mui/icons-material";
+import LogoutOutlined from "@mui/icons-material/LogoutOutlined";
 
 export const Navbar = () => {
   const { token, logout } = useAuth();
@@ -20,14 +20,22 @@ export const Navbar = () => {
         <NavLink to="/" className="text-main">
           <h2 className="mb-0">{import.meta.env.VITE_COMPANY_NAME}</h2>
         </NavLink>
-        <nav className="grow">
+        <nav className="grow flex flex-row gap-8">
           <NavLink
-            to="/assessments"
+            to={import.meta.env.BASE_URL + "assessments"}
             className={({ isActive }) =>
               isActive ? "text-orange" : "text-main"
             }
           >
             Quizes
+          </NavLink>
+          <NavLink
+            to={import.meta.env.BASE_URL + "users"}
+            className={({ isActive }) =>
+              isActive ? "text-orange" : "text-main"
+            }
+          >
+            Users
           </NavLink>
         </nav>
         <IconButton

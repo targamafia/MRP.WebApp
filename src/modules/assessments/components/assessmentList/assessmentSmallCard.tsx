@@ -1,4 +1,3 @@
-import { ChipRow } from "@/shared/components/chipRow";
 import { NavLink } from "react-router-dom";
 import { IAssessment } from "../../models";
 
@@ -6,7 +5,7 @@ export const AssessmentSmallCard = (props: IAssessment & { key?: any }) => {
   return (
     <NavLink
       to={`/assessments/${props.id}`}
-      className="rounded-md text-main flex flex-col pt-16 relative justify-end
+      className="rounded-md text-white flex flex-col pt-16 relative justify-end
       overflow-hidden isolate bg-blue max-w-sm"
     >
       <img

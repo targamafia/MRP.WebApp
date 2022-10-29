@@ -1,4 +1,4 @@
-import { ArrowForwardIosOutlined } from "@mui/icons-material";
+import ArrowForwardIosOutlined from "@mui/icons-material/ArrowForwardIos";
 import { NavLink } from "react-router-dom";
 import { IAssessment } from "../../models";
 import { ChipRow } from "@/shared/components/chipRow";
@@ -14,12 +14,12 @@ export const AssessmentCard = (props: IAssessment & { key?: any }) => {
       "
       >
         <div className="grid grid-cols-[minmax(2rem,8rem)_1fr_2rem] items-center pr-4">
-          {props.thumbnailUrl !== undefined && (
+          {props.thumbnailUrl !== undefined ? (
             <img
               src={props.thumbnailUrl}
               className="w-f self-stretch object-cover grow"
             />
-          )}
+          ): <div/>}
           <div
             className="grow p-4 flex items-start self-start
           flex-col pointer-events-none"

@@ -1,29 +1,23 @@
-import { createBrowserRouter } from "react-router-dom";
-import { NotFound } from "@/modules/navigation/404";
-import { Title } from "@/shared/components/title";
-import { AppBase } from "./appBase";
-import assessmentRoutes from "@/modules/assessments/router";
-import { MainContainer } from "@/shared/layout/mainContainer";
-import { FeaturedAssessments } from "@/modules/assessments/components/assessmentList/featuredAssessments";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { NotFound } from '@/modules/navigation/404';
+import { AppBase } from './appBase';
+import { lazy } from 'react';
+import { AppLandingPage } from './appLanding';
 
-export const AppRouter = () => {
-  return createBrowserRouter([
-    {
-      path: "/",
-      element: <AppBase />,
-      children: [
-        {
-          path: "",
-          element: (
-            <MainContainer>
-              <Title title={import.meta.env.VITE_COMPANY_NAME} />
-              <FeaturedAssessments />
-            </MainContainer>
-          ),
-        },
-        assessmentRoutes,
-      ],
-    },
-    { path: "*", element: <NotFound /> },
-  ]);
+const AssessmentRoutes = lazy(() => import('@/modules/assessments/router'));
+const UserRoutes = lazy(() => import('@/modules/users/router'));
+
+export default () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path={import.meta.env.BASE_URL} element={<AppBase />}>
+          <Route index element={<AppLandingPage />} />
+          <Route path="assessments/*" element={<AssessmentRoutes />} />
+          <Route path="users/*" element={<UserRoutes />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 };

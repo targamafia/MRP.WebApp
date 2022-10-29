@@ -118,7 +118,7 @@ export const SignupCard = () => {
         <div className="text-center">
           <p>Ya tienes una cuenta?</p>
           <Row spacing={8} justify="center">
-            <NavLink to="/login">Inicia sesión</NavLink>
+            <NavLink to={import.meta.env.BASE_URL + "login"}>Inicia sesión</NavLink>
           </Row>
         </div>
       </Card>

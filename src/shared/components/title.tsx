@@ -1,7 +1,6 @@
-import { ArrowBackIos } from "@mui/icons-material";
-import { ReactElement } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import { Row } from "../layout/row";
+import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
+import { ReactElement } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const Title = (props: {
   title: string;
