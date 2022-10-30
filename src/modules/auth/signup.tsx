@@ -26,7 +26,7 @@ export const SignupCard = () => {
     if (password != confirmPassword) return setError("Passwords don't match");
     const res = await signup(name, lastName, email, password, companyCode);
     if (!res.isSuccess) return setError(res.error);
-    return navigate("/");
+    return navigate(import.meta.env.BASE_URL);
   };
 
   return (

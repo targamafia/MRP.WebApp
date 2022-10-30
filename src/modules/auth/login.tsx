@@ -23,7 +23,7 @@ export const LoginCard = () => {
     ev.preventDefault();
     const res = await login(email, password);
     if (res.error) return setError(res.error);
-    return navigate("/");
+    return navigate(import.meta.env.BASE_URL);
   };
 
   return (
