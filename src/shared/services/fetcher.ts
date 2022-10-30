@@ -1,7 +1,7 @@
 import { IServiceResponse } from "@/modules/assessments/models";
 import axios from "axios";
 
-const baseUrl = "/api";
+const baseUrl = import.meta.env.DEV ? "/api" : 'https://dev-mrp-services.herokuapp.com/api';
 
 const getHeaders = () => {
   const jwt = localStorage.getItem("jwt");
