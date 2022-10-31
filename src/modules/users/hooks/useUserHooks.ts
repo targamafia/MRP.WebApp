@@ -31,16 +31,18 @@ export const useUsers = (page: number = 1, pageSize: number = 50) => {
       {
         name: 'juan',
         lastName: 'pancho',
-        email: 'juan@pancho.com',
+        email: 'juan.pancho@gmail.com',
         id: '1',
         roles: ['superadmin'],
+        companyCode: "mrp-services"
       },
       {
-        name: 'juan',
-        lastName: 'pancho',
-        email: 'juan@pancho.com',
-        id: '1',
-        roles: ['superadmin'],
+        name: 'pedro',
+        lastName: 'de la mar',
+        email: 'pedro.de.la.mar@gmail.com',
+        id: '2',
+        roles: ['user'],
+        companyCode: "4taquitos"
       },
     ] as IUser[],
     error: undefined as Error | undefined,

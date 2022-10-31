@@ -2,7 +2,6 @@ import { AssessmentForm } from "@/modules/assessments/components/assessmentDetai
 import { MainContainer } from "@/shared/layout/mainContainer";
 import { Row } from "@/shared/layout/row";
 import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
-import Button from "@mui/material/Button";
 import { NavLink } from "react-router-dom";
 
 export const NewAssessment = () => {
