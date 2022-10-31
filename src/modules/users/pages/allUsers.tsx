@@ -50,16 +50,14 @@ export const AllUsers = () => {
       rolesEnabled = filters.roles.length > 0,
       queryRegex = new RegExp(filters.query, 'ig');
     return baseUsers.filter(
-      (assessment) =>
+      (user) =>
         (!rolesEnabled ||
-          assessment.roles.some((category) =>
-            filters.roles.includes(category)
-          )) &&
+          user.roles.some((category) => filters.roles.includes(category))) &&
         (!queryEnabled ||
           [
-            assessment.name,
-            assessment.roles.join(' '),
-            assessment.lastName,
+            [user.name, user.lastName].join(' '),
+            user.roles.join(' '),
+            user.companyCode,
           ].some((i) => i !== undefined && queryRegex.test(i)))
     );
   }, [baseUsers, filters.roles, filters.query]);
@@ -67,16 +65,18 @@ export const AllUsers = () => {
   return (
     <>
       <MainContainer>
-        <Title
-          cta={
-            <NavLink to="new" className="block">
-              <Button variant="contained">Crear nuevo Usuario</Button>
-            </NavLink>
-          }
-          title="Usuarios"
-        />
-        <UserFilters users={baseUsers} state={filters} dispatch={dispatch} />
-        <div className="my-8"></div>
+        <div className="px-8 py-4 bg-surface-5 mb-12 rounded-lg shadow-inner">
+          <Title
+            cta={
+              <NavLink to="new" className="block">
+                <Button variant="contained">Crear nuevo Usuario</Button>
+              </NavLink>
+            }
+            title="Usuarios"
+          />
+          <div className="-mt-8" />
+          <UserFilters users={baseUsers} state={filters} dispatch={dispatch} />
+        </div>
         {loading ? (
           <LoadingSpinner />
         ) : !!error ? (
