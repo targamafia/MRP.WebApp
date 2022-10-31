@@ -1,9 +1,9 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
-import { FieldValues } from "react-hook-form";
-import { Row } from "../layout/row";
-import Chip from "@mui/material/Chip";
-import IconButton from "@mui/material/IconButton";
-import AddOutlined from "@mui/icons-material/AddOutlined";
+import { ReactNode, useEffect, useRef, useState } from 'react';
+import { FieldValues } from 'react-hook-form';
+import { Row } from '../layout/row';
+import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
+import AddOutlined from '@mui/icons-material/AddOutlined';
 
 export const MultiSelect = (props: {
   register: Function;
@@ -16,27 +16,27 @@ export const MultiSelect = (props: {
 
   const addItem = () => {
     if (itemInput === null || itemInput.current === null) return;
-    setValues([itemInput.current.value as string, ...values]);
-    itemInput.current.value = "";
+    setValues([itemInput.current.value.trim() as string, ...values]);
+    itemInput.current.value = '';
   };
 
   const removeItem = (data: FieldValues) => {
-    setValues(values.filter((e) => e !== data.item));
+    setValues(values.filter((e) => e !== data.value));
   };
 
   useEffect(() => {
-    props.setValue(props.name + "[]", values);
+    props.setValue(props.name + '[]', values);
   }, [values]);
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <input type="hidden" {...props.register(props.name + "[]")} />
+      <input type="hidden" {...props.register(props.name + '[]')} />
       <div className="flex flex-row gap-4 w-full items-end">
         <div className="flex flex-col gap-1 grow">
           <label htmlFor="multiselect">{titleCase}:</label>
           <textarea
             onKeyUp={(ev) => {
-              if (ev.key == "Enter") {
+              if (ev.key == 'Enter') {
                 ev.preventDefault();
                 addItem();
               }
