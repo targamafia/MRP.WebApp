@@ -14,6 +14,7 @@ export default () => {
       <Route path="" element={<AllAssessments />} />
       <Route path="new" element={<NewAssessment />} />
       <Route path=":id" element={<AssessmentPage />}>
+        <Route index element={<AssessmentDetails />} />
         <Route path="details" element={<AssessmentDetails />} />
         <Route path="questions">
           <Route path="" element={<AssessmentQuestions />} />

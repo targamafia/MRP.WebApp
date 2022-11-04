@@ -5,7 +5,7 @@ import { ChipRow } from "@/shared/components/chipRow";
 
 export const AssessmentCard = (props: IAssessment & { key?: any }) => {
   return (
-    <NavLink to={`${import.meta.env.BASE_URL}/assessments/${props.id}`}>
+    <NavLink to={`${import.meta.env.BASE_URL}assessments/${props.id}`}>
       <div
         className="rounded-md bg-surface-4 text-main
       hover:bg-surface-5 transition-colors duration-300
