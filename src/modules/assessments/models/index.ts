@@ -1,16 +1,19 @@
 export interface IOption {
+  discriminator: 'option';
   value: string;
   isCorrectAnswer: boolean;
 }
 
 export enum QuestionTypes {
-  MultipleChoice = "MULTIPLE_CHOICE",
-  Boolean = "BOOLEAN",
-  Options = "OPTIONS",
-  Open = "OPEN",
+  MultipleChoice = 'MULTIPLE_CHOICE',
+  Boolean = 'BOOLEAN',
+  Options = 'OPTIONS',
+  Open = 'OPEN',
 }
 
 export interface IQuestion {
+  discriminator: 'question';
+  _id: string;
   title: string;
   imageUrl?: string;
   type: QuestionTypes;
@@ -19,6 +22,8 @@ export interface IQuestion {
 }
 
 export interface IAssessment {
+  discriminator: 'assessment';
+  _id?: string;
   id: string;
   title: string;
   createdBy: string;
@@ -38,6 +43,7 @@ export interface IAssessment {
 }
 
 export interface INewAssessment {
+  discriminator: 'newAssessment';
   title: string;
   createdBy: string;
   thumbnailUrl?: string;
@@ -52,6 +58,7 @@ export interface INewAssessment {
 }
 
 export interface IAssessmentListItem {
+  discriminator: 'AssessmentListItem';
   id: string;
   title: string;
   description?: string;
@@ -63,6 +70,7 @@ export interface IAssessmentListItem {
 }
 
 export interface IAssessmentList {
+  discriminator: 'assessmentList';
   pagesCount: number;
   pageSize: number;
   currentPage: number;
@@ -72,6 +80,7 @@ export interface IAssessmentList {
 }
 
 export interface IServiceResponse {
+  discriminator: 'serviceResponse';
   isSuccess: boolean;
   entity?: any;
   error?: string;

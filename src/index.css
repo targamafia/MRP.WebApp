@@ -64,7 +64,7 @@
   }
 
   h1 {
-    @apply text-5xl leading-relaxed;
+    @apply text-3xl md:text-5xl leading-relaxed;
   }
 
   h2 {

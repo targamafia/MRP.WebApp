@@ -1,9 +1,10 @@
-import { ErrorMessage } from "@/shared/components/errorMessage";
-import { LoadingSpinner } from "@/shared/components/loadingSpinner";
-import { Message } from "@/shared/components/message";
-import { Title } from "@/shared/components/title";
-import { NavLink, useParams } from "react-router-dom";
-import { useAssessment } from "../../hooks/useAssessments";
+import { ErrorMessage } from '@/shared/components/errorMessage';
+import { LoadingSpinner } from '@/shared/components/loadingSpinner';
+import { Message } from '@/shared/components/message';
+import { Title } from '@/shared/components/title';
+import { NavLink, useParams } from 'react-router-dom';
+import { useAssessment } from '../../hooks/useAssessments';
+import QuestionCard from './questionCard';
 
 export const AssessmentQuestions = () => {
   const { id } = useParams();
@@ -27,27 +28,7 @@ export const AssessmentQuestions = () => {
       {assessment !== undefined ? (
         !!assessment.questions && assessment.questions?.length > 0 ? (
           assessment.questions.map((question, i) => (
-            <div
-              key={i}
-              className={[
-                question.correctOption ? "bg-surface-5" : "bg-surface-2",
-                "rounded-md p-4",
-              ].join(" ")}
-            >
-              <h3 className="mb-4 text-2xl font-bold">{question.title}</h3>
-              {question.options.map((option, i) => (
-                <div
-                  className={[
-                    "p-2 flex flex-row gap-4",
-                    option.isCorrectAnswer ? "text-orange" : "",
-                  ].join(" ")}
-                  key={i}
-                >
-                  <h4 className="w-6 text-xl font-bold">{i + 1}</h4>
-                  {option.value}
-                </div>
-              ))}
-            </div>
+            <QuestionCard key={i} question={question} />
           ))
         ) : (
           <Message
@@ -66,3 +47,5 @@ export const AssessmentQuestions = () => {
     </div>
   );
 };
+
+export default AssessmentQuestions;

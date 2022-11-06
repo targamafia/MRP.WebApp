@@ -1,13 +1,24 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   deleteFetch,
   getFetch,
   patchFetch,
   postFetch,
-} from "@/shared/services/fetcher";
-import { IAssessment, INewAssessment, IQuestion } from "../models";
+} from '@/shared/services/fetcher';
+import { IAssessment, INewAssessment, IQuestion } from '../models';
+import {
+  deleteAssessment,
+  deleteAssessmentQuestion,
+  getAssessmentById,
+  getAssessments,
+  getFeaturedAssessments,
+  postAssessment,
+  postAssessmentQuestion,
+  putAssessment,
+  putAssessmentQuestion,
+} from '../services/assessmentService';
 
-const baseUrl = "/v1/assessments";
+const BASE_URL = '/v1/assessments';
 
 export const useAssessments = (page: number = 1, pageSize: number = 50) => {
   let pagination = {
@@ -15,8 +26,8 @@ export const useAssessments = (page: number = 1, pageSize: number = 50) => {
     pageSize,
   };
   const { data, error, isLoading } = useQuery(
-    ["assessments", { pagination }],
-    () => getFetch(baseUrl),
+    ['assessments', { pagination }],
+    getAssessments,
     { keepPreviousData: true, staleTime: 5000 }
   );
 
@@ -29,11 +40,11 @@ export const useAssessments = (page: number = 1, pageSize: number = 50) => {
 };
 
 export const useAssessment = (assessmentId: string) => {
-  if (!assessmentId) return { error: "Missing assessmentId" };
+  if (!assessmentId) return { error: 'Missing assessment Id' };
 
   const { data, error, isLoading } = useQuery(
-    ["assessments", { assessmentId }],
-    () => getFetch(`${baseUrl}/${assessmentId}`)
+    ['assessments', { assessmentId }],
+    () => getAssessmentById(assessmentId)
   );
 
   return {
@@ -49,8 +60,8 @@ export const useFeaturedAssessments = (page = 1, pageSize = 50) => {
     pageSize,
   };
   const { data, error, isLoading } = useQuery(
-    ["assessments", "featured", { pagination }],
-    async () => await getFetch(`${baseUrl}/featured`),
+    ['assessments', 'featured', { pagination }],
+    getFeaturedAssessments,
     { keepPreviousData: true, staleTime: 5000 }
   );
 
@@ -68,35 +79,78 @@ export const useCreateAssessment = (
 ) => {
   const queryClient = useQueryClient();
 
-  return useMutation(
-    (newAssessment: INewAssessment) => postFetch(baseUrl, newAssessment),
-    {
-      onSuccess: (data: IAssessment) => {
-        queryClient.invalidateQueries([
-          "assessments",
-          { assessmentId: data.id },
-        ]);
-        if (successCallback) successCallback(data);
-      },
-      onError: (error, vars) => {
-        if (errorCallback) errorCallback(error, vars);
-      },
-    }
-  );
+  return useMutation(postAssessment, {
+    onSuccess: (data: IAssessment) => {
+      queryClient.invalidateQueries(['assessments']);
+      if (successCallback) successCallback(data);
+    },
+    onError: (error, vars) => {
+      if (errorCallback) errorCallback(error, vars);
+    },
+  });
 };
 
 export const useUpdateAssessment = (onSuccess: Function, onError: Function) => {
   const queryClient = useQueryClient();
+  return useMutation(putAssessment, {
+    onSuccess: (assessment: IAssessment) => {
+      queryClient.setQueryData(
+        ['assessments', { assessmentId: assessment.id }],
+        assessment
+      );
+
+      onSuccess(assessment);
+    },
+    onError: (error) => {
+      onError(error);
+    },
+  });
+};
+
+export const useCreateAssessmentQuestion = (args: {
+  assessmentId: string;
+  onSuccess: Function;
+  onError: Function;
+}) => {
+  const queryClient = useQueryClient();
+  const { assessmentId, onSuccess, onError } = args;
+
   return useMutation(
-    (assessment: IAssessment) =>
-      patchFetch(`${baseUrl}/${assessment.id}`, assessment),
+    (newQuestion: IQuestion) =>
+      postAssessmentQuestion(assessmentId, newQuestion),
+    {
+      onSuccess: (data: IAssessment) => {
+        queryClient.invalidateQueries([
+          'assessments',
+          { assessmentId: data.id },
+        ]);
+        if (onSuccess) onSuccess(data);
+      },
+      onError: (error, vars) => {
+        if (onError) onError(error, vars);
+      },
+    }
+  );
+};
+
+export const useUpdateAssessmentQuestion = (args: {
+  assessmentId: string;
+  questionId: string;
+  onSuccess: Function;
+  onError: Function;
+}) => {
+  const queryClient = useQueryClient();
+  const { assessmentId, questionId, onSuccess, onError } = args;
+
+  return useMutation(
+    (question: IQuestion) =>
+      putAssessmentQuestion(assessmentId, questionId, question),
     {
       onSuccess: (assessment: IAssessment) => {
         queryClient.setQueryData(
-          ["assessments", { assessmentId: assessment.id }],
+          ['assessments', { assessmentId: assessment.id }],
           assessment
         );
-        queryClient.invalidateQueries(["assessments"]);
 
         onSuccess();
       },
@@ -107,45 +161,34 @@ export const useUpdateAssessment = (onSuccess: Function, onError: Function) => {
   );
 };
 
-export const useUpdateAssessmentQuestions = (
+export const useDeleteAssessmentQuestion = (
   assessmentId: string,
+  questionId: string,
   onSuccess: Function,
   onError: Function
 ) => {
   const queryClient = useQueryClient();
-  return useMutation(
-    (questions: IQuestion[]) =>
-      postFetch(`${baseUrl}/${assessmentId}/add-question`, questions),
-    {
-      onSuccess: (assessment: IAssessment) => {
-        queryClient.setQueryData(
-          ["assessments", { assessmentId: assessment.id }],
-          assessment
-        );
-        queryClient.invalidateQueries(["assessments"]);
+  return useMutation(() => deleteAssessmentQuestion(assessmentId, questionId), {
+    onSuccess: (assessment: IAssessment) => {
+      queryClient.invalidateQueries([
+        'assessments',
+        { assessmentId: assessment.id },
+        'questions',
+      ]);
 
-        onSuccess();
-      },
-      onError: (error) => {
-        onError(error);
-      },
-    }
-  );
+      onSuccess();
+    },
+    onError: (error) => {
+      onError(error);
+    },
+  });
 };
 
 export const useDeleteAssessment = () => {
   const queryClient = useQueryClient();
-  return useMutation(
-    (assessmentId: string) => deleteFetch(`${baseUrl}/${assessmentId}`),
-    {
-      onSuccess: (_, assessmentId) => {
-        queryClient.invalidateQueries([
-          "assessments",
-          {
-            assessmentId: assessmentId,
-          },
-        ]);
-      },
-    }
-  );
+  return useMutation(deleteAssessment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['assessments']);
+    },
+  });
 };

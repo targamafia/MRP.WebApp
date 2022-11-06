@@ -4,14 +4,16 @@ import { Row } from '../layout/row';
 import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import AddOutlined from '@mui/icons-material/AddOutlined';
+import { ChipRow } from './chipRow';
 
 export const MultiSelect = (props: {
   register: Function;
   name: string;
   setValue: Function;
+  defaultValue?: string[]
 }) => {
   const itemInput = useRef<HTMLTextAreaElement>(null);
-  const [values, setValues] = useState<string[]>([]);
+  const [values, setValues] = useState<string[]>(props.defaultValue || []);
   const titleCase = props.name[0].toLocaleUpperCase() + props.name.slice(1);
 
   const addItem = () => {
@@ -56,7 +58,7 @@ export const MultiSelect = (props: {
           <AddOutlined color="primary" />
         </IconButton>
       </div>
-      <Row spacing={4}>
+      <Row spacing={4} wrap={true}>
         {values.map((value) => (
           <Chip
             color="primary"
