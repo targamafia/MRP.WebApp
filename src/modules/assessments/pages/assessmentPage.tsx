@@ -20,7 +20,7 @@ export const AssessmentPage = () => {
       ) : !error ? (
         assessment !== undefined ? (
           <>
-            <div className="my-2 mb-4 sticky top-14 backdrop-blur-lg rounded-b-lg">
+            <div className="my-2 mb-12">
               <Title
                 title={assessment.title}
                 back={true}

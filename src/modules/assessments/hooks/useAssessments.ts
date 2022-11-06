@@ -107,12 +107,13 @@ export const useUpdateAssessment = (onSuccess: Function, onError: Function) => {
   });
 };
 
-export const useCreateAssessmentQuestion = (
-  assessmentId: string,
-  onSuccess: Function,
-  onError: Function
-) => {
+export const useCreateAssessmentQuestion = (args: {
+  assessmentId: string;
+  onSuccess: Function;
+  onError: Function;
+}) => {
   const queryClient = useQueryClient();
+  const { assessmentId, onSuccess, onError } = args;
 
   return useMutation(
     (newQuestion: IQuestion) =>
@@ -132,13 +133,15 @@ export const useCreateAssessmentQuestion = (
   );
 };
 
-export const useUpdateAssessmentQuestion = (
-  assessmentId: string,
-  questionId: string,
-  onSuccess: Function,
-  onError: Function
-) => {
+export const useUpdateAssessmentQuestion = (args: {
+  assessmentId: string;
+  questionId: string;
+  onSuccess: Function;
+  onError: Function;
+}) => {
   const queryClient = useQueryClient();
+  const { assessmentId, questionId, onSuccess, onError } = args;
+
   return useMutation(
     (question: IQuestion) =>
       putAssessmentQuestion(assessmentId, questionId, question),

@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@/shared/components/errorMessage';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import EditDetailsForm from '../components/assessmentDetail/editDetailsForm';
 import { useAssessment } from '../hooks/useAssessments';
 import { IAssessment } from '../models';

@@ -19,11 +19,17 @@ export const postAssessment = (newAssessment: INewAssessment) =>
   postFetch(BASE_URL, newAssessment);
 
 export const putAssessment = (assessment: IAssessment) => {
-  if (!assessment.id && !assessment._id) {
+  if (!assessment.id && !assessment._id) {
     throw Error('No assessment id bro');
   }
-  return patchFetch(`${BASE_URL}/${assessment.id || assessment._id}`, assessment);
+  return patchFetch(
+    `${BASE_URL}/${assessment.id || assessment._id}`,
+    assessment
+  );
 };
+
+export const deleteAssessment = (assessmentId: string) =>
+  deleteFetch(`${BASE_URL}/${assessmentId}`);
 
 export const postAssessmentQuestion = (
   assessmentId: string,
@@ -40,6 +46,3 @@ export const deleteAssessmentQuestion = (
   assessmentId: string,
   questionId: string
 ) => deleteFetch(`${BASE_URL}/${assessmentId}/question/${questionId}`);
-
-export const deleteAssessment = (assessmentId: string) =>
-  deleteFetch(`${BASE_URL}/${assessmentId}`);

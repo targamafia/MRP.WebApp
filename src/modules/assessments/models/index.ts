@@ -13,6 +13,7 @@ export enum QuestionTypes {
 
 export interface IQuestion {
   discriminator: 'question';
+  _id: string;
   title: string;
   imageUrl?: string;
   type: QuestionTypes;

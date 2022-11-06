@@ -1,13 +1,15 @@
-import { IServiceResponse } from "@/modules/assessments/models";
-import axios from "axios";
+import { IServiceResponse } from '@/modules/assessments/models';
+import axios from 'axios';
 
-const baseUrl = import.meta.env.DEV ? "/api" : 'https://dev-mrp-services.herokuapp.com/api';
+const baseUrl = import.meta.env.DEV
+  ? '/api'
+  : `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 const getHeaders = () => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem('jwt');
   return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${jwt || ""}`,
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${jwt || ''}`,
   };
 };
 

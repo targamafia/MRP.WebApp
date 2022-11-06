@@ -8,7 +8,7 @@ export const Title = (props: {
   cta?: ReactElement;
 }): ReactElement => {
   return (
-    <div className="flex flex-col md:flex-row mb-8 md:items-center grow gap-2">
+    <div className="flex flex-row mb-8 md:items-center grow gap-2">
       {props.back && (
         <NavLink to="../">
           <ArrowBackIos />
