@@ -9,9 +9,10 @@ export const MultiSelect = (props: {
   register: Function;
   name: string;
   setValue: Function;
+  defaultValue: string[]
 }) => {
   const itemInput = useRef<HTMLTextAreaElement>(null);
-  const [values, setValues] = useState<string[]>([]);
+  const [values, setValues] = useState<string[]>(props.defaultValue || []);
   const titleCase = props.name[0].toLocaleUpperCase() + props.name.slice(1);
 
   const addItem = () => {

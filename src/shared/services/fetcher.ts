@@ -48,7 +48,7 @@ export const patchFetch = async (
   body: object = {}
 ): Promise<any> => {
   try {
-    const axiosRes = await axios.patch(baseUrl + endpoint, body, {
+    const axiosRes = await axios.put(baseUrl + endpoint, body, {
       headers: getHeaders(),
     });
     const res = axiosRes.data as IServiceResponse;

@@ -7,6 +7,7 @@ import { useUser } from '../../hooks/useUserHooks';
 export const UserDetail = () => {
   const { id } = useParams();
   if (!id) return <ErrorMessage message="Missing assessment id" />;
+
   const { user, loading, error } = useUser(id);
   const navigate = useNavigate();
 

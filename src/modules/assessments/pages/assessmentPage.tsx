@@ -1,15 +1,16 @@
-import { ErrorMessage } from "@/shared/components/errorMessage";
-import { LoadingSpinner } from "@/shared/components/loadingSpinner";
-import { MainContainer } from "@/shared/layout/mainContainer";
-import EditOutlined from "@mui/icons-material/EditOutlined";
-import { NavLink, Outlet, useParams } from "react-router-dom";
-import { useAssessment } from "../hooks/useAssessments";
-import { Title } from "@/shared/components/title";
-import { Row } from "@/shared/layout/row";
+import { ErrorMessage } from '@/shared/components/errorMessage';
+import { LoadingSpinner } from '@/shared/components/loadingSpinner';
+import { MainContainer } from '@/shared/layout/mainContainer';
+import EditOutlined from '@mui/icons-material/EditOutlined';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { useAssessment } from '../hooks/useAssessments';
+import { Title } from '@/shared/components/title';
+import { Row } from '@/shared/layout/row';
 
 export const AssessmentPage = () => {
   const { id } = useParams();
   if (!id) return <ErrorMessage message="Missing assessment Id" />;
+
   const { assessment, error, loading } = useAssessment(id);
 
   return (
@@ -35,8 +36,8 @@ export const AssessmentPage = () => {
                 to="./details"
                 className={({ isActive }) =>
                   (isActive
-                    ? "bg-blue text-white rounded-md hover:text-white"
-                    : "text-main hover:text-main") + " px-4 py-2"
+                    ? 'bg-blue text-white rounded-md hover:text-white'
+                    : 'text-main hover:text-main') + ' px-4 py-2'
                 }
               >
                 Detalles
@@ -45,8 +46,8 @@ export const AssessmentPage = () => {
                 to="./questions"
                 className={({ isActive }) =>
                   (isActive
-                    ? "bg-blue text-white rounded-md hover:text-white"
-                    : "text-main hover:text-main") + " px-4 py-2"
+                    ? 'bg-blue text-white rounded-md hover:text-white'
+                    : 'text-main hover:text-main') + ' px-4 py-2'
                 }
               >
                 Preguntas
@@ -55,8 +56,8 @@ export const AssessmentPage = () => {
                 to="./ratings"
                 className={({ isActive }) =>
                   (isActive
-                    ? "bg-blue text-white rounded-md hover:text-white"
-                    : "text-main hover:text-main") + " px-4 py-2"
+                    ? 'bg-blue text-white rounded-md hover:text-white'
+                    : 'text-main hover:text-main') + ' px-4 py-2'
                 }
               >
                 Reseñas
