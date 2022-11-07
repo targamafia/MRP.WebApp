@@ -43,7 +43,7 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
     mutate: deleteMutate,
     error: deleteError,
     isLoading: deleteLoading,
-  } = useDeleteAssessment();
+  } = useDeleteAssessment(() => navigate('../../'));
 
   const deleteAssessment = () => {
     if (
@@ -60,7 +60,6 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
       type: 'info',
       content: `${props.assessment.title} se borró correctamente`,
     });
-    setTimeout(() => navigate('../../'), 1000);
   };
 
   const formSubmit = (assessmentData: FieldValues) => {

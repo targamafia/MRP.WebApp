@@ -194,11 +194,12 @@ export const useDeleteAssessmentQuestion = (
   });
 };
 
-export const useDeleteAssessment = () => {
+export const useDeleteAssessment = (onSuccess: Function) => {
   const queryClient = useQueryClient();
   return useMutation(deleteAssessment, {
     onSuccess: (assessment: IAssessment) => {
       queryClient.invalidateQueries(['assessments', { id: assessment._id }]);
+      onSuccess()
     },
   });
 };
