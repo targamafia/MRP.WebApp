@@ -21,7 +21,7 @@ function QuestionCard(props: {
     ¿Quieres continuar?`)
     )
       return;
-    mutate();
+    mutate(props.question);
   };
 
   return (

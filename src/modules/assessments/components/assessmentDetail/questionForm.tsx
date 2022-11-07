@@ -73,9 +73,9 @@ export const QuestionForm = () => {
               <option value="MULTIPLE_CHOICE">Opción Múltiple</option>
               <option value="BOOLEAN">Sí o No</option>
             </select>
-            <input type="hidden" {...register('options[]')} required={true} />
+            <input type="hidden" {...register('options')} required={true} />
             {questionType === 'MULTIPLE_CHOICE' ? (
-              <MultipleChoiceForm setValue={setValue} />
+              <MultipleChoiceForm setValue={setValue} name="options" />
             ) : (
               <></>
             )}
