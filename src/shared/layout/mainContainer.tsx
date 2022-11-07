@@ -18,7 +18,7 @@ export const MainContainer = (props: {
         >
           <div
             className="absolute left-0 top-0 h-32 w-full bg-cover
-            opacity-50 bg-no-repeat bg-center blur-sm"
+            opacity-50 bg-no-repeat bg-center blur-md scale-150"
             style={{ backgroundImage: `url('${props.bgImg}')` }}
           />
         </div>

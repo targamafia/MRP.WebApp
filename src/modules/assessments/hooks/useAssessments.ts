@@ -96,8 +96,7 @@ export const useAssessmentQuestion = (args: {
   );
 
   return {
-    assessments: data?.list as IAssessment[],
-    pageSize: data?.pageSize as number,
+    question: data as IQuestion,
     error,
     loading: isLoading,
   };
@@ -156,11 +155,15 @@ export const useUpdateAssessmentQuestion = (args: {
     (question: IQuestion) =>
       putAssessmentQuestion(assessmentId, questionId, question),
     {
-      onSuccess: (assessment: IAssessment) => {
-        queryClient.setQueryData(
-          ['assessments', { id: assessment.id }],
-          assessment
-        );
+      onSuccess: (assessment: IAssessment, question: IQuestion) => {
+        console.log(question);
+
+        queryClient.invalidateQueries([
+          'assessments',
+          { id: assessment.id },
+          'questions',
+          { id: question._id },
+        ]);
 
         onSuccess();
       },
@@ -174,22 +177,23 @@ export const useUpdateAssessmentQuestion = (args: {
 export const useDeleteAssessmentQuestion = (
   assessmentId: string,
   questionId: string,
-  onSuccess: Function,
-  onError: Function
+  onSuccess?: Function,
+  onError?: Function
 ) => {
   const queryClient = useQueryClient();
   return useMutation(() => deleteAssessmentQuestion(assessmentId, questionId), {
-    onSuccess: (assessment: IAssessment) => {
+    onSuccess: (assessment: IAssessment, question: any) => {
       queryClient.invalidateQueries([
         'assessments',
         { assessmentId: assessment.id },
         'questions',
+        { id: question._id },
       ]);
 
-      onSuccess();
+      if (onSuccess) onSuccess();
     },
     onError: (error) => {
-      onError(error);
+      if (onError) onError(error);
     },
   });
 };
@@ -199,7 +203,7 @@ export const useDeleteAssessment = (onSuccess: Function) => {
   return useMutation(deleteAssessment, {
     onSuccess: (assessment: IAssessment) => {
       queryClient.invalidateQueries(['assessments', { id: assessment._id }]);
-      onSuccess()
+      onSuccess();
     },
   });
 };

@@ -1,12 +1,12 @@
-import { Input } from "@/shared/components/input";
-import { LoadingSpinner } from "@/shared/components/loadingSpinner";
-import { Message } from "@/shared/components/message";
-import { MultiSelect } from "@/shared/components/multiSelect";
-import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useCreateAssessment } from "../../hooks/useAssessments";
-import { IAssessment, INewAssessment } from "../../models";
+import { Input } from '@/shared/components/input';
+import { LoadingSpinner } from '@/shared/components/loadingSpinner';
+import { Message } from '@/shared/components/message';
+import { MultiSelect } from '@/shared/components/multiSelect';
+import { useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useCreateAssessment } from '../../hooks/useAssessments';
+import { IAssessment, INewAssessment } from '../../models';
 
 export const AssessmentForm = () => {
   const { register, handleSubmit, setValue, formState } = useForm();
@@ -16,14 +16,14 @@ export const AssessmentForm = () => {
 
   const onSuccess = (data: IAssessment) => {
     setMessage({
-      type: "info",
+      type: 'info',
       content: `"${data.title}" se creó exitosamente`,
     });
     setCreated(true);
-    setTimeout(() => navigate("../"), 2000);
+    setTimeout(() => navigate('../'), 2000);
   };
   const onError = (error: any) => {
-    setMessage({ type: "error", content: error });
+    setMessage({ type: 'error', content: error });
   };
 
   const { mutate, error, isLoading } = useCreateAssessment(onSuccess, onError);
@@ -45,7 +45,7 @@ export const AssessmentForm = () => {
         <Message
           type={message.type}
           message={message.content}
-          title={message.type == "error" ? "Error" : "Éxito"}
+          title={message.type == 'error' ? 'Error' : 'Éxito'}
         />
       )}
       {!created && (
@@ -62,13 +62,15 @@ export const AssessmentForm = () => {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <input
-          type="submit"
-          value="Crear"
-          disabled={!formState.isValid && !created}
-          className="px-8 py-2 bg-blue rounded-md text-white
+        !created && (
+          <input
+            type="submit"
+            value="Crear"
+            disabled={!formState.isValid && !created}
+            className="px-8 py-2 bg-blue rounded-md text-white
           cursor-pointer hover:bg-primary-40 mx-auto"
-        />
+          />
+        )
       )}
     </form>
   );

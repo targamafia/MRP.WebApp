@@ -17,9 +17,7 @@ import { IAssessment } from '../../models';
 function EditDetailsForm(props: { assessment: IAssessment }) {
   const { register, handleSubmit, setValue, formState, getValues } = useForm({
     defaultValues: {
-      title: props.assessment.title,
-      description: props.assessment.description,
-      categories: props.assessment.categories,
+      ...props.assessment,
     },
   });
   const [message, setMessage] = useState<{ type: string; content: string }>();
@@ -95,6 +93,11 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
           </NavLink>
           <Input type="text" register={register} name="title" required={true} />
           <Input type="textarea" register={register} name="description" />
+          <Input type="text" register={register} name="thumbnailUrl" label="URL de la foto" />
+          <Row className='gap-16 mx-auto'>
+            <Input type="checkbox" register={register} name="isPrivate" label="Examen Privado" />
+            <Input type="checkbox" register={register} name="isPremium" label="Examen Premium" />
+          </Row>
           <MultiSelect
             register={register}
             name="categories"

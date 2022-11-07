@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { Card } from "@/shared/components/card";
+import { NavLink } from 'react-router-dom';
+import { Card } from '@/shared/components/card';
 
 export const NotFound = () => {
   return (

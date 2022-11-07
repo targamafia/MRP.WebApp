@@ -1,23 +1,23 @@
-import { FormEvent, FormEventHandler, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Card } from "@/shared/components/card";
-import { Row } from "@/shared/layout/row";
-import { useAuth } from "@/shared/providers/userProvider";
+import { FormEvent, FormEventHandler, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Card } from '@/shared/components/card';
+import { Row } from '@/shared/layout/row';
+import { useAuth } from '@/shared/providers/userProvider';
 
 export const SignupCard = () => {
   const { signup } = useAuth();
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [companyCode, setCompanyCode] = useState("");
-  const [error, setError] = useState("");
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [companyCode, setCompanyCode] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const inputHandler = (mutator: Function) => {
     return (ev: FormEvent | any) => {
-      mutator(ev.target.value! || "");
+      mutator(ev.target.value! || '');
     };
   };
 
@@ -118,7 +118,9 @@ export const SignupCard = () => {
         <div className="text-center">
           <p>Ya tienes una cuenta?</p>
           <Row spacing={8} justify="center">
-            <NavLink to={import.meta.env.BASE_URL + "login"}>Inicia sesión</NavLink>
+            <NavLink to={import.meta.env.BASE_URL + 'login'}>
+              Inicia sesión
+            </NavLink>
           </Row>
         </div>
       </Card>

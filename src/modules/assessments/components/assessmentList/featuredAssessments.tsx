@@ -1,10 +1,10 @@
-import { ErrorMessage } from "@/shared/components/errorMessage";
-import { LoadingSpinner } from "@/shared/components/loadingSpinner";
-import { Row } from "@/shared/layout/row";
-import ArrowForwardIos from "@mui/icons-material/ArrowForwardIos";
-import { NavLink } from "react-router-dom";
-import { useFeaturedAssessments } from "../../hooks/useAssessments";
-import { AssessmentSmallCard } from "./assessmentSmallCard";
+import { ErrorMessage } from '@/shared/components/errorMessage';
+import { LoadingSpinner } from '@/shared/components/loadingSpinner';
+import { Row } from '@/shared/layout/row';
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
+import { NavLink } from 'react-router-dom';
+import { useFeaturedAssessments } from '../../hooks/useAssessments';
+import { AssessmentSmallCard } from './assessmentSmallCard';
 
 export const FeaturedAssessments = () => {
   const { assessments, loading, error } = useFeaturedAssessments();
@@ -20,10 +20,10 @@ export const FeaturedAssessments = () => {
             <AssessmentSmallCard {...assessment} key={assessment.id} />
           ))}
           <NavLink
-            to={import.meta.env.BASE_URL + "assessments"}
+            to={import.meta.env.BASE_URL + 'assessments'}
             className="rounded-md flex flex-col relative
             text-center bg-blue text-white justify-center
-            hover:shadow-glow"
+            hover:shadow-glow py-4"
           >
             <Row spacing={2} justify="center">
               <h2 className="mb-0">Ver más</h2>

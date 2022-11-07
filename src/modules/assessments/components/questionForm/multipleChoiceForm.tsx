@@ -43,8 +43,15 @@ const reducer = (state: IOption[], action: MultipleChoiceReducerAction) => {
   }
 };
 
-export const MultipleChoiceForm = (props: { setValue: Function }) => {
-  const [state, dispatch] = useReducer(reducer, [] as IOption[]);
+export const MultipleChoiceForm = (props: {
+  setValue: Function;
+  name: string;
+  defaultValue?: IOption[];
+}) => {
+  const [state, dispatch] = useReducer(
+    reducer,
+    props.defaultValue || ([] as IOption[])
+  );
 
   const updateValue =
     (i: number, property: 'isCorrect' | 'value') =>
@@ -60,7 +67,7 @@ export const MultipleChoiceForm = (props: { setValue: Function }) => {
     };
 
   useEffect(() => {
-    props.setValue('options[]', state);
+    props.setValue(props.name, state);
   }, [state]);
 
   return (

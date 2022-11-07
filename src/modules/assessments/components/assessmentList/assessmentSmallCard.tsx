@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { IAssessment } from "../../models";
+import { NavLink } from 'react-router-dom';
+import { IAssessment } from '../../models';
 
 export const AssessmentSmallCard = (props: IAssessment & { key?: any }) => {
   return (

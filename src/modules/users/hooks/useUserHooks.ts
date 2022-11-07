@@ -34,7 +34,7 @@ export const useUsers = (page: number = 1, pageSize: number = 50) => {
         email: 'juan.pancho@gmail.com',
         id: '1',
         roles: ['superadmin'],
-        companyCode: "mrp-services"
+        companyCode: 'mrp-services',
       },
       {
         name: 'pedro',
@@ -42,7 +42,7 @@ export const useUsers = (page: number = 1, pageSize: number = 50) => {
         email: 'pedro.de.la.mar@gmail.com',
         id: '2',
         roles: ['user'],
-        companyCode: "4taquitos"
+        companyCode: '4taquitos',
       },
     ] as IUser[],
     error: undefined as Error | undefined,

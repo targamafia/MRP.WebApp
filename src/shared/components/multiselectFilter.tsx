@@ -1,5 +1,5 @@
-import Checkbox from "@mui/material/Checkbox";
-import { Row } from "../layout/row";
+import Checkbox from '@mui/material/Checkbox';
+import { Row } from '../layout/row';
 
 export const MultiselectFilter = (props: {
   allOptions: any[];

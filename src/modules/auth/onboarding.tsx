@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom";
-import { Card } from "@/shared/components/card";
-import { Row } from "@/shared/layout/row";
+import { NavLink } from 'react-router-dom';
+import { Card } from '@/shared/components/card';
+import { Row } from '@/shared/layout/row';
 
 export const Onboarding = () => {
   return (
@@ -15,8 +15,12 @@ export const Onboarding = () => {
             </p>
           </div>
           <Row spacing={8} justify="center">
-            <NavLink to={import.meta.env.BASE_URL + "login"}>Iniciar Sesión</NavLink>
-            <NavLink to={import.meta.env.BASE_URL + "signup"}>Crear una Cuenta</NavLink>
+            <NavLink to={import.meta.env.BASE_URL + 'login'}>
+              Iniciar Sesión
+            </NavLink>
+            <NavLink to={import.meta.env.BASE_URL + 'signup'}>
+              Crear una Cuenta
+            </NavLink>
           </Row>
         </div>
       </Card>

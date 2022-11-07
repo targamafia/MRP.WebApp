@@ -1,5 +1,5 @@
 import { MultiselectFilter } from '@/shared/components/multiselectFilter';
-import { SearchOutlined } from '@mui/icons-material';
+import SearchOutlined from '@mui/icons-material/SearchOutlined';
 import { useMemo, useState } from 'react';
 import { IUser } from '../../models';
 

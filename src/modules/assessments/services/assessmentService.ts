@@ -34,7 +34,7 @@ export const deleteAssessment = (assessmentId: string) =>
 export const getAssessmentQuestion = (
   assessmentId: string,
   questionId: string
-) => getFetch(`${BASE_URL}/${assessmentId}/question/${questionId}`);
+) => getFetch(`/v1/question/${assessmentId}/question/${questionId}`);
 
 export const postAssessmentQuestion = (
   assessmentId: string,
