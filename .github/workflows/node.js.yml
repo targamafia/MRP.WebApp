@@ -28,7 +28,6 @@ jobs:
       - run: yarn install
       - run: echo 'VITE_BACKEND_URL="${{secrets.BACKEND_URL}}" > .env
       - run: echo 'VITE_COMPANY_NAME="${{secrets.COMPANY_NAME}}"' >> .env
-      - run: cat ".env"
       - run: yarn build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
