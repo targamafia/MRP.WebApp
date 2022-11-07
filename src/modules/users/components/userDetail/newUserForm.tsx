@@ -28,8 +28,8 @@ export const NewUserForm = () => {
       <input
         type="submit"
         value="Crear"
-        className='px-8 py-2 bg-blue rounded-md text-white
-          cursor-pointer hover:bg-primary-40 mx-auto'
+        className="px-8 py-2 bg-blue rounded-md text-white
+          cursor-pointer hover:bg-primary-40 mx-auto"
       />
     </form>
   );

@@ -10,7 +10,7 @@ export const MultiSelect = (props: {
   register: Function;
   name: string;
   setValue: Function;
-  defaultValue?: string[]
+  defaultValue?: string[];
 }) => {
   const itemInput = useRef<HTMLTextAreaElement>(null);
   const [values, setValues] = useState<string[]>(props.defaultValue || []);

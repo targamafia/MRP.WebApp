@@ -1,5 +1,5 @@
-import { IAssessment } from "../../models";
-import { AssessmentCard } from "./assessmentCard";
+import { IAssessment } from '../../models';
+import { AssessmentCard } from './assessmentCard';
 
 export const AssessmentList = (props: { assessments: IAssessment[] }) => {
   return (

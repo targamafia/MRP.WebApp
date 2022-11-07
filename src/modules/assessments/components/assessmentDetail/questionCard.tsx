@@ -1,23 +1,41 @@
 import { Row } from '@/shared/layout/row';
+import DeleteOutline from '@mui/icons-material/DeleteOutline';
 import EditOutlined from '@mui/icons-material/EditOutlined';
+import IconButton from '@mui/material/IconButton';
 import { NavLink } from 'react-router-dom';
+import { useDeleteAssessmentQuestion } from '../../hooks/useAssessments';
 import { IQuestion } from '../../models';
 
-function QuestionCard(props: { question: IQuestion }): JSX.Element {
+function QuestionCard(props: {
+  question: IQuestion;
+  assessmentId: string;
+}): JSX.Element {
+  const { mutate, error, isLoading } = useDeleteAssessmentQuestion(
+    props.assessmentId,
+    props.question._id
+  );
+
+  const deleteQuestion = () => {
+    if (
+      !confirm(`Estás a punto de borrar la pregunta ${props.question.title}, esto no se puede deshacer.
+    ¿Quieres continuar?`)
+    )
+      return;
+    mutate(props.question);
+  };
+
   return (
     <div
-      className={[
-        props.question.correctOption ? 'bg-surface-5' : 'bg-surface-2',
-        'rounded-md p-4',
-      ].join(' ')}
+      className='rounded-md p-4 bg-surface-3'
     >
       <Row spacing={2} className="mb-4">
-        <NavLink to={props.question._id} className="inline-block">
+        <h3 className="mb-0 text-2xl font-bold grow">{props.question.title}</h3>
+        <NavLink to={props.question._id} className="p-2">
           <EditOutlined />
         </NavLink>
-        <h3 className="mb-0 text-2xl font-bold inline-block leading-6">
-          {props.question.title}
-        </h3>
+        <IconButton onClick={deleteQuestion}>
+          <DeleteOutline />
+        </IconButton>
       </Row>
       {props.question.options.map((option, i) => (
         <div

@@ -9,7 +9,7 @@ const ModifyAssessmentPage = () => {
   const { id } = useParams();
   if (!id) return <ErrorMessage message="No ID Found in route" />;
   const { assessment, error, loading } = useAssessment(id);
-  
+
   return loading ? (
     <LoadingSpinner />
   ) : error ? (

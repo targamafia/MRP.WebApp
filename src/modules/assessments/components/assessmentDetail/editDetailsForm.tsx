@@ -2,18 +2,22 @@ import { Input } from '@/shared/components/input';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Message } from '@/shared/components/message';
 import { MultiSelect } from '@/shared/components/multiSelect';
+import { Row } from '@/shared/layout/row';
+import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { useUpdateAssessment } from '../../hooks/useAssessments';
+import { NavLink, useNavigate } from 'react-router-dom';
+import {
+  useDeleteAssessment,
+  useUpdateAssessment,
+} from '../../hooks/useAssessments';
 import { IAssessment } from '../../models';
 
 function EditDetailsForm(props: { assessment: IAssessment }) {
   const { register, handleSubmit, setValue, formState, getValues } = useForm({
     defaultValues: {
-      title: props.assessment.title,
-      description: props.assessment.description,
-      categories: props.assessment.categories,
+      ...props.assessment,
     },
   });
   const [message, setMessage] = useState<{ type: string; content: string }>();
@@ -33,6 +37,28 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
   };
 
   const { mutate, error, isLoading } = useUpdateAssessment(onSuccess, onError);
+  const {
+    mutate: deleteMutate,
+    error: deleteError,
+    isLoading: deleteLoading,
+  } = useDeleteAssessment(() => navigate('../../'));
+
+  const deleteAssessment = () => {
+    if (
+      !confirm(
+        `Estás a punto de borrar ${props.assessment.title}, esto no se puede deshacer.
+        ¿Quieres continuar?`
+      )
+    )
+      return;
+
+    deleteMutate(props.assessment._id || props.assessment.id);
+    setCreated(true);
+    setMessage({
+      type: 'info',
+      content: `${props.assessment.title} se borró correctamente`,
+    });
+  };
 
   const formSubmit = (assessmentData: FieldValues) => {
     if (
@@ -50,6 +76,9 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
       {!!error && (
         <Message type="error" title="Error" message={error.toString()} />
       )}
+      {!!deleteError && (
+        <Message type="error" title="Error" message={deleteError.toString()} />
+      )}
       {message !== undefined && (
         <Message
           type={message.type}
@@ -59,8 +88,16 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
       )}
       {!created && (
         <div className="flex flex-col gap-4">
+          <NavLink to="../">
+            <ArrowBackIos />
+          </NavLink>
           <Input type="text" register={register} name="title" required={true} />
           <Input type="textarea" register={register} name="description" />
+          <Input type="text" register={register} name="thumbnailUrl" label="URL de la foto" />
+          <Row className='gap-16 mx-auto'>
+            <Input type="checkbox" register={register} name="isPrivate" label="Examen Privado" />
+            <Input type="checkbox" register={register} name="isPremium" label="Examen Premium" />
+          </Row>
           <MultiSelect
             register={register}
             name="categories"
@@ -69,16 +106,25 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
           />
         </div>
       )}
-      {isLoading ? (
+      {isLoading || deleteLoading ? (
         <LoadingSpinner />
       ) : (
-        <input
-          type="submit"
-          value="Guardar"
-          disabled={!formState.isValid && !created}
-          className="px-8 py-2 bg-blue rounded-md text-white
-          cursor-pointer hover:bg-primary-40 mx-auto"
-        />
+        <Row spacing={4} items="stretch" justify="center">
+          <div
+            className="bg-error-50 rounded-md text-white px-8
+          py-2 hover:bg-error-60 cursor-pointer"
+            onClick={deleteAssessment}
+          >
+            Delete
+          </div>
+          <input
+            type="submit"
+            value="Guardar"
+            disabled={!formState.isValid && !created}
+            className="px-8 py-2 bg-blue rounded-md text-white
+            cursor-pointer hover:bg-primary-40"
+          />
+        </Row>
       )}
     </form>
   );

@@ -1,7 +1,7 @@
-import ArrowForwardIosOutlined from "@mui/icons-material/ArrowForwardIos";
-import { NavLink } from "react-router-dom";
-import { IAssessment } from "../../models";
-import { ChipRow } from "@/shared/components/chipRow";
+import ArrowForwardIosOutlined from '@mui/icons-material/ArrowForwardIos';
+import { NavLink } from 'react-router-dom';
+import { IAssessment } from '../../models';
+import { ChipRow } from '@/shared/components/chipRow';
 
 export const AssessmentCard = (props: IAssessment & { key?: any }) => {
   return (
@@ -19,7 +19,9 @@ export const AssessmentCard = (props: IAssessment & { key?: any }) => {
               src={props.thumbnailUrl}
               className="w-f self-stretch object-cover grow"
             />
-          ): <div/>}
+          ) : (
+            <div />
+          )}
           <div
             className="grow p-4 flex items-start self-start
           flex-col pointer-events-none"

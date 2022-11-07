@@ -28,7 +28,11 @@ export const AssessmentQuestions = () => {
       {assessment !== undefined ? (
         !!assessment.questions && assessment.questions?.length > 0 ? (
           assessment.questions.map((question, i) => (
-            <QuestionCard key={i} question={question} />
+            <QuestionCard
+              key={i}
+              question={question}
+              assessmentId={assessment._id || assessment.id}
+            />
           ))
         ) : (
           <Message

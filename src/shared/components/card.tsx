@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 /*
 p-1 p-2 p-3 p-4 p-5 p-6 p-7 p-8 p-9 p-10
@@ -15,10 +15,10 @@ export const Card = (props: {
   color?: string;
 }) => {
   const classes = [
-    "p-" + (props.padding || 8),
-    "bg-" + (props.bg || "white"),
-    "rounded-" + (props.rounded || "sm"),
-    "text-" + (props.color || "main")
-  ].join(" ");
+    'p-' + (props.padding || 8),
+    'bg-' + (props.bg || 'white'),
+    'rounded-' + (props.rounded || 'sm'),
+    'text-' + (props.color || 'main'),
+  ].join(' ');
   return <div className={classes}>{props.children}</div>;
 };

@@ -50,7 +50,7 @@
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
-    font-family: "DM Sans", "Roboto", Helvetica, Arial, sans-serif;
+    font-family: 'DM Sans', 'Roboto', Helvetica, Arial, sans-serif;
   }
 
   h1,
@@ -78,7 +78,7 @@
   input,
   textarea,
   select {
-    @apply bg-surface-2 shadow-inner px-4 py-2 text-lg rounded-lg;
+    @apply bg-surface-2 shadow-inner px-4 py-2 text-lg rounded-lg outline outline-surface-5;
   }
 }
 

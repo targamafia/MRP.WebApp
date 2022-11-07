@@ -7,9 +7,8 @@ import { Title } from '@/shared/components/title';
 import { AssessmentQuestions } from './components/assessmentDetail/assessmentQuestions';
 import { QuestionForm } from './components/assessmentDetail/questionForm';
 import { NotFound } from '../navigation/404';
-import { getAssessmentById } from './services/assessmentService';
 import ModifyAssessmentPage from './pages/modifyAssessmentPage';
-import { useCreateAssessmentQuestion, useUpdateAssessmentQuestion } from './hooks/useAssessments';
+import ModifyQuestionPage from './pages/modifyQuestionPage';
 
 export default () => {
   return (
@@ -21,8 +20,8 @@ export default () => {
         <Route path="details" element={<AssessmentDetails />} />
         <Route path="questions">
           <Route path="" element={<AssessmentQuestions />} />
-          <Route path="new" element={<QuestionForm questionHook={useCreateAssessmentQuestion} />} />
-          <Route path=":questionId" element={<QuestionForm questionHook={useUpdateAssessmentQuestion} />} />
+          <Route path="new" element={<QuestionForm />} />
+          <Route path=":questionId" element={<ModifyQuestionPage />} />
         </Route>
         <Route path="ratings" element={<Title title="Reseñas" />} />
         <Route path="edit" element={<ModifyAssessmentPage />} />

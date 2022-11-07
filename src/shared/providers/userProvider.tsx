@@ -1,11 +1,11 @@
-import React, { ReactNode, useContext, useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useBack } from "@/shared/hooks/useBack";
-import { UserModel } from "@/shared/models/userModel";
-import { postFetch } from "../services/fetcher";
+import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useBack } from '@/shared/hooks/useBack';
+import { UserModel } from '@/shared/models/userModel';
+import { postFetch } from '../services/fetcher';
 
-const loginRoute = "/v1/users/login",
-  signupRoute = "/v1/users/signup";
+const loginRoute = '/v1/users/login',
+  signupRoute = '/v1/users/signup';
 
 interface IAuthContext {
   user: UserModel | null;
@@ -25,11 +25,11 @@ const AuthContext = React.createContext<IAuthContext>({} as IAuthContext);
 
 export function UserProvider(props: { children: ReactNode }) {
   const [user, setUser] = useState(
-    localStorage.getItem("user") !== undefined
-      ? JSON.parse(localStorage.getItem("user") || "{}")
+    localStorage.getItem('user') !== undefined
+      ? JSON.parse(localStorage.getItem('user') || '{}')
       : ({} as UserModel)
   );
-  const [token, setToken] = useState(localStorage.getItem("jwt"));
+  const [token, setToken] = useState(localStorage.getItem('jwt'));
 
   const { fetchData, error } = useBack();
 
@@ -50,7 +50,7 @@ export function UserProvider(props: { children: ReactNode }) {
     password: string,
     companyCode: string
   ): Promise<any> => {
-    const res = await fetchData(signupRoute, "post", {
+    const res = await fetchData(signupRoute, 'post', {
       name,
       lastName,
       email,
@@ -69,11 +69,11 @@ export function UserProvider(props: { children: ReactNode }) {
 
   useEffect(() => {
     if (token === undefined || token === null) return;
-    localStorage.setItem("jwt", token);
+    localStorage.setItem('jwt', token);
   }, [token]);
   useEffect(() => {
     if (user === undefined || user === null) return;
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
   }, [user]);
 
   return (

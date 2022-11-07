@@ -1,21 +1,21 @@
-import { FormEvent, FormEventHandler, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Card } from "@/shared/components/card";
-import { Row } from "@/shared/layout/row";
-import { useAuth } from "@/shared/providers/userProvider";
+import { FormEvent, FormEventHandler, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Card } from '@/shared/components/card';
+import { Row } from '@/shared/layout/row';
+import { useAuth } from '@/shared/providers/userProvider';
 
 export const LoginCard = () => {
   const { login } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const inputHandler = (name: string) => {
-    const mutator = name == "email" ? setEmail : setPassword;
+    const mutator = name == 'email' ? setEmail : setPassword;
     return (ev: FormEvent | any) => {
-      setError("");
-      mutator(ev.target.value! || "");
+      setError('');
+      mutator(ev.target.value! || '');
     };
   };
 
@@ -34,7 +34,7 @@ export const LoginCard = () => {
             <h1>Iniciar Sesión</h1>
             <p>Te damos la bienvenida, por favor inicia sesión</p>
           </div>
-          {error !== "" && (
+          {error !== '' && (
             <div className="bg-surface-3 p-4 mb-4 rounded-md border border-solid border-error-50 text-error-60">
               {error}
             </div>
@@ -51,7 +51,7 @@ export const LoginCard = () => {
                 <input
                   id="email"
                   type="email"
-                  onInput={inputHandler("email")}
+                  onInput={inputHandler('email')}
                   autoComplete="email"
                 />
               </div>
@@ -60,7 +60,7 @@ export const LoginCard = () => {
                 <input
                   id="password"
                   type="password"
-                  onInput={inputHandler("password")}
+                  onInput={inputHandler('password')}
                   autoComplete="password"
                 />
               </div>
@@ -75,7 +75,9 @@ export const LoginCard = () => {
           <div className="text-center">
             <p>No tienes una cuenta?</p>
             <Row spacing={8} justify="center">
-              <NavLink to={import.meta.env.BASE_URL + "signup"}>Créala ahora</NavLink>
+              <NavLink to={import.meta.env.BASE_URL + 'signup'}>
+                Créala ahora
+              </NavLink>
             </Row>
           </div>
         </div>
