@@ -1,15 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-  deleteFetch,
-  getFetch,
-  patchFetch,
-  postFetch,
-} from '@/shared/services/fetcher';
-import { IAssessment, INewAssessment, IQuestion } from '../models';
+import { IAssessment, IQuestion } from '../models';
 import {
   deleteAssessment,
   deleteAssessmentQuestion,
   getAssessmentById,
+  getAssessmentQuestion,
   getAssessments,
   getFeaturedAssessments,
   postAssessment,
@@ -17,8 +12,6 @@ import {
   putAssessment,
   putAssessmentQuestion,
 } from '../services/assessmentService';
-
-const BASE_URL = '/v1/assessments';
 
 export const useAssessments = (page: number = 1, pageSize: number = 50) => {
   let pagination = {
@@ -43,7 +36,7 @@ export const useAssessment = (assessmentId: string) => {
   if (!assessmentId) return { error: 'Missing assessment Id' };
 
   const { data, error, isLoading } = useQuery(
-    ['assessments', { assessmentId }],
+    ['assessments', { id: assessmentId }],
     () => getAssessmentById(assessmentId)
   );
 
@@ -90,12 +83,32 @@ export const useCreateAssessment = (
   });
 };
 
+export const useAssessmentQuestion = (args: {
+  assessmentId: string;
+  questionId: string;
+}) => {
+  const { assessmentId, questionId } = args;
+
+  const { data, error, isLoading } = useQuery(
+    ['assessments', { id: assessmentId }, 'questions', { id: questionId }],
+    () => getAssessmentQuestion(assessmentId, questionId),
+    { keepPreviousData: true, staleTime: 5000 }
+  );
+
+  return {
+    assessments: data?.list as IAssessment[],
+    pageSize: data?.pageSize as number,
+    error,
+    loading: isLoading,
+  };
+};
+
 export const useUpdateAssessment = (onSuccess: Function, onError: Function) => {
   const queryClient = useQueryClient();
   return useMutation(putAssessment, {
     onSuccess: (assessment: IAssessment) => {
       queryClient.setQueryData(
-        ['assessments', { assessmentId: assessment.id }],
+        ['assessments', { id: assessment.id }],
         assessment
       );
 
@@ -120,10 +133,7 @@ export const useCreateAssessmentQuestion = (args: {
       postAssessmentQuestion(assessmentId, newQuestion),
     {
       onSuccess: (data: IAssessment) => {
-        queryClient.invalidateQueries([
-          'assessments',
-          { assessmentId: data.id },
-        ]);
+        queryClient.invalidateQueries(['assessments', { id: data.id }]);
         if (onSuccess) onSuccess(data);
       },
       onError: (error, vars) => {
@@ -148,7 +158,7 @@ export const useUpdateAssessmentQuestion = (args: {
     {
       onSuccess: (assessment: IAssessment) => {
         queryClient.setQueryData(
-          ['assessments', { assessmentId: assessment.id }],
+          ['assessments', { id: assessment.id }],
           assessment
         );
 
