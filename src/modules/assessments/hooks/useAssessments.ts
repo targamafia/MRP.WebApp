@@ -197,8 +197,8 @@ export const useDeleteAssessmentQuestion = (
 export const useDeleteAssessment = () => {
   const queryClient = useQueryClient();
   return useMutation(deleteAssessment, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['assessments']);
+    onSuccess: (assessment: IAssessment) => {
+      queryClient.invalidateQueries(['assessments', { id: assessment._id }]);
     },
   });
 };
