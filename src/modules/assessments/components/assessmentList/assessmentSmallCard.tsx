@@ -6,7 +6,7 @@ export const AssessmentSmallCard = (props: IAssessment & { key?: any }) => {
     <NavLink
       to={`${import.meta.env.BASE_URL}assessments/${props.id}`}
       className="rounded-md text-white flex flex-col pt-16 relative justify-end
-      overflow-hidden isolate bg-blue max-w-sm"
+      overflow-hidden isolate bg-blue max-w-sm hover:scale-105 transition-transform"
     >
       <img
         src={props.thumbnailUrl}

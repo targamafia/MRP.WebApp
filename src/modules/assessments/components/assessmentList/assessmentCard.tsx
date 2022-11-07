@@ -8,9 +8,9 @@ export const AssessmentCard = (props: IAssessment & { key?: any }) => {
     <NavLink to={`${import.meta.env.BASE_URL}assessments/${props.id}`}>
       <div
         className="rounded-md bg-surface-4 text-main
-      hover:bg-surface-5 transition-colors duration-300
+      hover:bg-surface-5 transition-all duration-300
       overflow-hidden shadow-sm outline outline-solid outline-surface-2
-      hover:outline-white hover:shadow-glow w-full
+      hover:outline-white hover:shadow-glow w-full hover:translate-x-4
       "
       >
         <div className="grid grid-cols-[minmax(2rem,8rem)_1fr_2rem] items-center pr-4">

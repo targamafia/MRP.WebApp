@@ -10,7 +10,7 @@ export const Title = (props: {
   return (
     <div className="flex flex-row mb-8 md:items-center grow gap-2">
       {props.back && (
-        <NavLink to="../">
+        <NavLink to="../" className="transition-transform hover:scale-110">
           <ArrowBackIos />
         </NavLink>
       )}

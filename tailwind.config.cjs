@@ -58,12 +58,21 @@ module.exports = {
       boxShadow: {
         sm: `-1px -1px 4px 1px var(--surface-1), 1px 1px 4px var(--surface-5)`,
         inset: 'inset -1px -1px 4px 1px rgba(255, 255, 255, 0.5), inset 1px 1px 4px #E2E1EC',
-        glow: '0px 0px 16px var(--surface-5), 0px 0px 4px var(--surface-1), 0px 0px 8px var(--surface-3)',
+        glow: '0px 0px 16px var(--surface-5), 0px 0px 4px var(--surface-1), 0px 0px 8px var(--surface-2)',
       },
       fontFamily: {
         title: ['DM Sans', 'sans-serif'],
         sans: ['Roboto', 'sans-serif'],
       },
+      animation: {
+        'slide-left': 'slide-left .2s cubic-bezier(0, 0, 0.2, 1)',
+      },
+      keyframes: {
+        'slide-left': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' }
+        }
+      }
     },
   },
   plugins: [require("tailwindcss"), require("precss"), require("autoprefixer")],
