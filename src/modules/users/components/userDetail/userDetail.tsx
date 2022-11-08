@@ -24,7 +24,7 @@ export const UserDetail = () => {
       />
       <div
         className="max-w-lg fixed right-0 top-0 h-screen bg-surface-5
-      px-8 py-16 z-10 overflow-y-auto"
+      px-8 py-16 z-10 overflow-y-auto animate-slide-left"
       >
         <Title title={user.name + ' ' + user.lastName} back={true} />
         <div className="flex flex-col gap-6 mb-10">

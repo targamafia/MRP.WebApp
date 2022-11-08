@@ -78,7 +78,9 @@
   input,
   textarea,
   select {
-    @apply bg-surface-2 shadow-inner px-4 py-2 text-lg rounded-lg outline outline-surface-5;
+    @apply bg-surface-2 shadow-inner px-4 py-2 text-lg rounded-lg
+    outline outline-surface-5 hover:bg-surface-1 transition-colors
+    focus:bg-surface-1;
   }
 }
 

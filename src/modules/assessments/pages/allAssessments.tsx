@@ -76,8 +76,12 @@ export const AllAssessments = () => {
     >
       <Title
         cta={
-          <NavLink to="new" className="block">
-            <Button variant="contained">Crear nuevo Quiz</Button>
+          <NavLink
+            to="new"
+            className="block bg-blue px-4
+          py-2 rounded-md text-white hover:bg-primary-40"
+          >
+            Crear nuevo Quiz
           </NavLink>
         }
         title="Quizes"

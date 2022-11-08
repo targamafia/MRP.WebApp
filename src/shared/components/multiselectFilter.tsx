@@ -15,7 +15,7 @@ export const MultiselectFilter = (props: {
             onChange={() => {
               props.onChange(option);
             }}
-            color="primary"
+            className="!text-main hover:scale-110 transition-transform"
           />
           <p>{option}</p>
         </Row>

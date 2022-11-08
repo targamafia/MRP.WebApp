@@ -25,7 +25,11 @@ export const Sidebar = (props: {
           </IconButton>
         </div>
       ) : (
-        <div className="fixed bg-surface-5 rounded-r-[50%] left-0 md:bg-transparent md:left-4 top-12 md:top-16 translate-y-1/2">
+        <div
+          className="fixed bg-surface-5 rounded-r-[50%] left-0
+        md:bg-transparent md:left-4 top-12 md:top-16 translate-y-1/2
+        transition-transform hover:scale-110"
+        >
           <IconButton onClick={() => props.setIsOpen(true)}>
             <ArrowForwardIos />
           </IconButton>
