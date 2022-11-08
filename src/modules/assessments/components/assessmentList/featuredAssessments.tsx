@@ -23,7 +23,8 @@ export const FeaturedAssessments = () => {
             to={import.meta.env.BASE_URL + 'assessments'}
             className="rounded-md flex flex-col relative
             text-center bg-blue text-white justify-center
-            hover:shadow-glow py-4"
+            hover:shadow-glow py-4 hover:scale-105 transition-all
+            hover:bg-primary-40"
           >
             <Row spacing={2} justify="center">
               <h2 className="mb-0">Ver más</h2>
