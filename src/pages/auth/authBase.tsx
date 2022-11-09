@@ -1,6 +1,6 @@
 import { useAuth } from '@/shared/providers/userProvider';
 import { useEffect } from 'react';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 export const AuthBase = () => {
   const { token } = useAuth();
