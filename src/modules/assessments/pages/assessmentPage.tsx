@@ -18,7 +18,7 @@ export const AssessmentPage = () => {
   const { assessment, error, loading } = useAssessment(id);
 
   const { mutate: deleteAssessment } = useDeleteAssessment(() =>
-    navigate(`${import.meta.env.BASE_URL}assessments`)
+    navigate('/assessments')
   );
 
   return (

@@ -11,18 +11,18 @@ export const Navbar = () => {
 
   useEffect(() => {
     !token && logout !== undefined && logout();
-    navigate(import.meta.env.BASE_URL);
+    navigate("/");
   }, [token]);
 
   return (
     <div className="px-8 py-2 w-full bg-surface-5 sticky top-0 bg-opacity-70 backdrop-blur-md z-10">
       <Row grow={true} justify="between" spacing={10} items="center">
-        <NavLink to={import.meta.env.BASE_URL} className="text-main">
+        <NavLink to="/" className="text-main">
           <h2 className="mb-0">{import.meta.env.VITE_COMPANY_NAME}</h2>
         </NavLink>
         <nav className="grow flex flex-row gap-8">
           <NavLink
-            to={import.meta.env.BASE_URL + 'assessments'}
+            to='/assessments'
             className={({ isActive }) =>
               isActive ? 'text-orange' : 'text-main'
             }
@@ -30,7 +30,7 @@ export const Navbar = () => {
             Quizes
           </NavLink>
           <NavLink
-            to={import.meta.env.BASE_URL + 'users'}
+            to='/users'
             className={({ isActive }) =>
               isActive ? 'text-orange' : 'text-main'
             }

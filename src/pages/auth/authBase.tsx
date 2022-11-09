@@ -1,13 +1,13 @@
 import { useAuth } from '@/shared/providers/userProvider';
 import { useEffect } from 'react';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 export const AuthBase = () => {
   const { token } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token) navigate(import.meta.env.BASE_URL, { replace: true });
+    if (token) navigate("/", { replace: true });
   }, []);
 
   return (
