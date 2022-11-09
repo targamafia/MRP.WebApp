@@ -6,10 +6,10 @@ const baseUrl = import.meta.env.DEV
   : `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 const getHeaders = () => {
-  const jwt = localStorage.getItem('jwt');
+  const token = localStorage.getItem('jwt');
   return {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${jwt || ''}`,
+    Authorization: `Bearer ${token || ''}`,
   };
 };
 
