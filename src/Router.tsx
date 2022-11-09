@@ -1,5 +1,6 @@
 import { lazy } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { NotFound } from './modules/navigation/404';
 import { MUIThemeProvider } from './shared/providers/muiThemeProvider';
 import QueryProvider from './shared/providers/queryProvider';
 import { UserProvider } from './shared/providers/userProvider';
@@ -9,12 +10,12 @@ const AppRouter = lazy(() => import('@/pages/base/appRouter'));
 
 export function GlobalRouter() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <MUIThemeProvider>
         <UserProvider>
           <QueryProvider>
-            <AppRouter />
             <AuthRouter />
+            <AppRouter />
           </QueryProvider>
         </UserProvider>
       </MUIThemeProvider>

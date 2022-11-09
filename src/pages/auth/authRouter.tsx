@@ -8,12 +8,14 @@ import { AuthBase } from './authBase';
 export default () => {
   return (
     <Routes>
-      <Route path={import.meta.env.BASE_URL} element={<AuthBase />}>
-        <Route index element={<Onboarding />} />
+      <Route path="" element={<></>} />
+      <Route path="auth" element={<AuthBase />}>
+        <Route path="onboarding" element={<Onboarding />} />
         <Route path="login" element={<LoginCard />} />
         <Route path="signup" element={<SignupCard />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="*" element={<NotFound />} />
+      <Route path="*" element={<></>} />
     </Routes>
   );
 };

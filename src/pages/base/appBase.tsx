@@ -1,14 +1,22 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar } from '@/modules/navigation/navbar';
 import { useAuth } from '@/shared/providers/userProvider';
+import { useEffect } from 'react';
 
 export const AppBase = () => {
   const { token } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  if (!token) {
-    return <Navigate to={`${import.meta.env.BASE_URL}login`} replace state={{ from: location }} />;
-  }
+  useEffect(() => {
+    if (!token) {
+      navigate(import.meta.env.BASE_URL+"auth/onboarding", {
+        replace: true,
+        state: { from: location },
+      });
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -16,3 +24,5 @@ export const AppBase = () => {
     </>
   );
 };
+
+export default AppBase;
