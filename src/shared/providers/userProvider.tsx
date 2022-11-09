@@ -1,6 +1,5 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useBack } from '@/shared/hooks/useBack';
 import { UserModel } from '@/shared/models/userModel';
 import { postFetch } from '../services/fetcher';
 import { useLocation, useNavigate } from 'react-router-dom';
