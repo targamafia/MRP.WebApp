@@ -1,20 +1,23 @@
+import { ChipRow } from '@/shared/components/chipRow';
 import { ErrorMessage } from '@/shared/components/errorMessage';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Title } from '@/shared/components/title';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../../hooks/useUserHooks';
+import UserStats from './userStats';
 
 export const UserDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   if (!id) return <ErrorMessage message="Missing assessment id" />;
 
   const { user, loading, error } = useUser(id);
-  const navigate = useNavigate();
+  if (!user) return <ErrorMessage message="No user" />;
 
   return loading ? (
     <LoadingSpinner />
   ) : error ? (
-    <ErrorMessage message={error.message} />
+    <ErrorMessage message={error.toString()} />
   ) : (
     <>
       <div
@@ -38,7 +41,7 @@ export const UserDetail = () => {
           </div>
           <div className="flex flex-col gap-1 grow">
             <h2>Rol</h2>
-            <p>{user.roles}</p>
+            <ChipRow elements={user.roles} />
           </div>
         </div>
         <div className="flex flex-row gap-8">
@@ -50,6 +53,7 @@ export const UserDetail = () => {
           </div>
         </div>
         <h2 className="mt-12 mb-4">Historial</h2>
+        <UserStats />
       </div>
     </>
   );
