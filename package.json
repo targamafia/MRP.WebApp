@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --base=/prueba/",
     "build": "tsc && vite build --base=/MRP.WebApp/",
     "preview": "vite preview"
   },

@@ -23,7 +23,7 @@ export const LoginCard = () => {
     ev.preventDefault();
     const res = await login(email, password);
     if (res.error) return setError(res.error);
-    return navigate(import.meta.env.BASE_URL);
+    return navigate('/');
   };
 
   return (
@@ -75,7 +75,7 @@ export const LoginCard = () => {
           <div className="text-center">
             <p>No tienes una cuenta?</p>
             <Row spacing={8} justify="center">
-              <NavLink to={import.meta.env.BASE_URL + 'signup'}>
+              <NavLink to={'/auth/signup'}>
                 Créala ahora
               </NavLink>
             </Row>

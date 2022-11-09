@@ -15,10 +15,10 @@ export const Onboarding = () => {
             </p>
           </div>
           <Row spacing={8} justify="center">
-            <NavLink to={import.meta.env.BASE_URL + 'auth/login'}>
+            <NavLink to='/auth/login'>
               Iniciar Sesión
             </NavLink>
-            <NavLink to={import.meta.env.BASE_URL + 'auth/signup'}>
+            <NavLink to='/auth/signup'>
               Crear una Cuenta
             </NavLink>
           </Row>

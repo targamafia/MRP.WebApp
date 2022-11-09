@@ -10,7 +10,7 @@ export const AppBase = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate(import.meta.env.BASE_URL+"auth/onboarding", {
+      navigate("/auth/onboarding", {
         replace: true,
         state: { from: location },
       });

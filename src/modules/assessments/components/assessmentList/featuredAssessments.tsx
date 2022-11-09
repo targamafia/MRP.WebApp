@@ -20,7 +20,7 @@ export const FeaturedAssessments = () => {
             <AssessmentSmallCard {...assessment} key={assessment.id} />
           ))}
           <NavLink
-            to={import.meta.env.BASE_URL + 'assessments'}
+            to='/assessments'
             className="rounded-md flex flex-col relative
             text-center bg-blue text-white justify-center
             hover:shadow-glow py-4 hover:scale-105 transition-all

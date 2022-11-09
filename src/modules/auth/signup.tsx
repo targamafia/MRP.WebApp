@@ -26,7 +26,7 @@ export const SignupCard = () => {
     if (password != confirmPassword) return setError("Passwords don't match");
     const res = await signup(name, lastName, email, password, companyCode);
     if (!res.isSuccess) return setError(res.error);
-    return navigate(import.meta.env.BASE_URL);
+    return navigate("/");
   };
 
   return (
@@ -118,7 +118,7 @@ export const SignupCard = () => {
         <div className="text-center">
           <p>Ya tienes una cuenta?</p>
           <Row spacing={8} justify="center">
-            <NavLink to={import.meta.env.BASE_URL + 'auth/login'}>
+            <NavLink to='/auth/login'>
               Inicia sesión
             </NavLink>
           </Row>

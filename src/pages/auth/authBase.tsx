@@ -7,7 +7,7 @@ export const AuthBase = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token) navigate(import.meta.env.BASE_URL, { replace: true });
+    if (token) navigate("/", { replace: true });
   }, []);
 
   return (
