@@ -1,11 +1,23 @@
 import { lazy } from 'react';
-import { useAuth } from '@/shared/providers/userProvider';
+import { BrowserRouter } from 'react-router-dom';
+import { MUIThemeProvider } from './shared/providers/muiThemeProvider';
+import QueryProvider from './shared/providers/queryProvider';
+import { UserProvider } from './shared/providers/userProvider';
 
 const AuthRouter = lazy(() => import('@/pages/auth/authRouter'));
 const AppRouter = lazy(() => import('@/pages/base/appRouter'));
 
 export function GlobalRouter() {
-  const { token } = useAuth();
-
-  return !token ? <AuthRouter /> : <AppRouter />;
+  return (
+    <BrowserRouter>
+      <MUIThemeProvider>
+        <UserProvider>
+          <QueryProvider>
+            <AppRouter />
+            <AuthRouter />
+          </QueryProvider>
+        </UserProvider>
+      </MUIThemeProvider>
+    </BrowserRouter>
+  );
 }

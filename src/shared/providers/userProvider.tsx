@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useBack } from '@/shared/hooks/useBack';
 import { UserModel } from '@/shared/models/userModel';
 import { postFetch } from '../services/fetcher';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const loginRoute = '/v1/users/login',
   signupRoute = '/v1/users/signup';
@@ -32,6 +33,8 @@ export function UserProvider(props: { children: ReactNode }) {
   const [token, setToken] = useState(localStorage.getItem('jwt'));
 
   const { fetchData, error } = useBack();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const login = async (email: string, password: string): Promise<any> => {
     const res = await postFetch(loginRoute, {
@@ -40,6 +43,8 @@ export function UserProvider(props: { children: ReactNode }) {
     });
     setUser(res.user);
     setToken(res.token);
+    const origin = location.state?.from?.pathname || '/';
+    navigate(origin);
     return res;
   };
 
@@ -71,6 +76,7 @@ export function UserProvider(props: { children: ReactNode }) {
     if (token === undefined || token === null) return;
     localStorage.setItem('jwt', token);
   }, [token]);
+
   useEffect(() => {
     if (user === undefined || user === null) return;
     localStorage.setItem('user', JSON.stringify(user));
