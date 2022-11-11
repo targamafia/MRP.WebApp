@@ -66,11 +66,16 @@ module.exports = {
       },
       animation: {
         'slide-left': 'slide-left .2s cubic-bezier(0, 0, 0.2, 1)',
+        'squeeze': 'squeeze 1s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
       keyframes: {
         'slide-left': {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0%)' }
+        },
+        'squeeze': {
+          '0%,100%': { transform: 'scaleY(100%)' },
+          '50%': { transform: 'scaleY(70%)' }
         }
       }
     },

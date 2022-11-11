@@ -11,7 +11,6 @@ export const UserCard = (props: {user: IUser}) => {
       className="bg-surface-4 text-main rounded-lg cursor-pointer
       hover:bg-surface-5 hover:border-surface-1 hover:shadow-sm overflow-hidden"
       onClick={() => navigate(props.user._id || props.user.id || '')}
-      key={props.user._id || props.user.id}
     >
       <td className="px-4 py-2">
         <h3>

@@ -23,7 +23,6 @@ export const getFetch = async (endpoint: string, params = {}): Promise<any> => {
     if (!res.isSuccess) throw res.error;
     return res.entity;
   } catch (err: any) {
-    console.error(err);
     throw err;
   }
 };
@@ -40,7 +39,6 @@ export const postFetch = async (
     if (!res.isSuccess) throw res.error;
     return res.entity;
   } catch (err: any) {
-    console.error(err);
     throw err;
   }
 };
@@ -57,7 +55,6 @@ export const patchFetch = async (
     if (!res.isSuccess) throw res.error;
     return res.entity;
   } catch (err: any) {
-    console.error(err);
     throw err;
   }
 };
@@ -71,7 +68,6 @@ export const deleteFetch = async (endpoint: string): Promise<any> => {
     if (!res.isSuccess) throw res.error;
     return res.entity;
   } catch (err: any) {
-    console.error(err);
     throw err;
   }
 };
