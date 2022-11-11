@@ -18,7 +18,7 @@ export const UserList = (props: { users: IUser[] }) => {
         <tbody>
           {props.users !== undefined &&
             props.users.map((user: IUser) => (
-              <UserCard key={user.id} {...user} />
+              <UserCard user={user} key={user.id} />
             ))}
         </tbody>
       </table>
