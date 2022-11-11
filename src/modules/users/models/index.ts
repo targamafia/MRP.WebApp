@@ -1,3 +1,5 @@
+import { IAssessment } from '@/modules/assessments/models';
+
 export interface IUser {
   id?: string;
   _id?: string;
@@ -15,4 +17,5 @@ export interface IGradeAssessment {
   grade: number;
   correctAnswers: number;
   wrongAnswers: number;
+  assessment: IAssessment;
 }

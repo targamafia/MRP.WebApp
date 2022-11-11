@@ -28,7 +28,7 @@ export const useUsers = (page: number = 1, pageSize: number = 50) => {
 };
 
 export const useUser = (userId: string) => {
-  if (!userId) return { error: 'Missing userId' };
+  if (!userId) throw Error('Missing userId');
 
   const { data, error, isLoading } = useQuery(['users', { userId }], () =>
     getFetch(`${baseUrl}/${userId}`)
@@ -46,9 +46,9 @@ export const useUserStats = (userId: string) => {
     ['users', { id: userId }, 'stats'],
     () => getFetch(`${baseUrl}/${userId}/stats`)
   );
-  
+
   return {
-    stats: data as {takenAssessments: number, premiumAssessments: number},
+    stats: data as { takenAssessments: number; premiumAssessments: number },
     error,
     loading: isLoading,
   };

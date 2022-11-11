@@ -101,6 +101,7 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
           <MultiSelect
             register={register}
             name="categories"
+            label="Categorías"
             setValue={setValue}
             defaultValue={getValues().categories}
           />
@@ -115,7 +116,7 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
           py-2 hover:bg-error-60 cursor-pointer"
             onClick={deleteAssessment}
           >
-            Delete
+            Borrar
           </div>
           <input
             type="submit"

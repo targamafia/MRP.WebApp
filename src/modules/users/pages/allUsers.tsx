@@ -1,3 +1,4 @@
+import { ErrorMessage } from '@/shared/components/errorMessage';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Message } from '@/shared/components/message';
 import { Title } from '@/shared/components/title';
@@ -80,7 +81,7 @@ export const AllUsers = () => {
         {loading ? (
           <LoadingSpinner />
         ) : !!error ? (
-          <Message type="error" title="Error" message={error.toString()} />
+          <ErrorMessage message={error.toString()} />
         ) : (
           <UserList users={users} />
         )}

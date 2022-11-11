@@ -156,8 +156,6 @@ export const useUpdateAssessmentQuestion = (args: {
       putAssessmentQuestion(assessmentId, questionId, question),
     {
       onSuccess: (assessment: IAssessment, question: IQuestion) => {
-        console.log(question);
-
         queryClient.invalidateQueries([
           'assessments',
           { id: assessment.id },
