@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import {
   IGradeAssessment,
   IGradeAssessmentDetail,
@@ -45,7 +46,7 @@ export const useUserGradedAssessments = (userId: string) => {
 
   return {
     gradedAssessments: data?.list as IGradeAssessment[],
-    error,
+    error: error as AxiosError,
     loading: isLoading,
   };
 };

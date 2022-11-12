@@ -18,10 +18,10 @@ export const AppBase = () => {
   }, []);
 
   return (
-    <>
+    <div className='h-screen flex flex-col overflow-hidden w-full'>
       <Navbar />
       <Outlet />
-    </>
+    </div>
   );
 };
 

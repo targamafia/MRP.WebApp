@@ -14,60 +14,44 @@ const getHeaders = () => {
 };
 
 export const getFetch = async (endpoint: string, params = {}): Promise<any> => {
-  try {
-    const axiosRes = await axios.get(baseUrl + endpoint, {
-      params,
-      headers: getHeaders(),
-    });
-    const res = axiosRes.data as IServiceResponse;
-    if (!res.isSuccess) throw res.error;
-    return res.entity;
-  } catch (err: any) {
-    throw err;
-  }
+  const axiosRes = await axios.get(baseUrl + endpoint, {
+    params,
+    headers: getHeaders(),
+  });
+  const res = axiosRes.data as IServiceResponse;
+  if (!res.isSuccess) throw res.error;
+  return res.entity;
 };
 
 export const postFetch = async (
   endpoint: string,
   body: object = {}
 ): Promise<any> => {
-  try {
-    const axiosRes = await axios.post(baseUrl + endpoint, body, {
-      headers: getHeaders(),
-    });
-    const res = axiosRes.data as IServiceResponse;
-    if (!res.isSuccess) throw res.error;
-    return res.entity;
-  } catch (err: any) {
-    throw err;
-  }
+  const axiosRes = await axios.post(baseUrl + endpoint, body, {
+    headers: getHeaders(),
+  });
+  const res = axiosRes.data as IServiceResponse;
+  if (!res.isSuccess) throw res.error;
+  return res.entity;
 };
 
 export const patchFetch = async (
   endpoint: string,
   body: object = {}
 ): Promise<any> => {
-  try {
-    const axiosRes = await axios.put(baseUrl + endpoint, body, {
-      headers: getHeaders(),
-    });
-    const res = axiosRes.data as IServiceResponse;
-    if (!res.isSuccess) throw res.error;
-    return res.entity;
-  } catch (err: any) {
-    throw err;
-  }
+  const axiosRes = await axios.put(baseUrl + endpoint, body, {
+    headers: getHeaders(),
+  });
+  const res = axiosRes.data as IServiceResponse;
+  if (!res.isSuccess) throw res.error;
+  return res.entity;
 };
 
 export const deleteFetch = async (endpoint: string): Promise<any> => {
-  try {
-    const axiosRes = await axios.delete(baseUrl + endpoint, {
-      headers: getHeaders(),
-    });
-    const res = axiosRes.data as IServiceResponse;
-    if (!res.isSuccess) throw res.error;
-    return res.entity;
-  } catch (err: any) {
-    throw err;
-  }
+  const axiosRes = await axios.delete(baseUrl + endpoint, {
+    headers: getHeaders(),
+  });
+  const res = axiosRes.data as IServiceResponse;
+  if (!res.isSuccess) throw res.error;
+  return res.entity;
 };

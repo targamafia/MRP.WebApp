@@ -1,12 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { IAssessment, IQuestion } from '../models';
 import {
+  assignUserToAssessment,
   deleteAssessment,
   deleteAssessmentQuestion,
   getAssessmentById,
   getAssessmentQuestion,
   getAssessments,
   getFeaturedAssessments,
+  getUserPremiumAssessments,
   postAssessment,
   postAssessmentQuestion,
   putAssessment,
@@ -204,4 +207,42 @@ export const useDeleteAssessment = (onSuccess: Function) => {
       onSuccess();
     },
   });
+};
+
+export const useAssignAssessmentToUser = (
+  assessmentId: string,
+  onSuccess: Function
+) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (userId: string) => assignUserToAssessment(assessmentId, userId),
+    {
+      onSuccess: (assessment: IAssessment, userId) => {
+        queryClient.invalidateQueries([
+          'assessments',
+          { id: assessment._id },
+          'assignedUsers',
+        ]);
+        queryClient.invalidateQueries([
+          'users',
+          { id: userId },
+          'assignedAssessments',
+        ]);
+        onSuccess();
+      },
+    }
+  );
+};
+
+export const useUserPremiumAssessments = (userId: string) => {
+  const { data, error, isLoading } = useQuery(
+    ['users', { id: userId }, 'premiumAssessments'],
+    () => getUserPremiumAssessments(userId)
+  );
+
+  return {
+    premiumAssessments: data as IAssessment[],
+    error: error as AxiosError | undefined,
+    loading: isLoading,
+  };
 };

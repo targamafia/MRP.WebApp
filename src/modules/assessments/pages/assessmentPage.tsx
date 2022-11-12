@@ -8,6 +8,7 @@ import { Title } from '@/shared/components/title';
 import { Row } from '@/shared/layout/row';
 import { IconButton } from '@mui/material';
 import DeleteOutline from '@mui/icons-material/DeleteOutline';
+import NavigationTab from '@/modules/navigation/navigationTab';
 
 export const AssessmentPage = () => {
   const { id } = useParams();
@@ -22,13 +23,19 @@ export const AssessmentPage = () => {
   );
 
   return (
-    <MainContainer bgImg={assessment?.thumbnailUrl}>
+    <MainContainer>
       {loading ? (
         <LoadingSpinner />
       ) : !error ? (
         assessment !== undefined ? (
           <>
-            <div className="my-2 mb-12">
+            <div className="-mt-7 -mx-7 sticky top-0 py-12 px-7">
+              <div
+                className="absolute -z-10 w-full h-32 top-0 left-0 opacity-20 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url("${assessment?.thumbnailUrl}")`,
+                }}
+              ></div>
               <Title
                 title={assessment.title}
                 back={true}
@@ -66,21 +73,3 @@ export const AssessmentPage = () => {
     </MainContainer>
   );
 };
-function NavigationTab(props: { to: string; label: string }) {
-  return (
-    <NavLink
-      to={props.to}
-      className={({ isActive }) =>
-        [
-          'px-4 py-2 hover:bg-primary-60',
-          'rounded-md hover:scale-105 transition-transform',
-          isActive
-            ? '!bg-blue text-white hover:text-white'
-            : 'text-main hover:text-main',
-        ].join(' ')
-      }
-    >
-      {props.label}
-    </NavLink>
-  );
-}

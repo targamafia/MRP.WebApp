@@ -15,16 +15,16 @@ function UserStats() {
   ) : error ? (
     <ErrorMessage message={error.toString()} />
   ) : (
-    <Row spacing={2} wrap={true}>
-      <div className="p-6 rounded-md">
-        <h3 className="text-xl text-center">{stats.premiumAssessments}</h3>
-        <p>Exámenes comprados</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+      <div className="grow p-2">
+        <h3 className="text-xl">{stats.premiumAssessments}</h3>
+        <p className='text-sm'>Exámenes comprados</p>
       </div>
-      <div className="p-6 rounded-md">
-        <h3 className="text-xl text-center">{stats.takenAssessments}</h3>
-        <p>Exámenes tomados</p>
+      <div className="grow p-2">
+        <h3 className="text-xl">{stats.takenAssessments}</h3>
+        <p className='text-sm'>Exámenes tomados</p>
       </div>
-    </Row>
+    </div>
   );
 }
 

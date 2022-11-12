@@ -13,8 +13,8 @@ const MetricCard = (props: {
     <NavLink
       to={props.to}
       className="p-8 grow bg-surface-4 text-center border
-      border-orange rounded-md hover:scale-105
-      transition-all hover:bg-surface-5"
+      border-amber-400 rounded-md hover:scale-105
+      transition-all hover:bg-surface-5 duration-100"
     >
       {props.loading ? (
         <LoadingSpinner />
