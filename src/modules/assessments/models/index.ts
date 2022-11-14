@@ -2,6 +2,7 @@ export interface IOption {
   discriminator: 'option';
   value: string;
   isCorrectAnswer: boolean;
+  _id: string;
 }
 
 export enum QuestionTypes {

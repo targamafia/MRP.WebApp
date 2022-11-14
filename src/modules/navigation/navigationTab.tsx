@@ -4,6 +4,7 @@ export function NavigationTab(props: { to: string; label: string }) {
   return (
     <NavLink
       to={props.to}
+      replace={true}
       className={({ isActive }) =>
         [
           'px-4 py-2 hover:bg-primary-60 text-main hover:text-white',

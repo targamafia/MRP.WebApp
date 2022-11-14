@@ -8,6 +8,7 @@ import { IQuestion } from '../../models';
 
 function QuestionCard(props: {
   question: IQuestion;
+  answer?: string;
   assessmentId: string;
 }): JSX.Element {
   const { mutate } = useDeleteAssessmentQuestion(
@@ -33,18 +34,22 @@ function QuestionCard(props: {
     <div className="rounded-md p-4 bg-surface-3">
       <Row spacing={2} className="mb-4">
         <h3 className="mb-0 text-2xl font-bold grow">{props.question.title}</h3>
-        <NavLink
-          to={props.question._id}
-          className="p-2 hover:scale-110 hover:text-orange transition-all"
-        >
-          <EditOutlined />
-        </NavLink>
-        <IconButton
-          onClick={deleteQuestion}
-          className="hover:scale-110 hover:!text-error-50 transition-all"
-        >
-          <DeleteOutline color="inherit" />
-        </IconButton>
+        {!props.answer && (
+          <>
+            <NavLink
+              to={props.question._id}
+              className="p-2 hover:scale-110 hover:text-orange transition-all"
+            >
+              <EditOutlined />
+            </NavLink>
+            <IconButton
+              onClick={deleteQuestion}
+              className="hover:scale-110 hover:!text-error-50 transition-all"
+            >
+              <DeleteOutline color="inherit" />
+            </IconButton>
+          </>
+        )}
       </Row>
       <Row spacing={8}>
         {!!props.question.imageUrl && (
@@ -55,7 +60,8 @@ function QuestionCard(props: {
             <div
               className={[
                 'px-4 py-2 flex flex-row gap-2 justify-stretch rounded-md items-center',
-                option.isCorrectAnswer ? 'bg-emerald-200' : '',
+                option._id == props.answer ? 'bg-red-200' : '',
+                option.isCorrectAnswer ? '!bg-emerald-200' : '',
               ].join(' ')}
               key={i}
             >

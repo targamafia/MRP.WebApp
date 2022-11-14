@@ -45,7 +45,7 @@ export const AssessmentQuestions = () => {
           ) : (
             <Message
               type="error"
-              title="Oops, no encontré ese quiz"
+              title="Oops, no encontré ese examen"
               message="Intenta con otro"
             />
           )}

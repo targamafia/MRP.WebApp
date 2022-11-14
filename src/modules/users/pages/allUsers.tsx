@@ -65,14 +65,7 @@ export const AllUsers = () => {
     <>
       <MainContainer>
         <div className="px-8 py-4 bg-surface-5 mb-12 rounded-lg shadow-inner">
-          <Title
-            cta={
-              <NavLink to="new" className="block">
-                <Button variant="contained">Crear nuevo Usuario</Button>
-              </NavLink>
-            }
-            title="Usuarios"
-          />
+          <Title title="Usuarios" />
           <div className="-mt-8" />
           <UserFilters users={baseUsers} state={filters} dispatch={dispatch} />
         </div>

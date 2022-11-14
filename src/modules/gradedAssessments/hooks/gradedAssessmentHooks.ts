@@ -7,6 +7,7 @@ import {
 import {
   getAllGradedAssessments,
   getGradedAssessmentById,
+  getGradedAssessmentsByAssessment,
   getGradedAssessmentsByUser,
 } from '../services/gradedAssessmentsService';
 
@@ -26,9 +27,10 @@ export const useGradedAssessment = (assessmentId: string) => {
 };
 
 export const useGradedAssessments = () => {
-  const { data, error, isLoading } = useQuery(['gradedAssessments'], () =>
-    getAllGradedAssessments(),
-    { keepPreviousData: true },
+  const { data, error, isLoading } = useQuery(
+    ['gradedAssessments'],
+    () => getAllGradedAssessments(),
+    { keepPreviousData: true }
   );
 
   return {
@@ -42,6 +44,19 @@ export const useUserGradedAssessments = (userId: string) => {
   const { data, error, isLoading } = useQuery(
     ['user', { id: userId }, 'gradedAssessments'],
     () => getGradedAssessmentsByUser(userId)
+  );
+
+  return {
+    gradedAssessments: data?.list as IGradeAssessment[],
+    error: error as AxiosError,
+    loading: isLoading,
+  };
+};
+
+export const useAssessmentGrades = (assessmentId: string) => {
+  const { data, error, isLoading } = useQuery(
+    ['user', { id: assessmentId }, 'gradedAssessments'],
+    () => getGradedAssessmentsByAssessment(assessmentId)
   );
 
   return {

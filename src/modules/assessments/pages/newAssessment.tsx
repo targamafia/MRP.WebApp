@@ -11,7 +11,7 @@ export const NewAssessment = () => {
         <NavLink to="../" className="mb-8">
           <ArrowBackIos />
         </NavLink>
-        <h1 className="mb-8 grow">Nuevo Quiz</h1>
+        <h1 className="mb-8 grow">Nuevo Examen</h1>
       </Row>
       <AssessmentForm />
     </MainContainer>

@@ -10,7 +10,7 @@ const NumberOfQuizesTakenMetric = () => {
       loading={loading}
       error={error}
       data={gradedAssessments && gradedAssessments.length}
-      label="Quizes totales tomados"
+      label="Exámenes calificados totales"
     />
   );
 };

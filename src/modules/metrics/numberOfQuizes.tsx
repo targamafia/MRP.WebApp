@@ -9,7 +9,7 @@ const NumberOfQuizesMetric = () => {
       loading={loading}
       error={error}
       data={assessments && assessments.length}
-      label="Quizes totales"
+      label="Exámenes totales"
     />
   );
 };

@@ -66,7 +66,7 @@ export const AssessmentPage = () => {
             <Row spacing={4} className="mb-8" items="center">
               <NavigationTab to="details" label="Detalles" />
               <NavigationTab to="questions" label="Preguntas" />
-              <NavigationTab to="ratings" label="Reseña" />
+              <NavigationTab to="history" label="Historial" />
             </Row>
             <Outlet />
           </MainContainer>

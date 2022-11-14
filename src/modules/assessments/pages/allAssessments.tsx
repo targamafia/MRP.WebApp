@@ -82,10 +82,10 @@ export const AllAssessments = () => {
             className="block bg-blue px-4
           py-2 rounded-md text-white hover:bg-primary-40"
           >
-            Crear nuevo Quiz
+            Crear nuevo Examen
           </NavLink>
         }
-        title="Quizes"
+        title="Exámenes"
       />
       <HandleAsyncData loading={loading} error={error}>
         {() => <AssessmentList assessments={assessments} />}
