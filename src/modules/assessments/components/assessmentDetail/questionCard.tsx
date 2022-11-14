@@ -46,18 +46,25 @@ function QuestionCard(props: {
           <DeleteOutline color="inherit" />
         </IconButton>
       </Row>
-      {props.question.options.map((option, i) => (
-        <div
-          className={[
-            'p-2 flex flex-row gap-4',
-            option.isCorrectAnswer ? 'text-orange' : '',
-          ].join(' ')}
-          key={i}
-        >
-          <h4 className="w-6 text-xl font-bold">{i + 1}</h4>
-          {option.value}
+      <Row spacing={8}>
+        {!!props.question.imageUrl && (
+          <img src={props.question.imageUrl} className="h-48 rounded-md" />
+        )}
+        <div className="flex flex-col grow py-4">
+          {props.question.options.map((option, i) => (
+            <div
+              className={[
+                'px-4 py-2 flex flex-row gap-2 justify-stretch rounded-md items-center',
+                option.isCorrectAnswer ? 'bg-emerald-200' : '',
+              ].join(' ')}
+              key={i}
+            >
+              <h4 className="w-6 text-md font-bold">{i + 1}</h4>
+              {option.value}
+            </div>
+          ))}
         </div>
-      ))}
+      </Row>
     </div>
   );
 }

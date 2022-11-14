@@ -1,11 +1,17 @@
+import { ImageInput } from '@/shared/components/imageInput';
 import { Input } from '@/shared/components/input';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Message } from '@/shared/components/message';
 import { Title } from '@/shared/components/title';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import IconButton from '@mui/material/IconButton';
 import { useEffect, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, useForm, UseFormSetValue } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useUpdateAssessmentQuestion } from '../../hooks/useAssessments';
+import {
+  useAddQuestionImage,
+  useUpdateAssessmentQuestion,
+} from '../../hooks/useAssessments';
 import { IQuestion } from '../../models';
 import { MultipleChoiceForm } from '../questionForm/multipleChoiceForm';
 
@@ -18,35 +24,46 @@ export const EditQuestionForm = (props: {
   const [questionType, setQuestionType] = useState('MULTIPLE_CHOICE');
   const [isCreated, setIsCreated] = useState(false);
 
-  const onSuccess = () => {
+  const onError = (error: any) => {
+    setMessage({ type: 'error', content: error });
+  };
+
+  const onUploadSuccess = () => {
     setMessage({
       type: 'info',
-      content: `La pregunta se agregó correctamente`,
+      content: `La pregunta se actualizó correctamente`,
     });
+
     setIsCreated(true);
     setTimeout(() => navigate('../'), 2000);
   };
-  const onError = (error: any) => {
-    setMessage({ type: 'error', content: error });
+
+  const { mutate: uploadQuestionThumbnail, isLoading: uploadLoading } =
+    useAddQuestionImage(
+      props.assessmentId,
+      props.question._id,
+      onUploadSuccess,
+      onError
+    );
+
+  const onEditSuccess = () => {
+    if (imageBlob !== undefined && (imageBlob[0] as File)?.size > 0)
+      return uploadQuestionThumbnail(imageBlob[0]);
+    onUploadSuccess();
   };
 
   const { mutate, error, isLoading, reset } = useUpdateAssessmentQuestion({
     assessmentId: props.assessmentId,
     questionId: props.question._id,
-    onSuccess: onSuccess,
+    onSuccess: onEditSuccess,
     onError: onError,
   });
 
-  const { register, handleSubmit, setValue, formState, getValues } = useForm({
-    defaultValues: { ...props.question },
+  const { register, handleSubmit, setValue, watch, getValues } = useForm({
+    defaultValues: { ...props.question, imageBlob: undefined },
   });
 
-  useEffect(() => {
-    setValue('title', props.question.title);
-    setValue('imageUrl', props.question.imageUrl);
-    setValue('options', props.question.options);
-    setValue('type', props.question.type);
-  }, [props.question]);
+  const imageBlob = watch('imageBlob');
 
   const validateOptions = (assessmentData: IQuestion) => {
     return (
@@ -58,9 +75,10 @@ export const EditQuestionForm = (props: {
   const formSubmit = (assessmentData: FieldValues) => {
     setMessage(undefined);
     reset();
-    if (validateOptions(assessmentData as IQuestion))
-      return mutate(assessmentData as IQuestion);
-    onError('La pregunta no es válida');
+    if (!validateOptions(assessmentData as IQuestion))
+      return onError('La pregunta no es válida');
+    delete assessmentData.imageBlob;
+    return mutate(assessmentData as IQuestion);
   };
 
   return (
@@ -71,7 +89,21 @@ export const EditQuestionForm = (props: {
       <Title back={true} title="Editar Pregunta" />
       {!isCreated && (
         <div className="flex flex-col gap-4">
-          <Input type="text" register={register} name="title" label="Pregunta" required={true} />
+          <Input
+            type="text"
+            register={register}
+            name="title"
+            label="Pregunta"
+            required={true}
+          />
+          <ImageInput
+            name="imageUrl"
+            register={register}
+            setValue={setValue}
+            blob={imageBlob}
+            label="Imagen"
+            defaultValue={props.question.imageUrl}
+          />
           <div className="flex flex-col gap-1">
             <label htmlFor="type">Tipo:</label>
             <select
@@ -111,14 +143,13 @@ export const EditQuestionForm = (props: {
           title={message.type == 'error' ? 'Error' : 'Éxito'}
         />
       )}
-      {isLoading ? (
+      {isLoading || uploadLoading ? (
         <LoadingSpinner />
       ) : (
         !isCreated && (
           <input
             type="submit"
             value="Actualizar"
-            disabled={!formState.isValid && !isCreated}
             className="px-8 py-2 bg-blue rounded-md text-white
           cursor-pointer hover:bg-primary-40 mx-auto"
           />

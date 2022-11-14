@@ -1,62 +1,47 @@
+import { ImageInput } from '@/shared/components/imageInput';
 import { Input } from '@/shared/components/input';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Message } from '@/shared/components/message';
 import { MultiSelect } from '@/shared/components/multiSelect';
 import { uploadAssessmentThumbnail } from '@/shared/services/fileUpload';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useCreateAssessment } from '../../hooks/useAssessments';
 import { IAssessment, INewAssessment } from '../../models';
 
 export const AssessmentForm = () => {
-  const { register, handleSubmit, setValue, formState, watch } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm();
   const [message, setMessage] = useState<{ type: string; content: string }>();
   const [created, setCreated] = useState(false);
   const navigate = useNavigate();
 
-  const thumbnailBlob = watch('thumbnailBlob');
+  const imageBlob = watch('imageBlob');
+
+  const onError = (error: any) => {
+    setMessage({ type: 'error', content: error });
+  };
 
   const onSuccess = (data: IAssessment) => {
     setMessage({
       type: 'info',
       content: `"${data.title}" se creó exitosamente`,
     });
-    if (!!thumbnailBlob) {
+    if (!!imageBlob) {
       uploadAssessmentThumbnail(
-        thumbnailBlob[0],
+        imageBlob[0],
         `${data._id || data.id || ''}`
       );
     }
     setCreated(true);
     setTimeout(() => navigate('../'), 2000);
   };
-  const onError = (error: any) => {
-    setMessage({ type: 'error', content: error });
-  };
-
-  let [thumbnailBase64, setThumbnailBase64] = useState('');
-
-  useEffect(() => {
-    if (thumbnailBlob === undefined || !(thumbnailBlob[0] as File)?.size)
-      return;
-    var reader = new FileReader();
-    reader.readAsDataURL(thumbnailBlob[0]);
-    reader.onload = () => {
-      let encoded = reader.result!.toString().replace(/^data:(.*,)?/, '');
-      if (encoded.length % 4 > 0) {
-        encoded += '='.repeat(4 - (encoded.length % 4));
-      }
-      const thumbnailBase64 = `data:text/css;base64,${encoded}`;
-      setThumbnailBase64(thumbnailBase64);
-    };
-  }, [thumbnailBlob]);
 
   const { mutate, error, isLoading } = useCreateAssessment(onSuccess, onError);
 
   const formSubmit = (assessmentData: FieldValues) => {
     if (!confirm(`¿Crear ${assessmentData.title}?`)) return;
-    delete assessmentData.thumbnailBlob;
+    delete assessmentData.imageBlob;
     mutate(assessmentData as INewAssessment);
   };
 
@@ -90,13 +75,14 @@ export const AssessmentForm = () => {
             name="description"
             label="Descripción"
           />
-          <Input
-            type="file"
+          <ImageInput
+            name="thumbnailUrl"
             register={register}
-            name="thumbnailBlob"
-            label="Foto de portada"
+            setValue={setValue}
+            blob={imageBlob}
+            label="Imagen"
+            defaultValue=""
           />
-          <img src={thumbnailBase64} alt="" className="max-w-xs mx-auto" />
           <MultiSelect
             register={register}
             name="categories"

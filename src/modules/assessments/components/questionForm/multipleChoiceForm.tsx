@@ -50,7 +50,19 @@ export const MultipleChoiceForm = (props: {
 }) => {
   const [state, dispatch] = useReducer(
     reducer,
-    props.defaultValue || ([] as IOption[])
+    props.defaultValue ||
+      ([
+        {
+          discriminator: 'option',
+          value: '',
+          isCorrectAnswer: false,
+        },
+        {
+          discriminator: 'option',
+          value: '',
+          isCorrectAnswer: false,
+        },
+      ] as IOption[])
   );
 
   const updateValue =

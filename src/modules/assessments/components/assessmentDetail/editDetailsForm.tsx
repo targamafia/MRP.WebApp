@@ -1,3 +1,4 @@
+import { ImageInput } from '@/shared/components/imageInput';
 import { Input } from '@/shared/components/input';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Message } from '@/shared/components/message';
@@ -5,8 +6,7 @@ import { MultiSelect } from '@/shared/components/multiSelect';
 import { Row } from '@/shared/layout/row';
 import { uploadAssessmentThumbnail } from '@/shared/services/fileUpload';
 import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
-import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
@@ -20,14 +20,14 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
     useForm({
       defaultValues: {
         ...props.assessment,
-        thumbnailBlob: undefined,
+        imageBlob: undefined,
       },
     });
   const [message, setMessage] = useState<{ type: string; content: string }>();
   const [created, setCreated] = useState(false);
   const navigate = useNavigate();
 
-  const thumbnailBlob = watch('thumbnailBlob');
+  const imageBlob = watch('imageBlob');
 
   const onSuccess = (data: IAssessment) => {
     setMessage({
@@ -65,37 +65,18 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
     });
   };
 
-  let [thumbnailBase64, setThumbnailBase64] = useState(
-    getValues().thumbnailUrl
-  );
-
-  useEffect(() => {
-    if (thumbnailBlob === undefined || !(thumbnailBlob[0] as File)?.size)
-      return;
-    var reader = new FileReader();
-    reader.readAsDataURL(thumbnailBlob[0]);
-    reader.onload = () => {
-      let encoded = reader.result!.toString().replace(/^data:(.*,)?/, '');
-      if (encoded.length % 4 > 0) {
-        encoded += '='.repeat(4 - (encoded.length % 4));
-      }
-      const thumbnailBase64 = `data:text/css;base64,${encoded}`;
-      setThumbnailBase64(thumbnailBase64);
-    };
-  }, [thumbnailBlob]);
-
   const formSubmit = async (assessmentData: FieldValues) => {
     if (
       !assessmentData.title ||
       !confirm(`¿Modificar ${assessmentData.title}?`)
     )
       return;
-    if (!!assessmentData.thumbnailBlob) {
+    if (!!assessmentData.imageBlob) {
       assessmentData.thumbnailUrl = await uploadAssessmentThumbnail(
-        assessmentData.thumbnailBlob[0],
+        assessmentData.imageBlob[0],
         `${props.assessment._id || props.assessment.id || ''}`
       );
-      delete assessmentData.thumbnailBlob;
+      delete assessmentData.imageBlob;
     }
 
     mutate({ ...props.assessment, ...assessmentData } as IAssessment);
@@ -124,13 +105,14 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
             name="description"
             label="Descripción"
           />
-          <Input
-            type="file"
+          <ImageInput
+            name="thumbnailUrl"
             register={register}
-            name="thumbnailBlob"
-            label="Foto de portada"
+            setValue={setValue}
+            blob={imageBlob}
+            label="Imagen"
+            defaultValue={props.assessment.thumbnailUrl}
           />
-          <img src={thumbnailBase64} alt="" className="max-w-xs mx-auto" />
           <Row className="gap-16 mx-auto">
             <Input
               type="checkbox"

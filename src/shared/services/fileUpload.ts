@@ -1,4 +1,5 @@
 import { IAssessment, IServiceResponse } from '@/modules/assessments/models';
+import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 const baseUrl = import.meta.env.DEV
@@ -21,7 +22,7 @@ export async function uploadFile(
   const formData = new FormData();
   formData.append(key, file);
 
-  const axiosRes = await axios.post(baseUrl + endpoint, formData, {
+  const axiosRes = await axios.put(baseUrl + endpoint, formData, {
     headers: getHeaders(),
   });
   const res = axiosRes.data as IServiceResponse;
@@ -32,15 +33,11 @@ export async function uploadFile(
 export async function uploadAssessmentThumbnail(
   file: File,
   assessmentId: string
-): Promise<string> {
-  return (
-    (
-      await uploadFile(
-        file,
-        'assessmentThumbnail',
-        `/v1/assessments/${assessmentId}/upload-thumbnail`
-      )
-    ).thumbnailUrl || ''
+): Promise<IAssessment> {
+  return uploadFile(
+    file,
+    'assessmentThumbnail',
+    `/v1/assessments/${assessmentId}/upload-thumbnail`
   );
 }
 
@@ -48,14 +45,10 @@ export async function uploadQuestionThumbnail(
   file: File,
   assessmentId: string,
   questionId: string
-): Promise<string> {
-  return (
-    (
-      await uploadFile(
-        file,
-        'questionThumbnail',
-        `/v1/assessments/${assessmentId}/question/${questionId}/upload-image`
-      )
-    ).thumbnailUrl || ''
+): Promise<IAssessment> {
+  return uploadFile(
+    file,
+    'questionImage',
+    `/v1/assessments/${assessmentId}/question/${questionId}/upload-image`
   );
 }

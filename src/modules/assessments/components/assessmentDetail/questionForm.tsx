@@ -1,17 +1,20 @@
 import { ErrorMessage } from '@/shared/components/errorMessage';
+import { ImageInput } from '@/shared/components/imageInput';
 import { Input } from '@/shared/components/input';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Message } from '@/shared/components/message';
 import { Title } from '@/shared/components/title';
+import { uploadQuestionThumbnail } from '@/shared/services/fileUpload';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateAssessmentQuestion } from '../../hooks/useAssessments';
-import { IQuestion } from '../../models';
+import { IAssessment, IQuestion } from '../../models';
 import { MultipleChoiceForm } from '../questionForm/multipleChoiceForm';
 
 export const QuestionForm = () => {
-  const { id: assessmentId, questionId } = useParams();
+  const { register, handleSubmit, setValue, watch } = useForm();
+  const { id: assessmentId } = useParams();
   if (!assessmentId) return <ErrorMessage message="Missing assessment id" />;
 
   const [message, setMessage] = useState<{ type: string; content: string }>();
@@ -19,11 +22,17 @@ export const QuestionForm = () => {
   const [questionType, setQuestionType] = useState('MULTIPLE_CHOICE');
   const [isCreated, setIsCreated] = useState(false);
 
-  const onSuccess = () => {
+  const imageBlob = watch('imageBlob');
+
+  const onSuccess = (assessment: IAssessment) => {
     setMessage({
       type: 'info',
       content: `La pregunta se agregó correctamente`,
     });
+    if (!!imageBlob) {
+      const question = assessment.questions!.pop();
+      uploadQuestionThumbnail(imageBlob[0], assessmentId, question!._id);
+    }
     setIsCreated(true);
     setTimeout(() => navigate('../'), 2000);
   };
@@ -37,8 +46,6 @@ export const QuestionForm = () => {
     onError: onError,
   });
 
-  const { register, handleSubmit, setValue, formState } = useForm();
-
   const validateOptions = (assessmentData: IQuestion) => {
     return (
       assessmentData.options.length >= 2 &&
@@ -49,9 +56,10 @@ export const QuestionForm = () => {
   const formSubmit = (assessmentData: FieldValues) => {
     setMessage(undefined);
     reset();
-    if (validateOptions(assessmentData as IQuestion))
-      return mutate(assessmentData as IQuestion);
-    onError('La pregunta no es válida');
+    if (!validateOptions(assessmentData as IQuestion))
+      return onError('La pregunta no es válida');
+    delete assessmentData.imageBlob;
+    mutate(assessmentData as IQuestion);
   };
 
   return (
@@ -62,7 +70,21 @@ export const QuestionForm = () => {
       <Title back={true} title="Nueva Pregunta" />
       {!isCreated && (
         <div className="flex flex-col gap-4">
-          <Input type="text" register={register} name="title" label="Pregunta" required={true} />
+          <Input
+            type="text"
+            register={register}
+            name="title"
+            label="Pregunta"
+            required={true}
+          />
+          <ImageInput
+            name="imageUrl"
+            register={register}
+            setValue={setValue}
+            blob={imageBlob}
+            label="Imagen"
+            defaultValue=""
+          />
           <div className="flex flex-col gap-1">
             <label htmlFor="type">Tipo:</label>
             <select
@@ -99,7 +121,6 @@ export const QuestionForm = () => {
           <input
             type="submit"
             value="Crear"
-            disabled={!formState.isValid && !isCreated}
             className="px-8 py-2 bg-blue rounded-md text-white
           cursor-pointer hover:bg-primary-40 mx-auto"
           />
