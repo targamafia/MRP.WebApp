@@ -11,7 +11,7 @@ export default () => {
     <Routes>
       <Route path="" element={<AllUsers />}>
         <Route path=":id" element={<UserDetail />}>
-          <Route index element={<Navigate to="history" />} />
+          <Route index element={<Navigate to="history" replace={true} />} />
           <Route path="history" element={<UserHistory />} />
           <Route path="assigned" element={<UserAssignedAssessments />} />
         </Route>

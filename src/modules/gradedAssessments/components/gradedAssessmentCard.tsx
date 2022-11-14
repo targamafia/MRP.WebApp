@@ -10,8 +10,7 @@ export const GradedAssessmentCard = (props: {
   const startDate = new Date(props.gradedAssessment.startDate),
     endDate = new Date(props.gradedAssessment.endDate),
     duration = endDate.valueOf() - startDate.valueOf(),
-    minutos = duration / (60 * 1000),
-    grade = props.gradedAssessment.grade;
+    minutos = duration / (60 * 1000)
 
   return (
     <NavLink
@@ -27,7 +26,7 @@ export const GradedAssessmentCard = (props: {
           </p>
         </div>
         <div className="text-right self-stretch flex justify-center flex-col">
-          <Grade grade={grade} />
+          <Grade grade={props.gradedAssessment.grade} />
           <p className="mb-0">
             {props.gradedAssessment.correctAnswers} /{' '}
             {props.gradedAssessment.correctAnswers +

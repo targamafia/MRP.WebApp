@@ -38,7 +38,7 @@ export const UserDetail = () => {
             className="max-w-lg fixed right-0 top-0 h-screen bg-surface-5
       pb-16 z-10 overflow-y-auto animate-slide-left px-8"
           >
-            <div className="sticky top-0 bg-surface-5 pt-16 px-4 -mx-4 bg-opacity-50 backdrop-blur-sm">
+            <div className="sticky top-0 bg-surface-5 pt-16 px-4 -mx-4 bg-opacity-50 backdrop-blur-sm z-10">
               <Title title={user.name + ' ' + user.lastName} back={true} />
             </div>
             <div className="flex flex-col gap-6 mb-10">
@@ -62,7 +62,12 @@ export const UserDetail = () => {
                 <div
                   className="px-8 py-2 bg-blue rounded-md text-white
           cursor-pointer hover:bg-primary-40 mx-auto"
-                  onClick={resetPassword}
+                  onClick={() =>
+                    confirm(`¿Quiere reiniciar la contraseña de ${user.name} ${user.lastName}?
+                  
+                  Esto mandará un código al correo ${user.email} para reiniciarla dentro de la app`) &&
+                    resetPassword
+                  }
                 >
                   Reiniciar Contraseña
                 </div>
@@ -84,7 +89,9 @@ export const UserDetail = () => {
               <NavigationTab to="history" label="Historial" />
               <NavigationTab to="assigned" label="Asignados" />
             </Row>
-            <Outlet />
+            <div className="isolate">
+              <Outlet />
+            </div>
           </div>
         </>
       )}

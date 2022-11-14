@@ -1,4 +1,7 @@
-import { uploadAssessmentThumbnail, uploadQuestionThumbnail } from '@/shared/services/fileUpload';
+import {
+  uploadAssessmentThumbnail,
+  uploadQuestionThumbnail,
+} from '@/shared/services/fileUpload';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { IAssessment, IQuestion } from '../models';
@@ -175,8 +178,7 @@ export const useAddAssessmentImage = (
 ) => {
   const queryClient = useQueryClient();
   return useMutation(
-    (imageFile: File) =>
-      uploadAssessmentThumbnail(imageFile, assessmentId),
+    (imageFile: File) => uploadAssessmentThumbnail(imageFile, assessmentId),
     {
       onSuccess: (assessment: IAssessment) => {
         queryClient.invalidateQueries(['assessments', assessment.id]);
@@ -274,6 +276,27 @@ export const useAssignAssessmentToUser = (
         ]);
         queryClient.invalidateQueries(['users', userId, 'assignedAssessments']);
         onSuccess();
+      },
+    }
+  );
+};
+
+export const useAssignUserToAssessment = (
+  userId: string,
+  onSuccess?: Function
+) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (assessmentId: string) => assignUserToAssessment(assessmentId, userId),
+    {
+      onSuccess: (assessment: IAssessment, userId) => {
+        queryClient.invalidateQueries([
+          'assessments',
+          assessment._id || assessment.id,
+          'assignedUsers',
+        ]);
+        queryClient.invalidateQueries(['users', userId, 'assignedAssessments']);
+        onSuccess && onSuccess();
       },
     }
   );

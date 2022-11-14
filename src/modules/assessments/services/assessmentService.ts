@@ -56,4 +56,4 @@ export const assignUserToAssessment = (assessmentId: string, userId: string) =>
   postFetch(`${BASE_URL}/${assessmentId}/assign-user/${userId}`);
 
 export const getUserPremiumAssessments = (userId: string) =>
-  getFetch(`${BASE_URL}/${userId}/premium-accessible`);
+  getFetch(`${BASE_URL}/premium-access/${userId}`);

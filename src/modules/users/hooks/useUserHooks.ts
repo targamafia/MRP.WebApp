@@ -6,6 +6,7 @@ import {
   postFetch,
 } from '@/shared/services/fetcher';
 import { IGradeAssessment, IUser } from '../models';
+import { getGradedAssessmentsByUser } from '@/modules/gradedAssessments/services/gradedAssessmentsService';
 
 const baseUrl = '/v1/users';
 
@@ -107,7 +108,7 @@ export const useUserAssessments = (userId: string) => {
   if (!userId) return { error: 'Missing userId' };
 
   const { data, error, isLoading } = useQuery(['users', { userId }], () =>
-    getFetch(`${baseUrl}/grade/user/${userId}`)
+    getGradedAssessmentsByUser(userId)
   );
 
   return {
