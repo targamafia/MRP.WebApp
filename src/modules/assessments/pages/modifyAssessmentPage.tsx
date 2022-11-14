@@ -1,5 +1,5 @@
 import { ErrorMessage } from '@/shared/components/errorMessage';
-import { LoadingSpinner } from '@/shared/components/loadingSpinner';
+import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 import { useParams } from 'react-router-dom';
 import EditDetailsForm from '../components/assessmentDetail/editDetailsForm';
 import { useAssessment } from '../hooks/useAssessments';
@@ -10,14 +10,10 @@ const ModifyAssessmentPage = () => {
   if (!id) return <ErrorMessage message="No ID Found in route" />;
   const { assessment, error, loading } = useAssessment(id);
 
-  return loading ? (
-    <LoadingSpinner />
-  ) : error ? (
-    <ErrorMessage message={error.toString()} />
-  ) : (
-    <>
-      <EditDetailsForm assessment={assessment as IAssessment} />
-    </>
+  return (
+    <HandleAsyncData loading={loading} error={error}>
+      {() => <EditDetailsForm assessment={assessment as IAssessment} />}
+    </HandleAsyncData>
   );
 };
 

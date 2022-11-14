@@ -1,6 +1,4 @@
-import { ErrorMessage } from '@/shared/components/errorMessage';
-import { LoadingSpinner } from '@/shared/components/loadingSpinner';
-import { Message } from '@/shared/components/message';
+import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 import { Title } from '@/shared/components/title';
 import { MainContainer } from '@/shared/layout/mainContainer';
 import Button from '@mui/material/Button';
@@ -78,13 +76,9 @@ export const AllUsers = () => {
           <div className="-mt-8" />
           <UserFilters users={baseUsers} state={filters} dispatch={dispatch} />
         </div>
-        {loading ? (
-          <LoadingSpinner />
-        ) : !!error ? (
-          <ErrorMessage message={error.toString()} />
-        ) : (
-          <UserList users={users} />
-        )}
+        <HandleAsyncData loading={loading} error={error}>
+          {() => <UserList users={users} />}
+        </HandleAsyncData>
       </MainContainer>
       <Outlet />
     </>

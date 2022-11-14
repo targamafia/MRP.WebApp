@@ -186,10 +186,17 @@ export const useDeleteAssessmentQuestion = (
     onSuccess: (assessment: IAssessment, question: any) => {
       queryClient.invalidateQueries([
         'assessments',
-        { assessmentId: assessment.id },
+        { id: assessment.id },
         'questions',
         { id: question._id },
       ]);
+
+      queryClient.refetchQueries(
+        'assessments',
+        { id: assessment.id },
+        'questions',
+        { id: question._id }
+      );
 
       if (onSuccess) onSuccess();
     },

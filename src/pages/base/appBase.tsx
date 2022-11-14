@@ -10,7 +10,7 @@ export const AppBase = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/auth/onboarding", {
+      navigate('/auth/onboarding', {
         replace: true,
         state: { from: location },
       });
@@ -18,10 +18,12 @@ export const AppBase = () => {
   }, []);
 
   return (
-    <div className='h-screen flex flex-col overflow-hidden w-full'>
-      <Navbar />
-      <Outlet />
-    </div>
+    <>
+      <div className="flex flex-col h-screen w-full">
+        <Navbar />
+        <Outlet />
+      </div>
+    </>
   );
 };
 

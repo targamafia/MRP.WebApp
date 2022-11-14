@@ -71,7 +71,7 @@ export const EditQuestionForm = (props: {
       <Title back={true} title="Editar Pregunta" />
       {!isCreated && (
         <div className="flex flex-col gap-4">
-          <Input type="text" register={register} name="title" required={true} />
+          <Input type="text" register={register} name="title" label="Pregunta" required={true} />
           <div className="flex flex-col gap-1">
             <label htmlFor="type">Tipo:</label>
             <select

@@ -9,19 +9,19 @@ export const MainContainer = (props: {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="p-8 max-w-[100vw] self-stretch overflow-y-auto box-border">
-      <Row spacing={0} className="md:gap-12">
-        {props.sidebar !== undefined && (
-          <Sidebar
-            sidebar={props.sidebar}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-          />
-        )}
-        <main className="grow max-w-5xl mx-auto w-full h-full overflow-y-auto overflow-x-hidden">
-          {props.children}
-        </main>
-      </Row>
+    <div className="p-8 grow box-border flex flex-row md:gap-12 overflow-y-auto">
+      {props.sidebar !== undefined && (
+        <Sidebar
+          sidebar={props.sidebar}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+      )}
+      <main
+        className="max-w-5xl mx-auto justify-start h-fit w-full"
+      >
+        {props.children}
+      </main>
     </div>
   );
 };

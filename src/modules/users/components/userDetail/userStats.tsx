@@ -1,4 +1,5 @@
 import { ErrorMessage } from '@/shared/components/errorMessage';
+import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Row } from '@/shared/layout/row';
 import { useParams } from 'react-router-dom';
@@ -10,21 +11,21 @@ function UserStats() {
 
   const { stats, loading, error } = useUserStats(id);
 
-  return loading ? (
-    <LoadingSpinner />
-  ) : error ? (
-    <ErrorMessage message={error.toString()} />
-  ) : (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-      <div className="grow p-2">
-        <h3 className="text-xl">{stats.premiumAssessments}</h3>
-        <p className='text-sm'>Exámenes comprados</p>
-      </div>
-      <div className="grow p-2">
-        <h3 className="text-xl">{stats.takenAssessments}</h3>
-        <p className='text-sm'>Exámenes tomados</p>
-      </div>
-    </div>
+  return (
+    <HandleAsyncData loading={loading} error={error}>
+      {() => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+          <div className="grow p-2">
+            <h3 className="text-xl">{stats.premiumAssessments}</h3>
+            <p className="text-sm">Exámenes comprados</p>
+          </div>
+          <div className="grow p-2">
+            <h3 className="text-xl">{stats.takenAssessments}</h3>
+            <p className="text-sm">Exámenes tomados</p>
+          </div>
+        </div>
+      )}
+    </HandleAsyncData>
   );
 }
 

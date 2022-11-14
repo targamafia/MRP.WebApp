@@ -1,4 +1,5 @@
 import { AssessmentList } from '@/modules/assessments/components/assessmentList/assessmentList';
+import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Message } from '@/shared/components/message';
 import { Title } from '@/shared/components/title';
@@ -86,17 +87,9 @@ export const AllAssessments = () => {
         }
         title="Quizes"
       />
-      {loading ? <LoadingSpinner /> : <></>}
-      {!!error ? (
-        <Message type="error" title="Error" message={error.toString()} />
-      ) : (
-        <></>
-      )}
-      {!loading && !error ? (
-        <AssessmentList assessments={assessments} />
-      ) : (
-        <></>
-      )}
+      <HandleAsyncData loading={loading} error={error}>
+        {() => <AssessmentList assessments={assessments} />}
+      </HandleAsyncData>
     </MainContainer>
   );
 };

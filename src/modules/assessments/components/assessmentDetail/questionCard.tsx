@@ -17,7 +17,12 @@ function QuestionCard(props: {
 
   const deleteQuestion = () => {
     if (
-      !confirm(`Estás a punto de borrar la pregunta ${props.question.title}, esto no se puede deshacer.
+      !confirm(`Estás a punto de borrar la pregunta
+      
+      "${props.question.title}"
+      
+      Esto no se puede deshacer.
+      
     ¿Quieres continuar?`)
     )
       return;
