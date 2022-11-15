@@ -1,5 +1,3 @@
-import Switch from '@mui/material/Switch';
-
 const getInputElementByType = (props: {
   type: string;
   name: string;
@@ -23,10 +21,6 @@ const getInputElementByType = (props: {
           className="resize-none"
           autoComplete={props.autocomplete}
         />
-      );
-    case 'switch':
-      return (
-        <Switch {...props.register(props.name, { required: props.required })} />
       );
     default:
       return (

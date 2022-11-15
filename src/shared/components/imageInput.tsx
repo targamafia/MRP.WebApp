@@ -49,8 +49,8 @@ export const ImageInput = (props: {
         <div className="max-w-xs mx-auto w-full relative mt-4">
           <img src={imagePreview} alt="" className="w-full" />
           <IconButton
-            className="!text-red-500 !absolute !top-2 !right-2
-    !bg-surface-2 !rounded-full !w-8 !h-8"
+            className="!bg-red-500 !absolute !top-2 !right-2
+    !text-white !rounded-full !w-8 !h-8"
             onClick={() => {
               if (confirm('¿Quieres borrar la imagen?')) {
                 setValue(props.name, '', {

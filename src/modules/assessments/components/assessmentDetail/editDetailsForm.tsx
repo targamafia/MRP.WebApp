@@ -71,8 +71,12 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
       !confirm(`¿Modificar ${assessmentData.title}?`)
     )
       return;
-    if (!!assessmentData.imageBlob) {
-      assessmentData.thumbnailUrl = await uploadAssessmentThumbnail(
+
+    if (
+      assessmentData.imageBlob.length > 0 &&
+      assessmentData.imageBlob[0].size > 0
+    ) {
+      assessmentData = await uploadAssessmentThumbnail(
         assessmentData.imageBlob[0],
         `${props.assessment._id || props.assessment.id || ''}`
       );
@@ -111,7 +115,10 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
             setValue={setValue}
             blob={imageBlob}
             label="Imagen"
-            defaultValue={props.assessment.thumbnailUrl}
+            defaultValue={
+              props.assessment.thumbnailUrl ||
+              `${import.meta.env.BASE_URL}placeholder.png`
+            }
           />
           <Row className="gap-16 mx-auto">
             <Input

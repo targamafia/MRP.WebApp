@@ -1,3 +1,4 @@
+import { ChipRow } from '@/shared/components/chipRow';
 import { NavLink } from 'react-router-dom';
 import { IAssessment } from '../../models';
 
@@ -9,7 +10,7 @@ export const AssessmentSmallCard = (props: IAssessment & { key?: any }) => {
       overflow-hidden isolate bg-blue max-w-sm hover:scale-105 transition-transform"
     >
       <img
-        src={props.thumbnailUrl}
+        src={props.thumbnailUrl || `${import.meta.env.BASE_URL}placeholder.png`}
         className="object-cover absolute left-0 top-0 w-full h-full
         opacity-50 hover:opacity-60 outline-none"
       />
@@ -21,6 +22,14 @@ export const AssessmentSmallCard = (props: IAssessment & { key?: any }) => {
           {props.title}
         </h2>
         {props.categories.length > 0 && <p>{props.categories[0]}</p>}
+        <ChipRow
+          elements={
+            [props.isPremium && 'Premium', props.isPrivate && 'Privado'].filter(
+              (a) => !!a
+            ) as string[]
+          }
+          noMargin={true}
+        />
       </div>
     </NavLink>
   );
