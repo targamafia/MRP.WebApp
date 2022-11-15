@@ -71,8 +71,12 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
       !confirm(`¿Modificar ${assessmentData.title}?`)
     )
       return;
-    if (!!assessmentData.imageBlob) {
-      assessmentData.thumbnailUrl = await uploadAssessmentThumbnail(
+
+    if (
+      assessmentData.imageBlob.length > 0 &&
+      assessmentData.imageBlob[0].size > 0
+    ) {
+      assessmentData = await uploadAssessmentThumbnail(
         assessmentData.imageBlob[0],
         `${props.assessment._id || props.assessment.id || ''}`
       );

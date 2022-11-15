@@ -9,6 +9,8 @@ import { IconButton } from '@mui/material';
 import DeleteOutline from '@mui/icons-material/DeleteOutline';
 import NavigationTab from '@/modules/navigation/navigationTab';
 import { HandleAsyncData } from '@/shared/components/handleAsyncData';
+import LockOutlined from '@mui/icons-material/LockOutlined';
+import StarOutlined from '@mui/icons-material/StarOutlined';
 
 export const AssessmentPage = () => {
   const { id } = useParams();
@@ -27,6 +29,18 @@ export const AssessmentPage = () => {
       {() => (
         <>
           <div className="sticky top-0 pt-12 px-7">
+            <div className="flex flex-row">
+              {assessment!.isPrivate && (
+                <div className="mb-2">
+                  <LockOutlined className="mb-1" /> Privado
+                </div>
+              )}
+              {assessment!.isPremium && (
+                <div className="text-amber-400 mb-2">
+                  <StarOutlined className="mb-1" /> Premium
+                </div>
+              )}
+            </div>
             <div
               className="absolute -z-10 w-full h-full top-0 left-0 opacity-20 bg-cover bg-center"
               style={{

@@ -1,4 +1,5 @@
 import Switch from '@mui/material/Switch';
+import { Control, Controller } from 'react-hook-form';
 
 const getInputElementByType = (props: {
   type: string;
@@ -7,6 +8,7 @@ const getInputElementByType = (props: {
   required?: boolean;
   autocomplete?: string;
   label?: string;
+  control?: Control<any>
 }) => {
   const titleCase = !props.label
     ? props.name[0].toLocaleUpperCase() + props.name.slice(1)
@@ -26,7 +28,19 @@ const getInputElementByType = (props: {
       );
     case 'switch':
       return (
-        <Switch {...props.register(props.name, { required: props.required })} />
+        <Controller
+          render={({ field: { name, value, onChange } }) => (
+            <Switch
+              name={name}
+              value={value}
+              onChange={onChange}
+            />
+          )}
+          control={props.control}
+          name={props.name}
+          defaultValue=""
+          rules={{ required: { value: true, message: 'Invalid input' } }}
+        />
       );
     default:
       return (
@@ -50,6 +64,7 @@ export const Input = (props: {
   required?: boolean;
   autocomplete?: string;
   label?: string;
+  control?: Control<any>
 }) => {
   const titleCase = !props.label
     ? props.name[0].toLocaleUpperCase() + props.name.slice(1)
