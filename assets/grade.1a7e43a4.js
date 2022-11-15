@@ -1,1 +1,0 @@
-import{b as t}from"./index.c96ac677.js";const r=e=>t("p",{className:["mb-0 text-2xl font-black",e.grade<=.6?"text-red-600":e.grade<=.8?"text-amber-400":"text-emerald-600",e.className].join(" "),children:[(e.grade*100).toFixed(2),"%"]});export{r as G};
