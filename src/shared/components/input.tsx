@@ -1,6 +1,3 @@
-import Switch from '@mui/material/Switch';
-import { Control, Controller } from 'react-hook-form';
-
 const getInputElementByType = (props: {
   type: string;
   name: string;
@@ -8,7 +5,6 @@ const getInputElementByType = (props: {
   required?: boolean;
   autocomplete?: string;
   label?: string;
-  control?: Control<any>;
 }) => {
   const titleCase = !props.label
     ? props.name[0].toLocaleUpperCase() + props.name.slice(1)
@@ -48,7 +44,6 @@ export const Input = (props: {
   required?: boolean;
   autocomplete?: string;
   label?: string;
-  control?: Control<any>;
 }) => {
   const titleCase = !props.label
     ? props.name[0].toLocaleUpperCase() + props.name.slice(1)
