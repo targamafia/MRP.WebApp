@@ -10,7 +10,7 @@ export const AppBase = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/auth/onboarding", {
+      navigate('/auth/onboarding', {
         replace: true,
         state: { from: location },
       });
@@ -19,8 +19,10 @@ export const AppBase = () => {
 
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <div className="flex flex-col h-screen w-full">
+        <Navbar />
+        <Outlet />
+      </div>
     </>
   );
 };

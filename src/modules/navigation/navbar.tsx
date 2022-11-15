@@ -27,7 +27,7 @@ export const Navbar = () => {
               isActive ? 'text-orange' : 'text-main'
             }
           >
-            Quizes
+            Exámenes
           </NavLink>
           <NavLink
             to='/users'
@@ -35,7 +35,7 @@ export const Navbar = () => {
               isActive ? 'text-orange' : 'text-main'
             }
           >
-            Users
+            Usuarios
           </NavLink>
         </nav>
         <IconButton

@@ -51,3 +51,9 @@ export const deleteAssessmentQuestion = (
   assessmentId: string,
   questionId: string
 ) => deleteFetch(`${BASE_URL}/${assessmentId}/question/${questionId}`);
+
+export const assignUserToAssessment = (assessmentId: string, userId: string) =>
+  postFetch(`${BASE_URL}/${assessmentId}/assign-user/${userId}`);
+
+export const getUserPremiumAssessments = (userId: string) =>
+  getFetch(`${BASE_URL}/premium-access/${userId}`);

@@ -17,6 +17,7 @@ const reducer = (state: IOption[], action: MultipleChoiceReducerAction) => {
   switch (action.type) {
     case 'add':
       newArray.splice(newArray.length, 0, {
+        _id: '',
         discriminator: 'option',
         value: '',
         isCorrectAnswer: false,
@@ -50,7 +51,19 @@ export const MultipleChoiceForm = (props: {
 }) => {
   const [state, dispatch] = useReducer(
     reducer,
-    props.defaultValue || ([] as IOption[])
+    props.defaultValue ||
+      ([
+        {
+          discriminator: 'option',
+          value: '',
+          isCorrectAnswer: false,
+        },
+        {
+          discriminator: 'option',
+          value: '',
+          isCorrectAnswer: false,
+        },
+      ] as IOption[])
   );
 
   const updateValue =

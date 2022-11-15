@@ -1,5 +1,5 @@
 import { ErrorMessage } from '@/shared/components/errorMessage';
-import { LoadingSpinner } from '@/shared/components/loadingSpinner';
+import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 import { useParams } from 'react-router-dom';
 import { EditQuestionForm } from '../components/assessmentDetail/editQuestionForm';
 import { useAssessmentQuestion } from '../hooks/useAssessments';
@@ -14,12 +14,12 @@ const ModifyQuestionPage = () => {
     questionId,
   });
 
-  return loading ? (
-    <LoadingSpinner />
-  ) : error ? (
-    <ErrorMessage message={error.toString()} />
-  ) : (
-    <EditQuestionForm question={question} assessmentId={assessmentId} />
+  return (
+    <HandleAsyncData loading={loading} error={error}>
+      {() => (
+        <EditQuestionForm question={question} assessmentId={assessmentId} />
+      )}
+    </HandleAsyncData>
   );
 };
 

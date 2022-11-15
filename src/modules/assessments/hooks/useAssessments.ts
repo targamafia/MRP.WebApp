@@ -1,12 +1,19 @@
+import {
+  uploadAssessmentThumbnail,
+  uploadQuestionThumbnail,
+} from '@/shared/services/fileUpload';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { IAssessment, IQuestion } from '../models';
 import {
+  assignUserToAssessment,
   deleteAssessment,
   deleteAssessmentQuestion,
   getAssessmentById,
   getAssessmentQuestion,
   getAssessments,
   getFeaturedAssessments,
+  getUserPremiumAssessments,
   postAssessment,
   postAssessmentQuestion,
   putAssessment,
@@ -36,7 +43,7 @@ export const useAssessment = (assessmentId: string) => {
   if (!assessmentId) return { error: 'Missing assessment Id' };
 
   const { data, error, isLoading } = useQuery(
-    ['assessments', { id: assessmentId }],
+    ['assessments', assessmentId],
     () => getAssessmentById(assessmentId)
   );
 
@@ -90,7 +97,7 @@ export const useAssessmentQuestion = (args: {
   const { assessmentId, questionId } = args;
 
   const { data, error, isLoading } = useQuery(
-    ['assessments', { id: assessmentId }, 'questions', { id: questionId }],
+    ['assessments', assessmentId, 'questions', questionId],
     () => getAssessmentQuestion(assessmentId, questionId),
     { keepPreviousData: true, staleTime: 5000 }
   );
@@ -106,10 +113,7 @@ export const useUpdateAssessment = (onSuccess: Function, onError: Function) => {
   const queryClient = useQueryClient();
   return useMutation(putAssessment, {
     onSuccess: (assessment: IAssessment) => {
-      queryClient.setQueryData(
-        ['assessments', { id: assessment.id }],
-        assessment
-      );
+      queryClient.setQueryData(['assessments', assessment.id], assessment);
 
       onSuccess(assessment);
     },
@@ -132,7 +136,7 @@ export const useCreateAssessmentQuestion = (args: {
       postAssessmentQuestion(assessmentId, newQuestion),
     {
       onSuccess: (data: IAssessment) => {
-        queryClient.invalidateQueries(['assessments', { id: data.id }]);
+        queryClient.invalidateQueries(['assessments', assessmentId]);
         if (onSuccess) onSuccess(data);
       },
       onError: (error, vars) => {
@@ -156,17 +160,60 @@ export const useUpdateAssessmentQuestion = (args: {
       putAssessmentQuestion(assessmentId, questionId, question),
     {
       onSuccess: (assessment: IAssessment, question: IQuestion) => {
-        queryClient.invalidateQueries([
-          'assessments',
-          { id: assessment.id },
-          'questions',
-          { id: question._id },
-        ]);
+        queryClient.invalidateQueries(['assessments', assessmentId]);
 
         onSuccess();
       },
       onError: (error) => {
         onError(error);
+      },
+    }
+  );
+};
+
+export const useAddAssessmentImage = (
+  assessmentId: string,
+  onSuccess?: Function,
+  onError?: Function
+) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (imageFile: File) => uploadAssessmentThumbnail(imageFile, assessmentId),
+    {
+      onSuccess: (assessment: IAssessment) => {
+        queryClient.invalidateQueries(['assessments', assessment.id]);
+
+        queryClient.refetchQueries(['assessments', assessment.id]);
+
+        if (onSuccess) onSuccess();
+      },
+      onError: (error) => {
+        if (onError) onError(error);
+      },
+    }
+  );
+};
+
+export const useAddQuestionImage = (
+  assessmentId: string,
+  questionId: string,
+  onSuccess?: Function,
+  onError?: Function
+) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (imageFile: File) =>
+      uploadQuestionThumbnail(imageFile, assessmentId, questionId),
+    {
+      onSuccess: (assessment: IAssessment, question: any) => {
+        queryClient.invalidateQueries(['assessments', assessment.id]);
+
+        queryClient.refetchQueries(['assessments', assessment.id]);
+
+        if (onSuccess) onSuccess();
+      },
+      onError: (error) => {
+        if (onError) onError(error);
       },
     }
   );
@@ -183,9 +230,16 @@ export const useDeleteAssessmentQuestion = (
     onSuccess: (assessment: IAssessment, question: any) => {
       queryClient.invalidateQueries([
         'assessments',
-        { assessmentId: assessment.id },
+        assessment.id,
         'questions',
-        { id: question._id },
+        question._id,
+      ]);
+
+      queryClient.refetchQueries([
+        'assessments',
+        assessment.id,
+        'questions',
+        question._id,
       ]);
 
       if (onSuccess) onSuccess();
@@ -204,4 +258,59 @@ export const useDeleteAssessment = (onSuccess: Function) => {
       onSuccess();
     },
   });
+};
+
+export const useAssignAssessmentToUser = (
+  assessmentId: string,
+  onSuccess: Function
+) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (userId: string) => assignUserToAssessment(assessmentId, userId),
+    {
+      onSuccess: (assessment: IAssessment, userId) => {
+        queryClient.invalidateQueries([
+          'assessments',
+          assessmentId,
+          'assignedUsers',
+        ]);
+        queryClient.invalidateQueries(['users', userId, 'assignedAssessments']);
+        onSuccess();
+      },
+    }
+  );
+};
+
+export const useAssignUserToAssessment = (
+  userId: string,
+  onSuccess?: Function
+) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (assessmentId: string) => assignUserToAssessment(assessmentId, userId),
+    {
+      onSuccess: (assessment: IAssessment, userId) => {
+        queryClient.invalidateQueries([
+          'assessments',
+          assessment._id || assessment.id,
+          'assignedUsers',
+        ]);
+        queryClient.invalidateQueries(['users', userId, 'assignedAssessments']);
+        onSuccess && onSuccess();
+      },
+    }
+  );
+};
+
+export const useUserPremiumAssessments = (userId: string) => {
+  const { data, error, isLoading } = useQuery(
+    ['users', userId, 'premiumAssessments'],
+    () => getUserPremiumAssessments(userId)
+  );
+
+  return {
+    premiumAssessments: data as IAssessment[],
+    error: error as AxiosError | undefined,
+    loading: isLoading,
+  };
 };

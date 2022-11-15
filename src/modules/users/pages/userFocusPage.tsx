@@ -1,11 +1,11 @@
 import { ErrorMessage } from '@/shared/components/errorMessage';
-import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { MainContainer } from '@/shared/layout/mainContainer';
 import EditOutlined from '@mui/icons-material/EditOutlined';
 import { NavLink, useParams } from 'react-router-dom';
 import { useUser } from '../hooks/useUserHooks';
 import { Title } from '@/shared/components/title';
 import { UserDetail } from '../components/userDetail/userDetail';
+import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 
 export const UserFocusPage = () => {
   const { id } = useParams();
@@ -14,10 +14,8 @@ export const UserFocusPage = () => {
 
   return (
     <MainContainer>
-      {loading ? (
-        <LoadingSpinner />
-      ) : !error ? (
-        user !== undefined ? (
+      <HandleAsyncData loading={loading} error={error}>
+        {() => (
           <>
             <div className="my-2 mb-4 sticky top-14 backdrop-blur-lg rounded-b-lg">
               <Title
@@ -32,12 +30,8 @@ export const UserFocusPage = () => {
             </div>
             <UserDetail />
           </>
-        ) : (
-          <></>
-        )
-      ) : (
-        <ErrorMessage message={error.toString()} />
-      )}
+        )}
+      </HandleAsyncData>
     </MainContainer>
   );
 };

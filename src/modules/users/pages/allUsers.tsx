@@ -1,6 +1,4 @@
-import { ErrorMessage } from '@/shared/components/errorMessage';
-import { LoadingSpinner } from '@/shared/components/loadingSpinner';
-import { Message } from '@/shared/components/message';
+import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 import { Title } from '@/shared/components/title';
 import { MainContainer } from '@/shared/layout/mainContainer';
 import Button from '@mui/material/Button';
@@ -67,24 +65,13 @@ export const AllUsers = () => {
     <>
       <MainContainer>
         <div className="px-8 py-4 bg-surface-5 mb-12 rounded-lg shadow-inner">
-          <Title
-            cta={
-              <NavLink to="new" className="block">
-                <Button variant="contained">Crear nuevo Usuario</Button>
-              </NavLink>
-            }
-            title="Usuarios"
-          />
+          <Title title="Usuarios" />
           <div className="-mt-8" />
           <UserFilters users={baseUsers} state={filters} dispatch={dispatch} />
         </div>
-        {loading ? (
-          <LoadingSpinner />
-        ) : !!error ? (
-          <ErrorMessage message={error.toString()} />
-        ) : (
-          <UserList users={users} />
-        )}
+        <HandleAsyncData loading={loading} error={error}>
+          {() => <UserList users={users} />}
+        </HandleAsyncData>
       </MainContainer>
       <Outlet />
     </>
