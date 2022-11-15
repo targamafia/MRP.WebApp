@@ -12,7 +12,12 @@ export const AllGradedAssessments = () => {
       {() => (
         <MainContainer>
           <Title title="Historial de Calificaciones" />
-          <GradedAssessmentsList gradedAssessments={gradedAssessments} />
+          <GradedAssessmentsList
+            gradedAssessments={gradedAssessments.sort(
+              (a, b) =>
+                new Date(b.endDate).valueOf() - new Date(a.endDate).valueOf()
+            )}
+          />
         </MainContainer>
       )}
     </HandleAsyncData>
