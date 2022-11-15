@@ -3,6 +3,7 @@ import { IGradeAssessment } from '@/modules/users/models';
 import { Row } from '@/shared/layout/row';
 import { NavLink } from 'react-router-dom';
 import { Grade } from './grade';
+import { GradeUserInfo } from './gradeUserInfo';
 
 export const GradedAssessmentCard = (props: {
   gradedAssessment: IGradeAssessment;
@@ -10,7 +11,7 @@ export const GradedAssessmentCard = (props: {
   const startDate = new Date(props.gradedAssessment.startDate),
     endDate = new Date(props.gradedAssessment.endDate),
     duration = endDate.valueOf() - startDate.valueOf(),
-    minutos = duration / (60 * 1000)
+    minutos = duration / (60 * 1000);
 
   return (
     <NavLink
@@ -20,7 +21,10 @@ export const GradedAssessmentCard = (props: {
       <Row spacing={6}>
         <div className="text-left grow">
           <p className="text-xs">{startDate.toLocaleString()}</p>
-          <h3 className="text-xl">{props.gradedAssessment.assessment?.title}</h3>
+          <h3 className="text-xl">
+            {props.gradedAssessment.assessment?.title}
+          </h3>
+          <GradeUserInfo applicant={props.gradedAssessment.applicant} />
           <p className="mb-0 text-sm">
             <b>Tiempo Transcurrido:</b> {minutos.toFixed(0)} m
           </p>

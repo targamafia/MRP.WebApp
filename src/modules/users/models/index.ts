@@ -10,6 +10,10 @@ export interface IUser {
   roles: string[];
 }
 
+export interface IApplicant {
+  id: string;
+}
+
 export interface IGradeAssessment {
   id: string;
   startDate: Date;
@@ -18,4 +22,5 @@ export interface IGradeAssessment {
   correctAnswers: number;
   wrongAnswers: number;
   assessment: IAssessment;
+  applicant?: IApplicant;
 }

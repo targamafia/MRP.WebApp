@@ -111,7 +111,10 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
             setValue={setValue}
             blob={imageBlob}
             label="Imagen"
-            defaultValue={props.assessment.thumbnailUrl}
+            defaultValue={
+              props.assessment.thumbnailUrl ||
+              `${import.meta.env.BASE_URL}placeholder.png`
+            }
           />
           <Row className="gap-16 mx-auto">
             <Input

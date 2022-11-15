@@ -30,7 +30,10 @@ export const AssessmentPage = () => {
             <div
               className="absolute -z-10 w-full h-full top-0 left-0 opacity-20 bg-cover bg-center"
               style={{
-                backgroundImage: `url("${assessment?.thumbnailUrl}")`,
+                backgroundImage: `url("${
+                  assessment?.thumbnailUrl ||
+                  `${import.meta.env.BASE_URL}placeholder.png`
+                }")`,
               }}
             ></div>
             <Title
