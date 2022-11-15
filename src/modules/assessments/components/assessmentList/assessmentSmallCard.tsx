@@ -1,3 +1,4 @@
+import { ChipRow } from '@/shared/components/chipRow';
 import { NavLink } from 'react-router-dom';
 import { IAssessment } from '../../models';
 
@@ -21,6 +22,14 @@ export const AssessmentSmallCard = (props: IAssessment & { key?: any }) => {
           {props.title}
         </h2>
         {props.categories.length > 0 && <p>{props.categories[0]}</p>}
+        <ChipRow
+          elements={
+            [props.isPremium && 'Premium', props.isPrivate && 'Privado'].filter(
+              (a) => !!a
+            ) as string[]
+          }
+          noMargin={true}
+        />
       </div>
     </NavLink>
   );
