@@ -17,6 +17,7 @@ const reducer = (state: IOption[], action: MultipleChoiceReducerAction) => {
   switch (action.type) {
     case 'add':
       newArray.splice(newArray.length, 0, {
+        _id: '',
         discriminator: 'option',
         value: '',
         isCorrectAnswer: false,
