@@ -9,4 +9,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   </React.StrictMode>
 );
 
-document.title = import.meta.env.VITE_COMPANY_NAME;
+document.title = 'Administración ' + import.meta.env.VITE_COMPANY_NAME;
