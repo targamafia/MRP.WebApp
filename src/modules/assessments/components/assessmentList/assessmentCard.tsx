@@ -21,6 +21,7 @@ export const AssessmentCard = (props: IAssessment & { key?: any }) => {
               props.thumbnailUrl || `${import.meta.env.BASE_URL}placeholder.png`
             }
             className="w-f self-stretch object-cover grow"
+            loading='lazy'
           />
           <div
             className="grow p-4 flex items-start self-start

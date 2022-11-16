@@ -1,3 +1,4 @@
+import MetricCard from '@/modules/metrics/components/metricCard';
 import { ErrorMessage } from '@/shared/components/errorMessage';
 import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
@@ -15,14 +16,20 @@ function UserStats() {
     <HandleAsyncData loading={loading} error={error}>
       {() => (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-          <div className="grow p-2">
-            <h3 className="text-xl">{stats.premiumAssessments}</h3>
-            <p className="text-sm">Exámenes comprados</p>
-          </div>
-          <div className="grow p-2">
-            <h3 className="text-xl">{stats.takenAssessments}</h3>
-            <p className="text-sm">Exámenes tomados</p>
-          </div>
+          <MetricCard
+            to="history"
+            data={stats.takenAssessments}
+            label="Exámenes finalizados"
+            loading={loading}
+            error={error}
+          />
+          <MetricCard
+            to="assigned"
+            data={stats.premiumAssessments}
+            label="Exámenes asignados"
+            loading={loading}
+            error={error}
+          />
         </div>
       )}
     </HandleAsyncData>

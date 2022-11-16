@@ -85,22 +85,14 @@ export const QuestionForm = () => {
             label="Imagen"
             defaultValue=""
           />
+          <input
+            type="hidden"
+            value="MULTIPLE_CHOICE"
+            {...register('type', { required: true })}
+          />
           <div className="flex flex-col gap-1">
-            <label htmlFor="type">Tipo:</label>
-            <select
-              {...register('type')}
-              onChange={(ev) => setQuestionType(ev.currentTarget.value)}
-              required={true}
-            >
-              <option value="MULTIPLE_CHOICE">Opción Múltiple</option>
-              <option value="BOOLEAN">Sí o No</option>
-            </select>
             <input type="hidden" {...register('options')} required={true} />
-            {questionType === 'MULTIPLE_CHOICE' ? (
-              <MultipleChoiceForm setValue={setValue} name="options" />
-            ) : (
-              <></>
-            )}
+            <MultipleChoiceForm setValue={setValue} name="options" />
           </div>
         </div>
       )}

@@ -53,15 +53,19 @@ function QuestionCard(props: {
       </Row>
       <Row spacing={8}>
         {!!props.question.imageUrl && (
-          <img src={props.question.imageUrl} className="h-48 rounded-md" />
+          <img
+            src={props.question.imageUrl}
+            className="w-48 rounded-md object-cover"
+            loading="lazy"
+          />
         )}
-        <div className="flex flex-col grow py-4">
+        <div className="grid gap-2 py-4 items-stretch w-full">
           {props.question.options.map((option, i) => (
             <div
               className={[
                 'px-4 py-2 flex flex-row gap-2 justify-stretch rounded-md items-center',
-                option._id == props.answer ? 'bg-red-200' : '',
-                option.isCorrectAnswer ? '!bg-emerald-200' : '',
+                option._id == props.answer ? 'bg-red-400 text-black' : '',
+                option.isCorrectAnswer ? '!bg-emerald-300 text-black' : '',
               ].join(' ')}
               key={i}
             >

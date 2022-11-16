@@ -30,17 +30,14 @@ export const GradedAssessmentDetail = () => {
     <HandleAsyncData error={error} loading={loading}>
       {() => (
         <MainContainer>
-          <Title
-            back={true}
-            title={gradedAssessment.id}
-            cta={
-              <Grade
-                grade={gradedAssessment.grade}
-                className="text-4xl mx-auto"
-              />
-            }
-          />
-          <Row spacing={8} justify="start">
+          <div className="flex flex-row flex-wrap items-center">
+            <Title back={true} title={gradedAssessment.id} />
+            <Grade
+              grade={gradedAssessment.grade}
+              className="text-4xl mx-auto mb-8"
+            />
+          </div>
+          <Row spacing={8} justify="start" className="mb-8">
             <p>
               <b>Fecha de Inicio:</b> {startDate?.toLocaleString()}
             </p>
@@ -48,15 +45,17 @@ export const GradedAssessmentDetail = () => {
               <b>Tiempo Transcurrido:</b> {minutos.toFixed(1)} m
             </p>
           </Row>
-          {gradedAssessment &&
-            (gradedAssessment.answers.map((answer, i) => (
-              <QuestionCard
-                key={i}
-                question={answer.question}
-                answer={answer.givenAnswer.optionId}
-                assessmentId={answer.givenAnswer.questionId}
-              />
-            )) as unknown as ReactElement)}
+          <div className="grid gap-8">
+            {gradedAssessment &&
+              (gradedAssessment.answers.map((answer, i) => (
+                <QuestionCard
+                  key={i}
+                  question={answer.question}
+                  answer={answer.givenAnswer.optionId}
+                  assessmentId={answer.givenAnswer.questionId}
+                />
+              )) as unknown as ReactElement)}
+          </div>
         </MainContainer>
       )}
     </HandleAsyncData>

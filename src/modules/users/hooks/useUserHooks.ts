@@ -7,6 +7,7 @@ import {
 } from '@/shared/services/fetcher';
 import { IGradeAssessment, IUser } from '../models';
 import { getGradedAssessmentsByUser } from '@/modules/gradedAssessments/services/gradedAssessmentsService';
+import { useMemo } from 'react';
 
 const baseUrl = '/v1/users';
 
@@ -20,6 +21,22 @@ export const useUsers = (page: number = 1, pageSize: number = 50) => {
     () => getFetch(baseUrl),
     { keepPreviousData: true, staleTime: 5000 }
   );
+
+  useMemo(() => {
+    if (!!data) {
+      for (let user of data as IUser[]) {
+        user.roles = user.roles.map((rol) =>
+          rol == 'super-admin'
+            ? 'Superadmin'
+            : rol == 'admin'
+            ? 'Administrador'
+            : rol == 'consumer'
+            ? 'Usuario'
+            : rol
+        );
+      }
+    }
+  }, [data]);
 
   return {
     users: data as IUser[],
@@ -35,6 +52,16 @@ export const useUser = (userId: string) => {
     getFetch(`${baseUrl}/${userId}`)
   );
 
+  if (!!data) {
+    data.roles = data.roles.map((rol: string) =>
+      rol == 'consumer'
+        ? 'Usuario'
+        : rol == 'admin'
+        ? 'Administrador'
+        : 'Superadmin'
+    );
+  }
+
   return {
     user: data as IUser,
     error,
@@ -43,9 +70,8 @@ export const useUser = (userId: string) => {
 };
 
 export const useUserStats = (userId: string) => {
-  const { data, error, isLoading } = useQuery(
-    ['users', { id: userId }, 'stats'],
-    () => getFetch(`${baseUrl}/${userId}/stats`)
+  const { data, error, isLoading } = useQuery(['users', userId, 'stats'], () =>
+    getFetch(`${baseUrl}/${userId}/stats`)
   );
 
   return {

@@ -111,7 +111,7 @@ export const MultipleChoiceForm = (props: {
                   autoComplete="none"
                 />
               </div>
-              <div>
+              <div className='grid grid-cols-1 gap-4'>
                 <label htmlFor={`${i}-isCorrect`} className="block">
                   Es Correcta
                 </label>
