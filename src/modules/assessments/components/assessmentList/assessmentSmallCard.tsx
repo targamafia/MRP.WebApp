@@ -16,6 +16,7 @@ export const AssessmentSmallCard = (props: IAssessment & { key?: any }) => {
         className="object-cover absolute left-0 top-0 w-full h-full
         opacity-50 hover:opacity-60 outline-none"
         loading='lazy'
+        alt=""
       />
       <div className="z-10 p-2 pointer-events-none">
         <div className="flex flex-row">

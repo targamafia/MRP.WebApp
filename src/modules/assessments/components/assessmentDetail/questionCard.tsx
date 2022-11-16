@@ -57,6 +57,7 @@ function QuestionCard(props: {
             src={props.question.imageUrl}
             className="w-48 rounded-md object-cover"
             loading="lazy"
+            alt={"Imagen de pregunta"}
           />
         )}
         <div className="grid gap-2 py-4 items-stretch w-full">
