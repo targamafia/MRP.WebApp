@@ -7,8 +7,8 @@ export const ChipRow = (props: { elements: string[]; noMargin?: boolean }) => {
         'flex gap-4 flex-wrap ' + (props.noMargin === true ? '' : 'mb-4')
       }
     >
-      {props.elements.map((cat) => (
-        <Chip label={cat} variant="filled" color="primary" key={cat} />
+      {props.elements.map((cat, i) => (
+        <Chip label={cat} variant="filled" color="primary" key={i} />
       ))}
     </div>
   );

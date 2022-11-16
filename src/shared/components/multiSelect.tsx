@@ -20,7 +20,11 @@ export const MultiSelect = (props: {
 
   const addItem = () => {
     if (itemInput === null || itemInput.current === null) return;
-    setValues([itemInput.current.value.trim() as string, ...values]);
+    const val = itemInput.current.value.trim();
+    setValues([
+      ...values,
+      (val[0].toUpperCase() + val.slice(1).toLowerCase()) as string,
+    ]);
     itemInput.current.value = '';
   };
 

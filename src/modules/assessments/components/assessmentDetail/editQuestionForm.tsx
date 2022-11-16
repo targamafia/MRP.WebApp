@@ -105,15 +105,11 @@ export const EditQuestionForm = (props: {
             defaultValue={props.question.imageUrl}
           />
           <div className="flex flex-col gap-1">
-            <label htmlFor="type">Tipo:</label>
-            <select
+            <input
+              type="hidden"
+              value="MULTIPLE_CHOICE"
               {...register('type', { required: true })}
-              onChange={(ev) => setQuestionType(ev.currentTarget.value)}
-              value={getValues().type}
-            >
-              <option value="MULTIPLE_CHOICE">Opción Múltiple</option>
-              <option value="BOOLEAN">Sí o No</option>
-            </select>
+            />
             <input
               type="hidden"
               {...register('options', { required: true })}

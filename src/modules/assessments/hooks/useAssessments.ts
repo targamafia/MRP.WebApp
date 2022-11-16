@@ -228,19 +228,9 @@ export const useDeleteAssessmentQuestion = (
   const queryClient = useQueryClient();
   return useMutation(() => deleteAssessmentQuestion(assessmentId, questionId), {
     onSuccess: (assessment: IAssessment, question: any) => {
-      queryClient.invalidateQueries([
-        'assessments',
-        assessment.id,
-        'questions',
-        question._id,
-      ]);
+      queryClient.invalidateQueries(['assessments', assessment.id]);
 
-      queryClient.refetchQueries([
-        'assessments',
-        assessment.id,
-        'questions',
-        question._id,
-      ]);
+      queryClient.refetchQueries(['assessments', assessment.id]);
 
       if (onSuccess) onSuccess();
     },
@@ -268,13 +258,19 @@ export const useAssignAssessmentToUser = (
   return useMutation(
     (userId: string) => assignUserToAssessment(assessmentId, userId),
     {
-      onSuccess: (assessment: IAssessment, userId) => {
+      onSuccess: (res: {
+        assessmentId: string;
+        assignedBy: string;
+        id: string;
+        userId: string;
+      }) => {
         queryClient.invalidateQueries([
-          'assessments',
-          assessmentId,
-          'assignedUsers',
+          'users',
+          res.userId,
+          'premiumAssessments',
         ]);
-        queryClient.invalidateQueries(['users', userId, 'assignedAssessments']);
+        queryClient.invalidateQueries(['users', res.userId, 'stats']);
+
         onSuccess();
       },
     }
@@ -289,13 +285,19 @@ export const useAssignUserToAssessment = (
   return useMutation(
     (assessmentId: string) => assignUserToAssessment(assessmentId, userId),
     {
-      onSuccess: (assessment: IAssessment, userId) => {
+      onSuccess: (res: {
+        assessmentId: string;
+        assignedBy: string;
+        id: string;
+        userId: string;
+      }) => {
         queryClient.invalidateQueries([
-          'assessments',
-          assessment._id || assessment.id,
-          'assignedUsers',
+          'users',
+          res.userId,
+          'premiumAssessments',
         ]);
-        queryClient.invalidateQueries(['users', userId, 'assignedAssessments']);
+        queryClient.invalidateQueries(['users', res.userId, 'stats']);
+
         onSuccess && onSuccess();
       },
     }

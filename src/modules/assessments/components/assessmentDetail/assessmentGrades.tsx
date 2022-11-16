@@ -17,7 +17,6 @@ export const AssessmentGrades = () => {
       {() => (
         <>
           <Title title="Historial" />
-          <h2>Categorías</h2>
           <GradedAssessmentsList gradedAssessments={gradedAssessments} />
         </>
       )}

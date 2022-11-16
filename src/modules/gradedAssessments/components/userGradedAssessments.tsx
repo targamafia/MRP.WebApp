@@ -18,11 +18,13 @@ export const UserGradedAssessments = (props: { userId: string }) => {
     ) : (
       <p>No ha contestado ningún examen</p>
     )
-  ) : (
+  ) : gradedAssessments.length > 0 ? (
     <GradedAssessmentsList
       gradedAssessments={gradedAssessments.sort(
         (a, b) => new Date(b.endDate).valueOf() - new Date(a.endDate).valueOf()
       )}
     />
+  ) : (
+    <p>Este usuario no ha contestado ningún examen</p>
   );
 };

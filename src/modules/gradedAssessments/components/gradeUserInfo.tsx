@@ -11,7 +11,7 @@ export const GradeUserInfo = (props: { applicant: undefined | IApplicant }) => {
       {() => (
         <NavLink
           to={`/users/${props.applicant?.id}`}
-          className="underline text-orange"
+          className="underline text-orange inline-block w-fit"
         >
           <p>{user.name} {user.lastName}</p>
         </NavLink>

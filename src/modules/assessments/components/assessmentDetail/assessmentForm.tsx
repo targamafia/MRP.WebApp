@@ -28,13 +28,10 @@ export const AssessmentForm = () => {
       content: `"${data.title}" se creó exitosamente`,
     });
     if (!!imageBlob) {
-      uploadAssessmentThumbnail(
-        imageBlob[0],
-        `${data._id || data.id || ''}`
-      );
+      uploadAssessmentThumbnail(imageBlob[0], `${data._id || data.id || ''}`);
     }
     setCreated(true);
-    setTimeout(() => navigate('../'), 2000);
+    setTimeout(() => navigate('/assessments/' + (data._id || data.id)), 2000);
   };
 
   const { mutate, error, isLoading } = useCreateAssessment(onSuccess, onError);

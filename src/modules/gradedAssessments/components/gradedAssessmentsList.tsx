@@ -6,9 +6,9 @@ export const GradedAssessmentsList = (props: {
 }) => {
   return (
     <div className="flex flex-col gap-4 mt-8">
-      {props.gradedAssessments.length > 0 ? props.gradedAssessments.map((a) => (
+      {props.gradedAssessments.map((a) => (
         <GradedAssessmentCard gradedAssessment={a} key={a.id} />
-      )) : <p>No Hay Exámenes</p>}
+      ))}
     </div>
   );
 };
