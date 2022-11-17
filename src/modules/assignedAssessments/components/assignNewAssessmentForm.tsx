@@ -1,10 +1,8 @@
 import { AssessmentSmallCard } from '@/modules/assessments/components/assessmentList/assessmentSmallCard';
-import {
-  useAssessments,
-  useAssignUserToAssessment,
-} from '@/modules/assessments/hooks/useAssessments';
+import { useAssessments } from '@/modules/assessments/hooks/useAssessments';
 import { HandleAsyncData } from '@/shared/components/handleAsyncData';
 import { useState } from 'react';
+import { useAssignUserToAssessment } from '../hooks/useAssignedAssessments';
 
 export const AssignNewAssessmentForm = (props: {
   userId: string;
@@ -17,12 +15,13 @@ export const AssignNewAssessmentForm = (props: {
     error: premiumError,
     loading: premiumLoading,
   } = useAssessments();
+
   const premiumAssessments =
     assessments &&
     assessments.filter(
       (assessment) =>
         assessment.isPremium &&
-        !props.assignedAssessments?.includes(assessment._id || assessment.id)
+        !props.assignedAssessments?.includes(assessment.id)
     );
 
   return !isOpen ? (
@@ -46,11 +45,14 @@ export const AssignNewAssessmentForm = (props: {
             premiumAssessments.map((assessment) => (
               <div
                 className="cursor-pointer"
-                onClick={() => mutate(assessment._id || assessment.id)}
-                key={assessment._id || assessment.id}
+                onClick={() => mutate(assessment.id)}
+                key={assessment.id}
               >
                 <div className="pointer-events-none">
-                  <AssessmentSmallCard {...assessment} />
+                  <>
+                    {console.log(assessment)}
+                    <AssessmentSmallCard assessment={assessment} />
+                  </>
                 </div>
               </div>
             ))

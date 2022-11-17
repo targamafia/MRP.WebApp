@@ -30,7 +30,7 @@ export const AssessmentDetails = () => {
           <hr className="my-4" />
           <h2 className="mb-4">Vista Previa</h2>
           <div className="p-8 rounded-md bg-surface-2">
-            <AssessmentSmallCard {...assessment!} id={id} />
+            <AssessmentSmallCard assessment={assessment!} />
           </div>
         </>
       )}

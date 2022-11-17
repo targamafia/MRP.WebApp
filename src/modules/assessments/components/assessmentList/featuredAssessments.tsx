@@ -14,7 +14,10 @@ export const FeaturedAssessments = () => {
           {assessments.length > 0 ? (
             <>
               {assessments.slice(0, 5).map((assessment) => (
-                <AssessmentSmallCard {...assessment} key={assessment.id} />
+                <AssessmentSmallCard
+                  assessment={assessment}
+                  key={assessment.id}
+                />
               ))}
               <NavLink
                 to="/assessments"

@@ -8,6 +8,7 @@ import {
 import { IGradeAssessment, IUser } from '../models';
 import { getGradedAssessmentsByUser } from '@/modules/gradedAssessments/services/gradedAssessmentsService';
 import { useMemo } from 'react';
+import { AxiosError } from 'axios';
 
 const baseUrl = '/v1/users';
 
@@ -40,7 +41,7 @@ export const useUsers = (page: number = 1, pageSize: number = 50) => {
 
   return {
     users: data as IUser[],
-    error,
+    error: error as AxiosError,
     loading: isLoading,
   };
 };
@@ -52,19 +53,23 @@ export const useUser = (userId: string) => {
     getFetch(`${baseUrl}/${userId}`)
   );
 
-  if (!!data) {
-    data.roles = data.roles.map((rol: string) =>
-      rol == 'consumer'
-        ? 'Usuario'
-        : rol == 'admin'
-        ? 'Administrador'
-        : 'Superadmin'
-    );
-  }
+  useMemo(() => {
+    if (!!data) {
+      data.roles = data.roles.map((rol: string) =>
+        rol == 'super-admin'
+          ? 'Superadmin'
+          : rol == 'admin'
+          ? 'Administrador'
+          : rol == 'consumer'
+          ? 'Usuario'
+          : rol
+      );
+    }
+  }, [data]);
 
   return {
     user: data as IUser,
-    error,
+    error: error as AxiosError,
     loading: isLoading,
   };
 };
@@ -76,7 +81,7 @@ export const useUserStats = (userId: string) => {
 
   return {
     stats: data as { takenAssessments: number; premiumAssessments: number },
-    error,
+    error: error as AxiosError,
     loading: isLoading,
   };
 };
@@ -88,9 +93,9 @@ export const useCreateUser = (
   const queryClient = useQueryClient();
 
   return useMutation((newUser: IUser) => postFetch(baseUrl, newUser), {
-    onSuccess: (data: IUser) => {
-      queryClient.invalidateQueries(['users', { userId: data.id }]);
-      if (successCallback) successCallback(data);
+    onSuccess: (user: IUser) => {
+      queryClient.invalidateQueries(['users', { userId: user._id }]);
+      if (successCallback) successCallback(user);
     },
     onError: (error, vars) => {
       if (errorCallback) errorCallback(error, vars);
@@ -101,10 +106,10 @@ export const useCreateUser = (
 export const useUpdateUser = (onSuccess: Function, onError: Function) => {
   const queryClient = useQueryClient();
   return useMutation(
-    (user: IUser) => patchFetch(`${baseUrl}/${user.id}`, user),
+    (user: IUser) => patchFetch(`${baseUrl}/${user._id}`, user),
     {
       onSuccess: (user: IUser) => {
-        queryClient.setQueryData(['users', { userId: user.id }], user);
+        queryClient.setQueryData(['users', { userId: user._id }], user);
         queryClient.invalidateQueries(['users']);
 
         onSuccess();
@@ -139,7 +144,7 @@ export const useUserAssessments = (userId: string) => {
 
   return {
     user: data.list as IGradeAssessment[],
-    error,
+    error: error as AxiosError,
     loading: isLoading,
   };
 };

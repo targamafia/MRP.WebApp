@@ -24,7 +24,6 @@ export interface IQuestion {
 
 export interface IAssessment {
   discriminator: 'assessment';
-  _id?: string;
   id: string;
   title: string;
   createdBy: string;

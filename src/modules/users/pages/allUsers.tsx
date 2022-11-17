@@ -55,6 +55,7 @@ export const AllUsers = () => {
         (!queryEnabled ||
           [
             [user.name, user.lastName].join(' '),
+            user.email,
             user.roles.join(' '),
             user.companyCode,
           ].some((i) => i !== undefined && queryRegex.test(i)))
