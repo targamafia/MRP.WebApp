@@ -3,17 +3,14 @@ import {
   uploadQuestionThumbnail,
 } from '@/shared/services/fileUpload';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { IAssessment, IQuestion } from '../models';
 import {
-  assignUserToAssessment,
   deleteAssessment,
   deleteAssessmentQuestion,
   getAssessmentById,
   getAssessmentQuestion,
   getAssessments,
   getFeaturedAssessments,
-  getUserPremiumAssessments,
   postAssessment,
   postAssessmentQuestion,
   putAssessment,
@@ -244,75 +241,8 @@ export const useDeleteAssessment = (onSuccess: Function) => {
   const queryClient = useQueryClient();
   return useMutation(deleteAssessment, {
     onSuccess: (assessment: IAssessment) => {
-      queryClient.invalidateQueries(['assessments', assessment._id]);
+      queryClient.invalidateQueries(['assessments', assessment.id]);
       onSuccess();
     },
   });
-};
-
-export const useAssignAssessmentToUser = (
-  assessmentId: string,
-  onSuccess: Function
-) => {
-  const queryClient = useQueryClient();
-  return useMutation(
-    (userId: string) => assignUserToAssessment(assessmentId, userId),
-    {
-      onSuccess: (res: {
-        assessmentId: string;
-        assignedBy: string;
-        id: string;
-        userId: string;
-      }) => {
-        queryClient.invalidateQueries([
-          'users',
-          res.userId,
-          'premiumAssessments',
-        ]);
-        queryClient.invalidateQueries(['users', res.userId, 'stats']);
-
-        onSuccess();
-      },
-    }
-  );
-};
-
-export const useAssignUserToAssessment = (
-  userId: string,
-  onSuccess?: Function
-) => {
-  const queryClient = useQueryClient();
-  return useMutation(
-    (assessmentId: string) => assignUserToAssessment(assessmentId, userId),
-    {
-      onSuccess: (res: {
-        assessmentId: string;
-        assignedBy: string;
-        id: string;
-        userId: string;
-      }) => {
-        queryClient.invalidateQueries([
-          'users',
-          res.userId,
-          'premiumAssessments',
-        ]);
-        queryClient.invalidateQueries(['users', res.userId, 'stats']);
-
-        onSuccess && onSuccess();
-      },
-    }
-  );
-};
-
-export const useUserPremiumAssessments = (userId: string) => {
-  const { data, error, isLoading } = useQuery(
-    ['users', userId, 'premiumAssessments'],
-    () => getUserPremiumAssessments(userId)
-  );
-
-  return {
-    premiumAssessments: data as IAssessment[],
-    error: error as AxiosError | undefined,
-    loading: isLoading,
-  };
 };

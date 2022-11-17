@@ -22,16 +22,16 @@ export const AssessmentForm = () => {
     setMessage({ type: 'error', content: error });
   };
 
-  const onSuccess = (data: IAssessment) => {
+  const onSuccess = (assessment: IAssessment) => {
     setMessage({
       type: 'info',
-      content: `"${data.title}" se creó exitosamente`,
+      content: `"${assessment.title}" se creó exitosamente`,
     });
     if (!!imageBlob) {
-      uploadAssessmentThumbnail(imageBlob[0], `${data._id || data.id || ''}`);
+      uploadAssessmentThumbnail(imageBlob[0], `${assessment.id || ''}`);
     }
     setCreated(true);
-    setTimeout(() => navigate('/assessments/' + (data._id || data.id)), 2000);
+    setTimeout(() => navigate('/assessments/' + (assessment.id)), 2000);
   };
 
   const { mutate, error, isLoading } = useCreateAssessment(onSuccess, onError);

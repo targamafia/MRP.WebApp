@@ -57,7 +57,7 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
     )
       return;
 
-    deleteMutate(props.assessment._id || props.assessment.id);
+    deleteMutate(props.assessment.id);
     setCreated(true);
     setMessage({
       type: 'info',
@@ -78,7 +78,7 @@ function EditDetailsForm(props: { assessment: IAssessment }) {
     ) {
       assessmentData = await uploadAssessmentThumbnail(
         assessmentData.imageBlob[0],
-        `${props.assessment._id || props.assessment.id || ''}`
+        props.assessment.id
       );
       delete assessmentData.imageBlob;
     }

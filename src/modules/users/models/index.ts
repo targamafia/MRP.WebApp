@@ -1,8 +1,7 @@
 import { IAssessment } from '@/modules/assessments/models';
 
 export interface IUser {
-  id?: string;
-  _id?: string;
+  _id: string;
   name: string;
   lastName: string;
   email: string;

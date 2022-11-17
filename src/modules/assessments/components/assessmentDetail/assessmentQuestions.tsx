@@ -32,7 +32,7 @@ export const AssessmentQuestions = () => {
                 <QuestionCard
                   key={i}
                   question={question}
-                  assessmentId={assessment._id || assessment.id}
+                  assessmentId={assessment.id}
                 />
               ))
             ) : (

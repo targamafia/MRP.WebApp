@@ -10,7 +10,7 @@ export const UserCard = (props: {user: IUser}) => {
     <tr
       className="bg-surface-4 text-main rounded-lg cursor-pointer
       hover:bg-surface-5 hover:border-surface-1 hover:shadow-sm overflow-hidden"
-      onClick={() => navigate(props.user._id || props.user.id || '')}
+      onClick={() => navigate(props.user._id || '')}
     >
       <td className="px-4 py-2">
         <h3>
@@ -27,7 +27,7 @@ export const UserCard = (props: {user: IUser}) => {
         <ChipRow elements={props.user.roles} noMargin={true} />
       </td>
       <td className="">
-        <NavLink to={props.user.id || ''}>
+        <NavLink to={props.user._id || ''}>
           <ArrowForwardIosOutlined color="info" />
         </NavLink>
       </td>

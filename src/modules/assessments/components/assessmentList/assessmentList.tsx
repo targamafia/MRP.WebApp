@@ -6,7 +6,7 @@ export const AssessmentList = (props: { assessments: IAssessment[] }) => {
     <div className="flex flex-col gap-8">
       {props.assessments !== undefined &&
         props.assessments.map((assessment: IAssessment) => (
-          <AssessmentCard key={assessment.id} {...assessment} />
+          <AssessmentCard key={assessment.id} assessment={assessment} />
         ))}
     </div>
   );
