@@ -7,7 +7,7 @@ import { IAssessment } from '../../models';
 export const AssessmentSmallCard = (props: { assessment: IAssessment }) => {
   return (
     <NavLink
-      to={`/assessments/${props.assessment.id}`}
+      to={`/assessments/${props.assessment.id || props.assessment._id!}`}
       className="rounded-md text-white flex flex-col pt-16 relative justify-end
       overflow-hidden isolate bg-blue max-w-sm hover:scale-105 transition-transform"
     >
