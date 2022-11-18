@@ -25,6 +25,7 @@ export interface IQuestion {
 export interface IAssessment {
   discriminator: 'assessment';
   id: string;
+  _id: string;
   title: string;
   createdBy: string;
   thumbnailUrl?: string;

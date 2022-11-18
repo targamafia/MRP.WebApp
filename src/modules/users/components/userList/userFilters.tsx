@@ -29,7 +29,7 @@ export const UserFilters = (props: {
   }, [props.users]);
 
   return (
-    <div className="rounded-md flex flex-row gap-8">
+    <div className="rounded-md flex flex-col md:flex-row gap-8">
       <div className="flex flex-row gap-4 items-center relative my-4 grow">
         <h3 className="mt-4 hidden" aria-hidden>
           Buscar

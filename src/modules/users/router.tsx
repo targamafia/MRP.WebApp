@@ -1,5 +1,5 @@
 import { AllUsers } from './pages/allUsers';
-import { NewAssessment } from './pages/newUser';
+import { NewUser } from './pages/newUser';
 import { UserDetail } from './components/userDetail/userDetail';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { NotFound } from '../navigation/404';
@@ -16,7 +16,7 @@ export default () => {
           <Route path="assigned" element={<UserAssignedAssessments />} />
         </Route>
       </Route>
-      <Route path="new" element={<NewAssessment />} />
+      <Route path="new" element={<NewUser />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

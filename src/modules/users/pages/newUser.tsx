@@ -4,7 +4,7 @@ import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
 import { NavLink } from 'react-router-dom';
 import { NewUserForm } from '../components/userDetail/newUserForm';
 
-export const NewAssessment = () => {
+export const NewUser = () => {
   return (
     <MainContainer>
       <Row spacing={2} items="center" wrap={false}>
