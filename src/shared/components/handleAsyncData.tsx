@@ -15,8 +15,11 @@ export const HandleAsyncData = (props: {
   ) : (
     <>
       {!!props.error && (
-        // @ts-ignore
-        <ErrorMessage message={props.error?.response?.data?.error || ''} />
+        <ErrorMessage
+          // @ts-ignore
+          message={props.error?.response?.data?.error || props.error.toString()}
+          className="mb-4"
+        />
       )}
       {props.children()}
     </>

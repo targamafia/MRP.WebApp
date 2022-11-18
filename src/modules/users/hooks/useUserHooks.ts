@@ -92,15 +92,25 @@ export const useCreateUser = (
 ) => {
   const queryClient = useQueryClient();
 
-  return useMutation((newUser: IUser) => postFetch(baseUrl, newUser), {
-    onSuccess: (user: IUser) => {
-      queryClient.invalidateQueries(['users', { userId: user._id }]);
-      if (successCallback) successCallback(user);
-    },
-    onError: (error, vars) => {
-      if (errorCallback) errorCallback(error, vars);
-    },
-  });
+  return useMutation(
+    (args: { name: string; lastName: string; role: string; email: string }) =>
+      postFetch(baseUrl + '/create-internal', {
+        companyCode: import.meta.env.VITE_COMPANY_NAME,
+        name: args.name,
+        lastName: args.lastName,
+        role: args.role,
+        email: args.email,
+      }),
+    {
+      onSuccess: (user: IUser) => {
+        queryClient.invalidateQueries(['users', { userId: user._id }]);
+        if (successCallback) successCallback(user);
+      },
+      onError: (error, vars) => {
+        if (errorCallback) errorCallback(error, vars);
+      },
+    }
+  );
 };
 
 export const useUpdateUser = (onSuccess: Function, onError: Function) => {
