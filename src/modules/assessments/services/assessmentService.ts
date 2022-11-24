@@ -19,11 +19,11 @@ export const postAssessment = (newAssessment: INewAssessment) =>
   postFetch(BASE_URL, newAssessment);
 
 export const putAssessment = (assessment: IAssessment) => {
-  if (!assessment.id && !assessment.id) {
+  if (!assessment.id && !assessment._id) {
     throw Error('No assessment id bro');
   }
   return patchFetch(
-    `${BASE_URL}/${assessment.id || assessment.id}`,
+    `${BASE_URL}/${assessment.id || assessment._id}`,
     assessment
   );
 };
