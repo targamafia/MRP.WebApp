@@ -87,7 +87,7 @@
   }
 
   /* Toggle Button */
-  input[type='checkbox'] {
+  input[type='checkbox'].switch {
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
     @apply relative border-0 outline-0 cursor-pointer
@@ -95,25 +95,25 @@
   }
 
   /* To create surface of toggle button */
-  input[type='checkbox']:after {
+  input[type='checkbox'].switch:after {
     content: '';
     @apply w-full h-full inline-block bg-slate-400
     rounded-full clear-both absolute top-0 left-0;
   }
 
   /* Contents before checkbox to create toggle handle */
-  input[type='checkbox']:before {
+  input[type='checkbox'].switch:before {
     content: '';
     @apply w-6 h-6 block absolute left-0 top-1/2 -translate-y-1/2
     rounded-full bg-surface-5 shadow-md transition-all z-10;
   }
 
   /* Shift the handle to left on check event */
-  input[type='checkbox']:checked:before {
+  input[type='checkbox'].switch:checked:before {
     @apply left-full -translate-x-full bg-emerald-500;
   }
   /* Background color when toggle button will be active */
-  input[type='checkbox']:checked:after {
+  input[type='checkbox'].switch:checked:after {
     @apply bg-emerald-200;
   }
 }

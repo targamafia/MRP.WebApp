@@ -32,6 +32,7 @@ const getInputElementByType = (props: {
           required={props.required}
           minLength={3}
           autoComplete={props.autocomplete}
+          className="switch"
         />
       );
   }

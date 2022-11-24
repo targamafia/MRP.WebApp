@@ -111,13 +111,14 @@ export const MultipleChoiceForm = (props: {
                   autoComplete="none"
                 />
               </div>
-              <div className='grid grid-cols-1 gap-4'>
+              <div className="grid grid-cols-1 gap-4">
                 <label htmlFor={`${i}-isCorrect`} className="block">
                   Es Correcta
                 </label>
                 <input
                   id={`${i}-isCorrect`}
                   type="checkbox"
+                  className="switch"
                   onChange={updateValue(i, 'isCorrect')}
                   defaultChecked={option.isCorrectAnswer}
                 />

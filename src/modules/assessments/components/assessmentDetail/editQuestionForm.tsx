@@ -3,10 +3,8 @@ import { Input } from '@/shared/components/input';
 import { LoadingSpinner } from '@/shared/components/loadingSpinner';
 import { Message } from '@/shared/components/message';
 import { Title } from '@/shared/components/title';
-import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import IconButton from '@mui/material/IconButton';
-import { useEffect, useState } from 'react';
-import { FieldValues, useForm, UseFormSetValue } from 'react-hook-form';
+import { useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import {
   useAddQuestionImage,
@@ -41,7 +39,7 @@ export const EditQuestionForm = (props: {
   const { mutate: uploadQuestionThumbnail, isLoading: uploadLoading } =
     useAddQuestionImage(
       props.assessmentId,
-      props.question._id,
+      props.question._id! || props.question.id!,
       onUploadSuccess,
       onError
     );
@@ -54,7 +52,7 @@ export const EditQuestionForm = (props: {
 
   const { mutate, error, isLoading, reset } = useUpdateAssessmentQuestion({
     assessmentId: props.assessmentId,
-    questionId: props.question._id,
+    questionId: props.question._id! || props.question.id!,
     onSuccess: onEditSuccess,
     onError: onError,
   });
