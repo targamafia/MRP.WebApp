@@ -40,9 +40,14 @@ export const Navbar = () => {
           >
             Usuarios
           </NavLink>
-          <a href="/docs/crear-examen" target="_blank">
+          <NavLink
+            to="/docs"
+            className={({ isActive }) =>
+              isActive ? 'text-orange' : 'text-main'
+            }
+          >
             Documentación
-          </a>
+          </NavLink>
         </nav>
         <IconButton
           onClick={() => {
