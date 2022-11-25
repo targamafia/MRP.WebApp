@@ -19,7 +19,7 @@ export const MarkdownFactory = (props: {
 
   useEffect(() => {
     document
-      .querySelectorAll('h2')
+      .querySelectorAll('main h2')
       .forEach((el) => (el.style.marginTop = '2rem'));
   }, [content]);
 

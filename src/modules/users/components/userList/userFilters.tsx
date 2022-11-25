@@ -40,7 +40,7 @@ export const UserFilters = (props: {
           placeholder="Buscar"
           autoComplete="off"
           aria-label="Buscar"
-          className="outline outline-neutral-70 w-full mt-2 placeholder:text-neutral-50 pl-10"
+          className="outline outline-surface-5 w-full mt-2 placeholder:text-main placeholder:opacity-60 pl-10"
           onChange={(ev) =>
             props.dispatch({ property: 'query', value: ev.currentTarget.value })
           }
