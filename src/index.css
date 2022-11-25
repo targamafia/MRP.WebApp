@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Roboto:wght@300;800&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,22 +22,17 @@
     --surface-4: 231 232 245;
     --surface-5: 227 228 244;
 
-    --neutral-100: 255 255 255;
-    --neutral-99: 254 251 255;
-    --neutral-95: 242 240 244;
-    --neutral-90: 228 225 230;
-    --neutral-80: 200 198 202;
-    --neutral-70: 172 170 175;
-    --neutral-60: 145 144 148;
-    --neutral-50: 119 118 122;
-    --neutral-40: 94 94 98;
-    --neutral-30: 71 70 74;
-    --neutral-20: 48 48 52;
-    --neutral-10: 27 27 31;
-    --neutral-0: 0 0 0;
-
     --back: 241 241 241;
     --main: 32 32 32;
+
+    --primary-40: 64 89 173;
+    --primary-60: 116 140 228;
+
+    --error-50: 222 55 48;
+    --error-60: 255 84 73;
+
+    --blue: 44 95 134;
+    --orange: 213 138 63;
 
     color-scheme: light dark;
     color: rgb(var(--main));
@@ -126,20 +120,6 @@
       --surface-3: 44 46 56;
       --surface-4: 46 47 58;
       --surface-5: 49 51 62;
-
-      --neutral-100: 255 255 255;
-      --neutral-99: 254 251 255;
-      --neutral-95: 242 240 244;
-      --neutral-90: 228 225 230;
-      --neutral-80: 200 198 202;
-      --neutral-70: 172 170 175;
-      --neutral-60: 145 144 148;
-      --neutral-50: 119 118 122;
-      --neutral-40: 94 94 98;
-      --neutral-30: 71 70 74;
-      --neutral-20: 48 48 52;
-      --neutral-10: 27 27 31;
-      --neutral-0: 0 0 0;
 
       --back: 32 32 32;
       --main: 241 241 241;
