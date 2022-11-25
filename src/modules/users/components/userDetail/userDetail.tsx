@@ -66,7 +66,7 @@ export const UserDetail = () => {
                     confirm(`¿Quiere reiniciar la contraseña de ${user.name} ${user.lastName}?
                   
                   Esto mandará un código al correo ${user.email} para reiniciarla dentro de la app`) &&
-                    resetPassword
+                    resetPassword()
                   }
                 >
                   Reiniciar Contraseña
