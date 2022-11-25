@@ -32,19 +32,26 @@ export const NewUserForm = () => {
           onSubmit={handleSubmit((formData) => mutate(formData))}
           className="flex flex-col gap-4"
         >
-          <Input type="text" name="name" register={register} required={true} />
+          <Input
+            type="text"
+            name="name"
+            register={register}
+            required={true}
+            label="Nombre"
+          />
           <Input
             type="text"
             name="lastName"
             register={register}
             required={true}
-            label="Last Name"
+            label="Apellido(s)"
           />
           <Input
             type="email"
             name="email"
             register={register}
             required={true}
+            label="Correo"
           />
           <div className="flex flex-col gap-1">
             <label htmlFor="role">Tipo de usuario:</label>
