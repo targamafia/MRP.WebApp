@@ -13,7 +13,7 @@ function QuestionCard(props: {
 }): JSX.Element {
   const { mutate } = useDeleteAssessmentQuestion(
     props.assessmentId,
-    props.question._id
+    props.question._id! || props.question.id!
   );
 
   const deleteQuestion = () => {
@@ -37,7 +37,7 @@ function QuestionCard(props: {
         {!props.answer && (
           <>
             <NavLink
-              to={props.question._id}
+              to={props.question._id! || props.question.id!}
               className="p-2 hover:scale-110 hover:text-orange transition-all"
             >
               <EditOutlined />
@@ -57,7 +57,7 @@ function QuestionCard(props: {
             src={props.question.imageUrl}
             className="w-48 rounded-md object-cover"
             loading="lazy"
-            alt={"Imagen de pregunta"}
+            alt={'Imagen de pregunta'}
           />
         )}
         <div className="grid gap-2 py-4 items-stretch w-full">

@@ -1,5 +1,4 @@
 import { ReactElement, useState } from 'react';
-import { Row } from './row';
 import { Sidebar } from './mainContainerComponents/sidebar';
 
 export const MainContainer = (props: {
@@ -17,9 +16,7 @@ export const MainContainer = (props: {
           setIsOpen={setIsOpen}
         />
       )}
-      <main
-        className="max-w-5xl mx-auto justify-start h-fit w-full"
-      >
+      <main className="max-w-5xl mx-auto justify-start h-fit w-full">
         {props.children}
       </main>
     </div>

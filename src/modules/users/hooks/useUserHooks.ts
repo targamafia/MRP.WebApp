@@ -94,7 +94,7 @@ export const useCreateUser = (
 
   return useMutation(
     (args: { name: string; lastName: string; role: string; email: string }) =>
-      postFetch(baseUrl + '/create-internal', {
+      postFetch(`${baseUrl}/create-internal`, {
         companyCode: import.meta.env.VITE_COMPANY_NAME,
         name: args.name,
         lastName: args.lastName,
