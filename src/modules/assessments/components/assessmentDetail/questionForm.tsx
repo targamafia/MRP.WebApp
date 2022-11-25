@@ -31,7 +31,11 @@ export const QuestionForm = () => {
     });
     if (!!imageBlob) {
       const question = assessment.questions!.pop();
-      uploadQuestionThumbnail(imageBlob[0], assessmentId, question!._id);
+      uploadQuestionThumbnail(
+        imageBlob[0],
+        assessmentId,
+        question!._id! || question!.id!
+      );
     }
     setIsCreated(true);
     setTimeout(() => navigate('../'), 2000);

@@ -20,7 +20,7 @@ export const MarkdownFactory = (props: {
   useEffect(() => {
     document
       .querySelectorAll('main h2')
-      .forEach((el) => (el.style.marginTop = '2rem'));
+      .forEach((el) => el.classList.add('mt-8'));
   }, [content]);
 
   return (
