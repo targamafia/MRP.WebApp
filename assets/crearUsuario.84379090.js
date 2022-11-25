@@ -1,0 +1,1 @@
+import{M as r}from"./mdFactory.2f11365e.js";import{j as a}from"./index.f670a0ea.js";import"./appRouter.39b2a99d.js";import"./404.a6af446d.js";const m=()=>a(r,{imgPath:"crear-usuario",filename:"docs/crear-usuario/index.md"});export{m as CrearUsuario,m as default};

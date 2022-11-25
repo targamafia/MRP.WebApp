@@ -1,0 +1,1 @@
+import{M as a}from"./mdFactory.2f11365e.js";import{j as r}from"./index.f670a0ea.js";import"./appRouter.39b2a99d.js";import"./404.a6af446d.js";const n=()=>r(a,{imgPath:"cambiar-branding",filename:"docs/cambiar-branding/index.md"});export{n as CambiarEstilos,n as default};

@@ -1,0 +1,1 @@
+import{M as r}from"./mdFactory.2f11365e.js";import{j as a}from"./index.f670a0ea.js";import"./appRouter.39b2a99d.js";import"./404.a6af446d.js";const n=()=>a(r,{imgPath:"crear-examen",filename:"docs/crear-examen/index.md"});export{n as CrearExamen,n as default};
